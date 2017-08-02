@@ -75,13 +75,13 @@ El objeto Bicycle tiene 2 representaciones JSON:
 ```javascript
 {
     // todo lo de la representación Minimum más los objetos Minimum con relación simple.
+    brand: {
+    id: '' /*Tipo Long*/,
+    name: '' /*Tipo String*/    },
     category: {
     description: '' /*Tipo String*/,
     modality: '' /*Tipo String*/,
     weight: '' /*Tipo String*/,
-    id: '' /*Tipo Long*/,
-    name: '' /*Tipo String*/    },
-    brand: {
     id: '' /*Tipo Long*/,
     name: '' /*Tipo String*/    }
 }
@@ -92,7 +92,7 @@ El objeto Bicycle tiene 2 representaciones JSON:
 #### GET /bicycles
 
 Retorna una colección de objetos Bicycle en representación Detail.
-Cada Bicycle en la colección tiene embebidos los siguientes objetos: Category, Brand.
+Cada Bicycle en la colección tiene embebidos los siguientes objetos: Brand, Category.
 
 #### Parámetros
 
@@ -109,7 +109,7 @@ Código|Descripción|Cuerpo
 #### GET /bicycles/{id}
 
 Retorna una colección de objetos Bicycle en representación Detail.
-Cada Bicycle en la colección tiene los siguientes objetos: Category, Brand.
+Cada Bicycle en la colección tiene los siguientes objetos: Brand, Category.
 
 #### Parámetros
 
@@ -159,7 +159,7 @@ body|body|Objeto Bicycle nuevo|Sí|[Representación Detail](#recurso-bicycle)
 Código|Descripción|Cuerpo
 :--|:--|:--
 201|El objeto Bicycle actualizado|[Representación Detail](#recurso-bicycle)
-409|Un objeto relacionado no existe|Mensaje de error
+412|business exception, no se cumple con las reglas de negocio|Mensaje de error
 500|No se pudo actualizar el objeto Bicycle|Mensaje de error
 
 #### DELETE /bicycles/{id}
@@ -357,7 +357,7 @@ body|body|Objeto Category nuevo|Sí|[Representación Detail](#recurso-category)
 Código|Descripción|Cuerpo
 :--|:--|:--
 201|El objeto Category actualizado|[Representación Detail](#recurso-category)
-409|Un objeto relacionado no existe|Mensaje de error
+412|business exception, no se cumple con las reglas de negocio|Mensaje de error
 500|No se pudo actualizar el objeto Category|Mensaje de error
 
 #### DELETE /categorys/{id}
@@ -552,7 +552,7 @@ body|body|Objeto Brand nuevo|Sí|[Representación Detail](#recurso-brand)
 Código|Descripción|Cuerpo
 :--|:--|:--
 201|El objeto Brand actualizado|[Representación Detail](#recurso-brand)
-409|Un objeto relacionado no existe|Mensaje de error
+412|business exception, no se cumple con las reglas de negocio|Mensaje de error
 500|No se pudo actualizar el objeto Brand|Mensaje de error
 
 #### DELETE /brands/{id}
