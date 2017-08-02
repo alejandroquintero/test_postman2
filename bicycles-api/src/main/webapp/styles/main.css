@@ -1,0 +1,34 @@
+.header .navbar-header{
+  float: none;
+  text-align: center;
+}
+
+.header .navbar-brand{
+  margin: 0 auto;
+  float: none;
+  line-height: 2em;
+  font-size: 2em;
+  color: #000;
+}
+
+#main-bar{
+  text-align: center;
+}
+
+.navbar-default .navbar-nav > li > button{
+  background: none;
+  color: #777;
+  border: none;
+  padding: 15px;
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+
+@media screen and (min-width: 1024px){
+  #main-bar > .nav:not(.navbar-right){
+    float: none;
+    margin: 0 auto auto 43px;
+    display: inline-block;
+    text-align: center;
+  }
+}
