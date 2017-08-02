@@ -1,0 +1,4 @@
+DELETE FROM CATEGORYENTITY WHERE id > 0;
+INSERT INTO CATEGORYENTITY (id, name, description, modality, weight) VALUES (1, 'Montaña', 'La bicicleta de montaña o bici de montaña es un tipo de bicicleta diseñada para viajes en montañas o campos. Se le denomina, bicicleta todo terreno, o bicicleta montañera', 'BMX', 'Medio');
+INSERT INTO CATEGORYENTITY (id, name, description, modality, weight) VALUES (2, 'Pista', 'Una bicicleta de pista o bicicleta de sprint es una bicicleta de carreras optimizada para ser utilizada en un velódromo o pista al aire libre', 'Velocidad', 'Medio');
+INSERT INTO CATEGORYENTITY (id, name, description, modality, weight) VALUES (3, 'Carrera', 'La bicicleta de carreras, comúnmente conocido como una bicicleta de carretera, está diseñada y construida para la velocidad, por lo general adaptan una batalla corta.', 'Velocidad', 'Ligera');
