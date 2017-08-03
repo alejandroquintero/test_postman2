@@ -29,12 +29,40 @@ SOFTWARE.
         <alert type="warning">Image field must be a URL</alert>
     </ng-message>
 </div>
+
+
+<div ui-view="categoryView"></div>
+
 <header>
     <div ncy-breadcrumb></div>
     <toolbar name="model.name" display-name="model.displayName" actions='actions'></toolbar>
 </header>
 <form novalidate name="categoryForm" role="form">
     <fieldset>
-        <crud-form fields='model.fields' record='currentRecord' lists-of-values="references"></crud-form>
+    <input id="id" class="form-control" type="hidden" ng-model="currentRecord.id"/>
+    <div class="form-group col-md-12" ng-class="{'has-success': categoryForm.description.$valid && categoryForm.description.$dirty, 'has-error': categoryForm.description.$invalid && categoryForm.description.$dirty}" >
+        <label for="description" class="col-md-2 control-label">Description</label>
+        <div class="col-md-10">
+            <input id="description" name="description" class="form-control" type="text" ng-model="currentRecord.description" ng-required="true" />
+        </div>
+    </div>
+    <div class="form-group col-md-12" ng-class="{'has-success': categoryForm.modality.$valid && categoryForm.modality.$dirty, 'has-error': categoryForm.modality.$invalid && categoryForm.modality.$dirty}" >
+        <label for="modality" class="col-md-2 control-label">Modality</label>
+        <div class="col-md-10">
+            <input id="modality" name="modality" class="form-control" type="text" ng-model="currentRecord.modality" ng-required="true" />
+        </div>
+    </div>
+    <div class="form-group col-md-12" ng-class="{'has-success': categoryForm.weight.$valid && categoryForm.weight.$dirty, 'has-error': categoryForm.weight.$invalid && categoryForm.weight.$dirty}" >
+        <label for="weight" class="col-md-2 control-label">Weight</label>
+        <div class="col-md-10">
+            <input id="weight" name="weight" class="form-control" type="text" ng-model="currentRecord.weight" ng-required="true" />
+        </div>
+    </div>
+    <div class="form-group col-md-12" ng-class="{'has-success': categoryForm.name.$valid && categoryForm.name.$dirty, 'has-error': categoryForm.name.$invalid && categoryForm.name.$dirty}" >
+        <label for="name" class="col-md-2 control-label">Name</label>
+        <div class="col-md-10">
+            <input id="name" name="name" class="form-control" type="text" ng-model="currentRecord.name" ng-required="true" />
+        </div>
+    </div>
     </fieldset>
 </form>

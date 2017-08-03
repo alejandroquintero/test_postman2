@@ -29,12 +29,22 @@ SOFTWARE.
         <alert type="warning">Image field must be a URL</alert>
     </ng-message>
 </div>
+
+
+<div ui-view="brandView"></div>
+
 <header>
     <div ncy-breadcrumb></div>
     <toolbar name="model.name" display-name="model.displayName" actions='actions'></toolbar>
 </header>
 <form novalidate name="brandForm" role="form">
     <fieldset>
-        <crud-form fields='model.fields' record='currentRecord' lists-of-values="references"></crud-form>
+    <input id="id" class="form-control" type="hidden" ng-model="currentRecord.id"/>
+    <div class="form-group col-md-12" ng-class="{'has-success': brandForm.name.$valid && brandForm.name.$dirty, 'has-error': brandForm.name.$invalid && brandForm.name.$dirty}" >
+        <label for="name" class="col-md-2 control-label">Name</label>
+        <div class="col-md-10">
+            <input id="name" name="name" class="form-control" type="text" ng-model="currentRecord.name" ng-required="true" />
+        </div>
+    </div>
     </fieldset>
 </form>

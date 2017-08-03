@@ -29,12 +29,28 @@ SOFTWARE.
         <alert type="warning">Image field must be a URL</alert>
     </ng-message>
 </div>
+
+
+<div ui-view="photoAlbumView"></div>
+
 <header>
     <div ncy-breadcrumb></div>
     <toolbar name="model.name" display-name="model.displayName" actions='actions'></toolbar>
 </header>
 <form novalidate name="photoAlbumForm" role="form">
     <fieldset>
-        <crud-form fields='model.fields' record='currentRecord' lists-of-values="references"></crud-form>
+    <input id="id" class="form-control" type="hidden" ng-model="currentRecord.id"/>
+    <div class="form-group col-md-12" ng-class="{'has-success': photoAlbumForm.image.$valid && photoAlbumForm.image.$dirty, 'has-error': photoAlbumForm.image.$invalid && photoAlbumForm.image.$dirty}" >
+        <label for="image" class="col-md-2 control-label">Image</label>
+        <div class="col-md-10">
+            <input id="image" name="image" class="form-control" type="text" ng-model="currentRecord.image" ng-required="true" />
+        </div>
+    </div>
+    <div class="form-group col-md-12" ng-class="{'has-success': photoAlbumForm.name.$valid && photoAlbumForm.name.$dirty, 'has-error': photoAlbumForm.name.$invalid && photoAlbumForm.name.$dirty}" >
+        <label for="name" class="col-md-2 control-label">Name</label>
+        <div class="col-md-10">
+            <input id="name" name="name" class="form-control" type="text" ng-model="currentRecord.name" ng-required="true" />
+        </div>
+    </div>
     </fieldset>
 </form>
