@@ -41,6 +41,7 @@ import javax.ws.rs.core.MediaType;
 import co.edu.uniandes.csw.bicycles.api.IBrandLogic;
 import co.edu.uniandes.csw.bicycles.dtos.detail.BrandDetailDTO;
 import co.edu.uniandes.csw.bicycles.entities.BrandEntity;
+import co.edu.uniandes.csw.bicycles.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import javax.ws.rs.WebApplicationException;
 
@@ -112,7 +113,7 @@ public class BrandResource {
      */
     @POST
     @StatusCreated
-    public BrandDetailDTO createBrand(BrandDetailDTO dto) {
+    public BrandDetailDTO createBrand(BrandDetailDTO dto) throws BusinessLogicException {
         return new BrandDetailDTO(brandLogic.createBrand(dto.toEntity()));
     }
 

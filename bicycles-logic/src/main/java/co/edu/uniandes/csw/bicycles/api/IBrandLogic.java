@@ -25,6 +25,7 @@ package co.edu.uniandes.csw.bicycles.api;
 
 import co.edu.uniandes.csw.bicycles.entities.BrandEntity;
 import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
+import co.edu.uniandes.csw.bicycles.exceptions.BusinessLogicException;
 import java.util.List;
 
 public interface IBrandLogic {
@@ -32,7 +33,7 @@ public interface IBrandLogic {
     public List<BrandEntity> getBrands();
     public List<BrandEntity> getBrands(Integer page, Integer maxRecords);
     public BrandEntity getBrand(Long id);
-    public BrandEntity createBrand(BrandEntity entity); 
+    public BrandEntity createBrand(BrandEntity entity) throws BusinessLogicException ; 
     public BrandEntity updateBrand(BrandEntity entity);
     public void deleteBrand(Long id);
     public List<BicycleEntity> listBicycle(Long brandId);

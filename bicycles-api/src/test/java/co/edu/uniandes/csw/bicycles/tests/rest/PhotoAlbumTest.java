@@ -290,22 +290,4 @@ public class PhotoAlbumTest {
         Assert.assertEquals(photoAlbum.getName(), photoalbumTest.getName());
     }
 
-    /**
-     * Prueba para eliminar un PhotoAlbum
-     *
-     * @generated
-     */
-    @Test
-    public void deletePhotoAlbumTest() throws IOException, UnirestException, JSONException, InterruptedException, ExecutionException {
-        String token= login();
-        PhotoAlbumDetailDTO photoAlbum = new PhotoAlbumDetailDTO(oraculo.get(0));
-        Response response = target
-            .path(photoAlbum.getId().toString())
-            .request()
-            .cookie("username",getUsername())
-            .cookie("id_token",token)
-            .delete();
-
-        Assert.assertEquals(OkWithoutContent, response.getStatus());
-    }
 }

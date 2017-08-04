@@ -28,6 +28,7 @@ import co.edu.uniandes.csw.bicycles.entities.BrandEntity;
 import co.edu.uniandes.csw.bicycles.persistence.BrandPersistence;
 import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
 import co.edu.uniandes.csw.bicycles.api.IBicycleLogic;
+import co.edu.uniandes.csw.bicycles.exceptions.BusinessLogicException;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -94,10 +95,15 @@ public class BrandLogic implements IBrandLogic {
      *
      * @param entity Objeto de BrandEntity con los datos nuevos
      * @return Objeto de BrandEntity con los datos nuevos y su ID.
+     * @throws co.edu.uniandes.csw.bicycles.exceptions.BusinessLogicException
      * @generated
      */
     @Override
-    public BrandEntity createBrand(BrandEntity entity) {
+    public BrandEntity createBrand(BrandEntity entity) throws BusinessLogicException {
+        for(BrandEntity ae:this.getBrands()){
+       if(ae.getName().equals(entity.getName()))
+           throw new BusinessLogicException("el nombre de Brand ya existe");
+        }
         persistence.create(entity);
         return entity;
     }
