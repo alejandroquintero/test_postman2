@@ -21,33 +21,7 @@
         };
 
         //Default Roles
-        var roles = {
-            admin:{
-                administrador:{
-                state:"artistList",
-                icon:"list",
-                label:"administrador",
-                options:["create","edit","delete"]
-            },
-             artist:{        
-                state:"artistList",
-                icon:"list",
-                label:"artista",
-                options:["create","edit","delete"]
-                }
-            },
-            artist:{
-                   artista:{        
-                state:"artistList",
-                icon:"list",
-                label:"artista"
-                }
-            },
-            client:
-                    {
-                state:"cliente"
-            }
-            };
+        var roles = {};
         
          
         this.setValues = function (newValues) {
@@ -126,6 +100,10 @@
                     $state.go(values.forbiddenState);
                 },
                 userAuthenticated: function(){
+                    $http.get(values.apiUrl + values.meURL).then(function(response){
+                       var permissions = JSON.stringify(response.data.permissions);
+                        $cookies.put("permissions",permissions);
+                   });
                     return $http.get(values.apiUrl + values.meURL);
                 }
             };
