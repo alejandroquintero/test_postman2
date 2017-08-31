@@ -42,6 +42,7 @@ import co.edu.uniandes.csw.bicycles.api.IBicycleLogic;
 import co.edu.uniandes.csw.bicycles.dtos.detail.BicycleDetailDTO;
 import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
 import java.util.ArrayList;
+import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.WebApplicationException;
 
 /**
@@ -51,6 +52,7 @@ import javax.ws.rs.WebApplicationException;
 @Path("/bicycles")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+@RequestScoped
 public class BicycleResource {
 
     @Inject private IBicycleLogic bicycleLogic;

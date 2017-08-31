@@ -42,6 +42,7 @@ import co.edu.uniandes.csw.bicycles.api.ICategoryLogic;
 import co.edu.uniandes.csw.bicycles.dtos.detail.CategoryDetailDTO;
 import co.edu.uniandes.csw.bicycles.entities.CategoryEntity;
 import java.util.ArrayList;
+import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.WebApplicationException;
 
 /**
@@ -51,6 +52,7 @@ import javax.ws.rs.WebApplicationException;
 @Path("/categorys")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+@RequestScoped
 public class CategoryResource {
 
     @Inject private ICategoryLogic categoryLogic;

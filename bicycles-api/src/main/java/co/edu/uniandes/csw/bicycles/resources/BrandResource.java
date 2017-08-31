@@ -43,6 +43,7 @@ import co.edu.uniandes.csw.bicycles.dtos.detail.BrandDetailDTO;
 import co.edu.uniandes.csw.bicycles.entities.BrandEntity;
 import co.edu.uniandes.csw.bicycles.exceptions.BusinessLogicException;
 import java.util.ArrayList;
+import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.WebApplicationException;
 
 /**
@@ -52,6 +53,7 @@ import javax.ws.rs.WebApplicationException;
 @Path("/brands")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+@RequestScoped
 public class BrandResource {
 
     @Inject private IBrandLogic brandLogic;
