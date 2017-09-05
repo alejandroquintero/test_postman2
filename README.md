@@ -1,3 +1,23 @@
+# NOMBRES Y ROLES
+
+JORGE DAVID RUNZA    (Desarrollador Fullstack)
+
+CRISTIAN CAMILO HUERTAS  (Desarrollador Fullstack)
+
+RAUL ALFREDO GOMEZ    (Desarrollador Fullstack)
+
+MIGUEL SANTIAGO PUERTO  (Desarrollador Fullstack)
+
+RAUL CALERO ASENCIOS   (Líder del grupo / Desarrollador Fullstack)
+
+# REGLAS DE FUNCIONAMIENTO
+
+- Reuniones cada sábado/domingo dependiendo de la carga de trabajo a la 13:00
+- Todos somos Fullstack (no nos vamos a dividir el trabajo entre frontend y backend)
+- Usamos Teams para el trabajo colaborativo y la comunicación entre el equipo
+- El equipo hará feedback interno al final de cada ciclo
+
+
 # Tabla de contenidos
 -  [Introducción](#introducción)
 -  [API](#api-de-la-aplicación-bicycles)
