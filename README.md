@@ -1,14 +1,14 @@
 # NOMBRES Y ROLES
 
-JORGE DAVID RUNZA    (Desarrollador Fullstack)
+JORGE DAVID RUNZA - jd.runza@uniandes.edu.co (Desarrollador Fullstack)
 
-CRISTIAN CAMILO HUERTAS  (Desarrollador Fullstack)
+CRISTIAN CAMILO HUERTAS - cc.huertas@uniandes.edu.co (Desarrollador Fullstack)
 
-RAUL ALFREDO GOMEZ    (Desarrollador Fullstack)
+RAUL ALFREDO GOMEZ - ra.gomez11@uniandes.edu.co (Desarrollador Fullstack)
 
-MIGUEL SANTIAGO PUERTO  (Desarrollador Fullstack)
+MIGUEL SANTIAGO PUERTO - ms.puerto@uniandes.edu.co (Desarrollador Fullstack)
 
-RAUL CALERO ASENCIOS   (Líder del grupo / Desarrollador Fullstack)
+RAUL CALERO ASENCIOS - r.calero@uniandes.edu.co (Líder del grupo / Desarrollador Fullstack)
 
 # REGLAS DE FUNCIONAMIENTO
 
