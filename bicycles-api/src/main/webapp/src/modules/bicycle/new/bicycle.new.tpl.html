@@ -52,6 +52,12 @@ SOFTWARE.
             <input id="name" name="name" class="form-control" type="text" ng-model="currentRecord.name" ng-required="true" />
         </div>
     </div>
+    <div class="form-group col-md-12" ng-class="{'has-success': bicycleForm.stock.$valid && bicycleForm.stock.$dirty, 'has-error': bicycleForm.stock.$invalid && bicycleForm.stock.$dirty}" >
+        <label for="stock" class="col-md-2 control-label">stock</label>
+        <div class="col-md-10">
+            <input id="stock" name="stock" class="form-control" type="number" ng-model="currentRecord.stock" ng-required="true" />
+        </div>
+    </div>
     <div class="form-group col-md-12" ng-class="{'has-success': bicycleForm.brand.$valid && bicycleForm.brand.$dirty, 'has-error': bicycleForm.brand.$invalid && bicycleForm.brand.$dirty}" >
         <label for="brand" class="col-md-2 control-label">Brand</label>
         <div class="col-md-10">

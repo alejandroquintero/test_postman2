@@ -41,6 +41,12 @@ SOFTWARE.
                 type:  'String',
                 required: true 
             },
+            stock: {
+                
+                displayName: 'Stock',
+                type:  'Long',
+                required: true 
+            },
             brand: {
                 displayName:  'Marca',
                 type: 'Reference',

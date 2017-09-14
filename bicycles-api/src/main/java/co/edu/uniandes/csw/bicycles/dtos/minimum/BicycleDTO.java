@@ -36,6 +36,7 @@ public class BicycleDTO  implements Serializable{
     private String description;
     private Long id;
     private String name;
+    private Long stock;
 
 
     /**
@@ -55,6 +56,7 @@ public class BicycleDTO  implements Serializable{
         this.description=entity.getDescription();
         this.id=entity.getId();
         this.name=entity.getName();
+        this.stock=entity.getStock();
        }
     }
 
@@ -69,6 +71,7 @@ public class BicycleDTO  implements Serializable{
         entity.setDescription(this.getDescription());
         entity.setId(this.getId());
         entity.setName(this.getName());
+        entity.setStock(this.getStock());
     return entity;
     }
 
@@ -132,5 +135,14 @@ public class BicycleDTO  implements Serializable{
         this.name = name;
     }
 
+    // atributo nuevo
+    public Long getStock(){
+        return stock; 
+    }
+    
+    // atributo nuevo
+    public void setStock(Long stock){
+        this.stock = stock;
+    }
 
 }

@@ -42,6 +42,7 @@ import javax.persistence.FetchType;
 public class BicycleEntity extends BaseEntity implements Serializable {
 
     private String description;
+    private Long stock;
 
     @PodamExclude
     @ManyToOne
@@ -75,6 +76,15 @@ public class BicycleEntity extends BaseEntity implements Serializable {
         this.description = description;
     }
 
+    // atributo nuevo
+    public Long getStock(){
+        return stock;
+    }
+    // atributo nuevo
+    public void setStock(Long stock){
+        this.stock = stock;
+    }
+    
     /**
      * Obtiene el atributo brand.
      *
