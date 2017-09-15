@@ -48,6 +48,12 @@ SOFTWARE.
                 options: [],
                 required:  true 
             },
+            // nuevo atributo
+            price: {
+                displayName: 'Price',
+                type: 'Double',
+                required: true
+            },
             category: {
                 displayName:  'Categoria',
                 type: 'Reference',

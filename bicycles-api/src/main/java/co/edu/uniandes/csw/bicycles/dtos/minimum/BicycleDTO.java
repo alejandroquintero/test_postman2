@@ -37,6 +37,9 @@ public class BicycleDTO  implements Serializable{
     private Long id;
     private String name;
 
+    
+    private Double price;
+
 
     /**
      * @generated
@@ -70,6 +73,14 @@ public class BicycleDTO  implements Serializable{
         entity.setId(this.getId());
         entity.setName(this.getName());
     return entity;
+    }
+    
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     /**
