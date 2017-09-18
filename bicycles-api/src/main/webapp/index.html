@@ -105,6 +105,13 @@ SOFTWARE.
         <script src="src/modules/photoAlbum/instance/edit/photoAlbum.edit.ctrl.js"></script>
         <script src="src/modules/photoAlbum/list/photoAlbum.list.ctrl.js"></script>
         <script src="src/modules/photoAlbum/new/photoAlbum.new.ctrl.js"></script>
+        <script src="src/modules/client/client.mod.js" type="text/javascript"></script>
+        <script src="src/modules/client/client.ctrl.js" type="text/javascript"></script>
+        <script src="src/modules/client/new/client.new.ctrl.js" type="text/javascript"></script>
+        <script src="src/modules/client/list/client.list.ctrl.js" type="text/javascript"></script>
+        <script src="src/modules/client/instance/edit/client.edit.ctrl.js" type="text/javascript"></script>
+        <script src="src/modules/client/instance/detail/client.detail.ctrl.js" type="text/javascript"></script>
+        <script src="src/modules/client/instance/delete/client.delete.ctrl.js" type="text/javascript"></script>
         <script src="src/utils/menu/menu.ctrl.js"></script>
         <!-- /include -->
         <!-- endbuild -->
@@ -157,6 +164,9 @@ SOFTWARE.
                                       <a ui-sref="brandDetail({brandId: brand.id})">{{brand.name}}</a>
                                     </li>
                                   </ul>
+                                </li>
+                                <li if-permission name='clients'>
+                                    <a ui-sref="clientList({page: 1, limit: 15})">Client</a>
                                 </li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
