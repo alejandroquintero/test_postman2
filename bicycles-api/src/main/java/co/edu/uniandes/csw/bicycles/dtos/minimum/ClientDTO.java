@@ -17,7 +17,12 @@ public class ClientDTO implements Serializable {
     
      private Long id;
     private String name;
-    private String description;
+    private String lastName;
+    private String firstName;
+    private String login;
+    private String phone;
+    private String address;
+    private String email;
     
     public ClientDTO() {
     }
@@ -26,7 +31,13 @@ public class ClientDTO implements Serializable {
 	   if (entity!=null){
         this.id=entity.getId();
         this.name=entity.getName();
-        this.description=entity.getDescription();
+        this.lastName=entity.getLastName();
+        this.firstName=entity.getFirstName();
+        this.login=entity.getLogin();
+        this.phone=entity.getPhone();
+        this.address=entity.getAddress();
+        this.email=entity.getEmail();
+        
        }
     }
      
@@ -34,7 +45,12 @@ public class ClientDTO implements Serializable {
         ClientEntity entity = new ClientEntity();
         entity.setId(this.getId());
         entity.setName(this.getName());
-        entity.setDescription(this.getDescription());
+        entity.setLastName(this.getLastName());
+        entity.setFirstName(this.getFirstName());
+        entity.setLogin(this.getLogin());
+        entity.setPhone(this.getPhone());
+        entity.setAddress(this.getAddress());
+        entity.setEmail(this.getEmail());
     return entity;
     }
 
@@ -54,12 +70,54 @@ public class ClientDTO implements Serializable {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public String getFirstName() {
+        return firstName;
     }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
     
 }
