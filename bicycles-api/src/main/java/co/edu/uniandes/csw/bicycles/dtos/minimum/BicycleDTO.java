@@ -145,14 +145,6 @@ public class BicycleDTO  implements Serializable{
      */
     public java.util.Date getCreationDate() {
         return creationDate;
-    // atributo nuevo
-    public Long getStock(){
-        return stock; 
-    }
-    
-    // atributo nuevo
-    public void setStock(Long stock){
-        this.stock = stock;
     }
 
     /**
@@ -161,5 +153,21 @@ public class BicycleDTO  implements Serializable{
      */
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+    
+    /**
+     * Obtener la cantidad en Stock.
+     * @return stock.
+     */
+    public Long getStock(){
+        return stock; 
+    }
+    
+    /**
+     * Asignar la cantidad en Stock.
+     * @param stock cantidad en stock.
+     */
+    public void setStock(Long stock){
+        this.stock = stock;
     }
 }
