@@ -221,4 +221,30 @@ public class BicyclePersistenceTest {
         Assert.assertEquals(newEntity.getDescription(), resp.getDescription());
         Assert.assertEquals(newEntity.getName(), resp.getName());
     }
+    
+    /**
+     * Prueba para consultar la lista de Bicycles.
+     */
+    @Test
+    public void getBicyclesValidarVigenciaTest() {
+        //Arrange
+        int pagina = 1;
+        int maximo = 5;
+        int vigenciaMeses = 3;
+        
+        //Act
+        List<BicycleEntity> list = bicyclePersistence.findAll(pagina, maximo, vigenciaMeses);
+        
+        //Assert
+        Assert.assertEquals(data.size(), list.size());
+        for (BicycleEntity ent : list) {
+            boolean found = false;
+            for (BicycleEntity entity : data) {
+                if (ent.getId().equals(entity.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
+    }
 }

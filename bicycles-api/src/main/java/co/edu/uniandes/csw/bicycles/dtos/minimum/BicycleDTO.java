@@ -26,6 +26,7 @@ package co.edu.uniandes.csw.bicycles.dtos.minimum;
 import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @generated
@@ -36,6 +37,7 @@ public class BicycleDTO  implements Serializable{
     private String description;
     private Long id;
     private String name;
+    private Date creationDate;
     private Long stock;
 
 
@@ -56,6 +58,7 @@ public class BicycleDTO  implements Serializable{
         this.description=entity.getDescription();
         this.id=entity.getId();
         this.name=entity.getName();
+        this.creationDate = entity.getCreationDate();
         this.stock=entity.getStock();
        }
     }
@@ -71,6 +74,7 @@ public class BicycleDTO  implements Serializable{
         entity.setDescription(this.getDescription());
         entity.setId(this.getId());
         entity.setName(this.getName());
+        entity.setCreationDate(this.getCreationDate());
         entity.setStock(this.getStock());
     return entity;
     }
@@ -135,6 +139,12 @@ public class BicycleDTO  implements Serializable{
         this.name = name;
     }
 
+    /**
+     * Obtener la fecha de creación.
+     * @return Fecha de creación.
+     */
+    public java.util.Date getCreationDate() {
+        return creationDate;
     // atributo nuevo
     public Long getStock(){
         return stock; 
@@ -145,4 +155,11 @@ public class BicycleDTO  implements Serializable{
         this.stock = stock;
     }
 
+    /**
+     * Fecha de creación del a Bibicleta.
+     * @param creationDate Fecha de creación.
+     */
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
 }

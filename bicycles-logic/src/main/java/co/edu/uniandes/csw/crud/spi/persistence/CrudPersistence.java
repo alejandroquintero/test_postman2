@@ -1,5 +1,7 @@
 package co.edu.uniandes.csw.crud.spi.persistence;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.EntityManager;
@@ -179,6 +181,27 @@ public abstract class CrudPersistence<T> {
     public List<T> findByName(String text, Integer page, Integer maxRecords) {
         Query q = getEntityManager().createQuery("select u from " + getEntityClass().getSimpleName() + " u where u.name like :name");
         q.setParameter("name", "%" + text + "%");
+        if (page != null && maxRecords != null) {
+            q.setFirstResult((page - 1) * maxRecords);
+            q.setMaxResults(maxRecords);
+        }
+        return q.getResultList();
+    }
+    
+    /**
+     * Metodo que filtran de acuerdo a una vigencia.
+     * @param page Number of page to retrieve.
+     * @param maxRecords Number of records per page.
+     * @param vigencia Fecha de vigencia.
+     * @return Colecction of instances of handled entity.
+     */
+    public List<T> findAll(Integer page, Integer maxRecords, Integer vigencia) {
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(new java.util.Date());
+        calendar.add(Calendar.MONTH, -vigencia);
+        
+        Query q = getEntityManager().createQuery("select b from " + getEntityClass().getSimpleName() + " b where b.creationDate >= " + calendar.getTimeInMillis());
+             
         if (page != null && maxRecords != null) {
             q.setFirstResult((page - 1) * maxRecords);
             q.setMaxResults(maxRecords);

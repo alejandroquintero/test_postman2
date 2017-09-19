@@ -60,7 +60,15 @@ SOFTWARE.
                 model: 'categoryModel',
                 options: [],
                 required:  true 
-            }        }
+            },
+            creationDate: {
+                displayName:  'Fecha de Creación',
+                type: 'Date',
+                model: 'categoryModel',
+                options: [],
+                required:  false 
+            }
+        }
     });
 
     mod.config(['$stateProvider',
