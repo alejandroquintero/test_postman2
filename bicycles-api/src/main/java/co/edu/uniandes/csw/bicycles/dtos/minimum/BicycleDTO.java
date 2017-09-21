@@ -20,7 +20,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-*/
+ */
 package co.edu.uniandes.csw.bicycles.dtos.minimum;
 
 import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
@@ -32,14 +32,15 @@ import java.util.Date;
  * @generated
  */
 @XmlRootElement
-public class BicycleDTO  implements Serializable{
+public class BicycleDTO implements Serializable {
 
     private String description;
     private Long id;
     private String name;
+    private String status;
+
     private Date creationDate;
     private Long stock;
-
 
     /**
      * @generated
@@ -50,7 +51,8 @@ public class BicycleDTO  implements Serializable{
     /**
      * Crea un objeto BicycleDTO a partir de un objeto BicycleEntity.
      *
-     * @param entity Entidad BicycleEntity desde la cual se va a crear el nuevo objeto.
+     * @param entity Entidad BicycleEntity desde la cual se va a crear el nuevo
+     * objeto.
      * @generated
      */
     public BicycleDTO(BicycleEntity entity) {
@@ -58,6 +60,7 @@ public class BicycleDTO  implements Serializable{
         this.description=entity.getDescription();
         this.id=entity.getId();
         this.name=entity.getName();
+        this.status = entity.getStatus();
         this.creationDate = entity.getCreationDate();
         this.stock=entity.getStock();
        }
@@ -74,6 +77,7 @@ public class BicycleDTO  implements Serializable{
         entity.setDescription(this.getDescription());
         entity.setId(this.getId());
         entity.setName(this.getName());
+        entity.setStatus(this.getStatus());
         entity.setCreationDate(this.getCreationDate());
         entity.setStock(this.getStock());
     return entity;
@@ -140,6 +144,22 @@ public class BicycleDTO  implements Serializable{
     }
 
     /**
+     * Obtiene el valor del atributo status
+     *
+     * @return atributo status
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * Establece el valor del atributo status
+     *
+     * @param status nuevo valor del atributo status
+     */
+    public void setStatus(String status) {
+        this.status = status; 
+    /*
      * Obtener la fecha de creación.
      * @return Fecha de creación.
      */
