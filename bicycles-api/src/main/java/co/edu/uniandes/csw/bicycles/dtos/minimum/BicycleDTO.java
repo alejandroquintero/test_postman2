@@ -159,6 +159,7 @@ public class BicycleDTO implements Serializable {
      */
     public void setStatus(String status) {
         this.status = status; 
+    }
     /*
      * Obtener la fecha de creación.
      * @return Fecha de creación.
