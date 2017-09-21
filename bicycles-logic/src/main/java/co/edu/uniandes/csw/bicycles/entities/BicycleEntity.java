@@ -20,7 +20,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-*/
+ */
 package co.edu.uniandes.csw.bicycles.entities;
 
 import java.io.Serializable;
@@ -32,8 +32,6 @@ import javax.persistence.ManyToOne;
 import java.util.List;
 import java.util.ArrayList;
 import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-
 
 /**
  * @generated
@@ -42,6 +40,8 @@ import javax.persistence.FetchType;
 public class BicycleEntity extends BaseEntity implements Serializable {
 
     private String description;
+
+    private String status;
 
     @PodamExclude
     @ManyToOne
@@ -61,7 +61,7 @@ public class BicycleEntity extends BaseEntity implements Serializable {
      * @return atributo description.
      * @generated
      */
-    public String getDescription(){
+    public String getDescription() {
         return description;
     }
 
@@ -71,7 +71,7 @@ public class BicycleEntity extends BaseEntity implements Serializable {
      * @param description nuevo valor del atributo
      * @generated
      */
-    public void setDescription(String description){
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -134,4 +134,23 @@ public class BicycleEntity extends BaseEntity implements Serializable {
     public void setPhotoAlbum(List<PhotoAlbumEntity> photoalbum) {
         this.photoAlbum = photoalbum;
     }
+
+    /**
+     * Obtiene el valor del atributo status
+     *
+     * @return valor del atributo status
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * Establece el valor del atributo status
+     *
+     * @param status nuevo valor del atributo status
+     */
+    public void setStatus(String status) {
+        this.status = status; 
+    }
+
 }
