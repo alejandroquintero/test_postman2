@@ -34,4 +34,12 @@ public interface IBicycleLogic {
     public BicycleEntity createBicycle(BicycleEntity entity); 
     public BicycleEntity updateBicycle(BicycleEntity entity);
     public void deleteBicycle(Long id);
+
+    /**
+     * Validar vigencia.
+     * @param page numero de pagina.
+     * @param maxRecords maximo de records.
+     * @return Lista de Bicicletas.
+     */
+    public List<BicycleEntity> validarVigencia(Integer page, Integer maxRecords);
 }

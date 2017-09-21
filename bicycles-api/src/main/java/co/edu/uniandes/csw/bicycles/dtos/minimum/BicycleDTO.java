@@ -26,6 +26,7 @@ package co.edu.uniandes.csw.bicycles.dtos.minimum;
 import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @generated
@@ -37,6 +38,9 @@ public class BicycleDTO implements Serializable {
     private Long id;
     private String name;
     private String status;
+
+    private Date creationDate;
+    private Long stock;
 
     /**
      * @generated
@@ -52,12 +56,14 @@ public class BicycleDTO implements Serializable {
      * @generated
      */
     public BicycleDTO(BicycleEntity entity) {
-        if (entity != null) {
-            this.description = entity.getDescription();
-            this.id = entity.getId();
-            this.name = entity.getName();
-            this.status = entity.getStatus();
-        }
+	   if (entity!=null){
+        this.description=entity.getDescription();
+        this.id=entity.getId();
+        this.name=entity.getName();
+        this.status = entity.getStatus();
+        this.creationDate = entity.getCreationDate();
+        this.stock=entity.getStock();
+       }
     }
 
     /**
@@ -72,7 +78,9 @@ public class BicycleDTO implements Serializable {
         entity.setId(this.getId());
         entity.setName(this.getName());
         entity.setStatus(this.getStatus());
-        return entity;
+        entity.setCreationDate(this.getCreationDate());
+        entity.setStock(this.getStock());
+    return entity;
     }
 
     /**
@@ -151,6 +159,35 @@ public class BicycleDTO implements Serializable {
      */
     public void setStatus(String status) {
         this.status = status; 
+    /*
+     * Obtener la fecha de creación.
+     * @return Fecha de creación.
+     */
+    public java.util.Date getCreationDate() {
+        return creationDate;
     }
 
+    /**
+     * Fecha de creación del a Bibicleta.
+     * @param creationDate Fecha de creación.
+     */
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+    
+    /**
+     * Obtener la cantidad en Stock.
+     * @return stock.
+     */
+    public Long getStock(){
+        return stock; 
+    }
+    
+    /**
+     * Asignar la cantidad en Stock.
+     * @param stock cantidad en stock.
+     */
+    public void setStock(Long stock){
+        this.stock = stock;
+    }
 }

@@ -31,7 +31,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.ManyToOne;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * @generated
@@ -40,6 +45,7 @@ import javax.persistence.CascadeType;
 public class BicycleEntity extends BaseEntity implements Serializable {
 
     private String description;
+    private Long stock;
 
     private String status;
 
@@ -54,6 +60,10 @@ public class BicycleEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @OneToMany(mappedBy = "bicycle", cascade = CascadeType.REMOVE)
     private List<PhotoAlbumEntity> photoAlbum = new ArrayList<>();
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creationDate")
+    private java.util.Date creationDate;
 
     /**
      * Obtiene el atributo description.
@@ -75,6 +85,15 @@ public class BicycleEntity extends BaseEntity implements Serializable {
         this.description = description;
     }
 
+    // atributo nuevo
+    public Long getStock(){
+        return stock;
+    }
+    // atributo nuevo
+    public void setStock(Long stock){
+        this.stock = stock;
+    }
+    
     /**
      * Obtiene el atributo brand.
      *
@@ -151,6 +170,22 @@ public class BicycleEntity extends BaseEntity implements Serializable {
      */
     public void setStatus(String status) {
         this.status = status; 
+    }
+
+    /*
+     * Obtener la fecha de creación.
+     * @return Fecha de creación.
+     */
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    /**
+     * Fecha de creación del a Bibicleta.
+     * @param creationDate Fecha de creación.
+     */
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
 }

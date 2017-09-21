@@ -47,6 +47,12 @@
                 type: 'String',
                 required: true
             },
+            stock: {
+                
+                displayName: 'Stock',
+                type:  'Long',
+                required: true 
+            },
             brand: {
                 displayName: 'Marca',
                 type: 'Reference',
@@ -59,8 +65,16 @@
                 type: 'Reference',
                 model: 'categoryModel',
                 options: [],
-                required: true
-            }}
+                required:  true 
+            },
+            creationDate: {
+                displayName:  'Fecha de Creación',
+                type: 'Date',
+                model: 'categoryModel',
+                options: [],
+                required:  false 
+            }
+        }
     });
 
     mod.config(['$stateProvider',
