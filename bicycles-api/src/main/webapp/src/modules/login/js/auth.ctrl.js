@@ -7,7 +7,7 @@
 
     var mod = ng.module('authModule');
 
-    mod.controller('authController', ['$scope', 'authService', function ($scope, authSvc) {
+    mod.controller('authController', ['$scope', 'authService', '$cookies', function ($scope, authSvc, $cookies) {
             $scope.alerts = [];
             $scope.roles = authSvc.getRoles();
             
@@ -38,6 +38,20 @@
 
             $scope.isAuthenticated = function () {
                 return !!$scope.currentUser;
+            };
+            
+            $scope.isCliente = function () {
+                if ($cookies.get("roles") != null)
+                {
+                    var roles = $cookies.get("roles").replace(/[["']+/g, "").replace(/]+/g, "").split(",");
+                    if (roles[0]=== "cliente") {
+                            return true;
+                    }
+                    else
+                        return false;
+                }
+                else
+                    return false;
             };
 
             //Alerts
