@@ -20,7 +20,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-*/
+ */
 package co.edu.uniandes.csw.bicycles.entities;
 
 import java.io.Serializable;
@@ -38,7 +38,6 @@ import javax.persistence.FetchType;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 /**
  * @generated
  */
@@ -46,6 +45,9 @@ import javax.persistence.TemporalType;
 public class BicycleEntity extends BaseEntity implements Serializable {
 
     private String description;
+    private Long stock;
+
+    private String status;
 
     @PodamExclude
     @ManyToOne
@@ -69,7 +71,7 @@ public class BicycleEntity extends BaseEntity implements Serializable {
      * @return atributo description.
      * @generated
      */
-    public String getDescription(){
+    public String getDescription() {
         return description;
     }
 
@@ -79,10 +81,19 @@ public class BicycleEntity extends BaseEntity implements Serializable {
      * @param description nuevo valor del atributo
      * @generated
      */
-    public void setDescription(String description){
+    public void setDescription(String description) {
         this.description = description;
     }
 
+    // atributo nuevo
+    public Long getStock(){
+        return stock;
+    }
+    // atributo nuevo
+    public void setStock(Long stock){
+        this.stock = stock;
+    }
+    
     /**
      * Obtiene el atributo brand.
      *
@@ -144,6 +155,24 @@ public class BicycleEntity extends BaseEntity implements Serializable {
     }
 
     /**
+     * Obtiene el valor del atributo status
+     *
+     * @return valor del atributo status
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * Establece el valor del atributo status
+     *
+     * @param status nuevo valor del atributo status
+     */
+    public void setStatus(String status) {
+        this.status = status; 
+    }
+
+    /*
      * Obtener la fecha de creación.
      * @return Fecha de creación.
      */
@@ -158,4 +187,5 @@ public class BicycleEntity extends BaseEntity implements Serializable {
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
+
 }
