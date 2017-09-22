@@ -21,7 +21,7 @@
         };
 
         //Default Roles
-        var roles = {admin:{}};
+        var roles = {cliente:{} };
         
          
         this.setValues = function (newValues) {
