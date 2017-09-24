@@ -7,7 +7,12 @@ package co.edu.uniandes.csw.bicycles.entities;
 
 import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -16,7 +21,9 @@ import javax.persistence.Entity;
 @Entity
 public class ClientEntity extends BaseEntity implements Serializable {
     
-    
+    @PodamExclude
+    @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE)
+    private List<ShoppingEntity> shopping = new ArrayList<>();
     
     private String lastName;
     private String firstName;
@@ -73,7 +80,11 @@ public class ClientEntity extends BaseEntity implements Serializable {
         this.email = email;
     }
 
-   
+    public List<ShoppingEntity> getShopping() {
+        return shopping;
+    }
 
-    
+    public void setShopping(List<ShoppingEntity> shopping) {
+        this.shopping = shopping;
+    } 
 }

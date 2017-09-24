@@ -57,3 +57,7 @@ INSERT INTO photoalbumentity (id, image, name, bicycle_id) VALUES (42, 'http://t
 INSERT INTO photoalbumentity (id, image, name, bicycle_id) VALUES (43, 'http://www.xlsemanal.com/wp-content/uploads/sites/3/2016/12/bicicleta-xlsemanal.jpg', '', 13);
 INSERT INTO photoalbumentity (id, image, name, bicycle_id) VALUES (44, 'https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/201704/21/00108452763421____1__640x640.jpg', '', 13);
 INSERT INTO photoalbumentity (id, image, name, bicycle_id) VALUES (45, 'https://www.bicicletaselectricas.info/wp-content/uploads/2016/03/Mantenimiento-bicicletas-el%C3%A9ctricas.png', '', 13);
+
+INSERT INTO photoalbumentity (id, image, name, bicycle_id) VALUES (46, 'http://www.xlsemanal.com/wp-content/uploads/sites/3/2016/12/bicicleta-xlsemanal.jpg', '', 14);
+INSERT INTO photoalbumentity (id, image, name, bicycle_id) VALUES (47, 'https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/201704/21/00108452763421____1__640x640.jpg', '', 14);
+INSERT INTO photoalbumentity (id, image, name, bicycle_id) VALUES (48, 'https://www.bicicletaselectricas.info/wp-content/uploads/2016/03/Mantenimiento-bicicletas-el%C3%A9ctricas.png', '', 15);

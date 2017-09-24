@@ -52,6 +52,8 @@
                         $cookies.put("username",user.userName);
                         var permissions = JSON.stringify(response.data.permissions);
                         $cookies.put("permissions",permissions);
+                        var roles = JSON.stringify(response.data.roles);
+                        $cookies.put("roles",roles);
                         $state.go(values.successState);
                       
                     });
@@ -66,6 +68,7 @@
                         $cookies.remove("id_token");
                         $cookies.remove("username");
                         $cookies.remove("permissions");
+                        $cookies.remove("roles");
                         $state.go(values.logoutRedirectState);
                     });
                 },
@@ -103,6 +106,8 @@
                     $http.get(values.apiUrl + values.meURL).then(function(response){
                        var permissions = JSON.stringify(response.data.permissions);
                         $cookies.put("permissions",permissions);
+                        var roles = JSON.stringify(response.data.roles);
+                        $cookies.put("roles",roles);
                    });
                     return $http.get(values.apiUrl + values.meURL);
                 }

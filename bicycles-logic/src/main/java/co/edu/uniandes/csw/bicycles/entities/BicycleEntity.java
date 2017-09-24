@@ -64,6 +64,10 @@ public class BicycleEntity extends BaseEntity implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creationDate")
     private java.util.Date creationDate;
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "bicycle", cascade = CascadeType.REMOVE)
+    private List<ShoppingEntity> shopping = new ArrayList<>();
 
     /**
      * Obtiene el atributo description.
@@ -188,4 +192,19 @@ public class BicycleEntity extends BaseEntity implements Serializable {
         this.creationDate = creationDate;
     }
 
+    /**
+     * Lista de compras.
+     * @return 
+     */
+    public List<ShoppingEntity> getShopping() {
+        return shopping;
+    }
+
+    /**
+     * Cambiar lista de compras.
+     * @param shopping 
+     */
+    public void setShopping(List<ShoppingEntity> shopping) {
+        this.shopping = shopping;
+    }
 }
