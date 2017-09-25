@@ -46,7 +46,7 @@ public class BicycleEntity extends BaseEntity implements Serializable {
 
     private String description;
     private Long stock;
-
+    private String color;
     private String status;
 
     @PodamExclude
@@ -207,4 +207,14 @@ public class BicycleEntity extends BaseEntity implements Serializable {
     public void setShopping(List<ShoppingEntity> shopping) {
         this.shopping = shopping;
     }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+    
+    
 }

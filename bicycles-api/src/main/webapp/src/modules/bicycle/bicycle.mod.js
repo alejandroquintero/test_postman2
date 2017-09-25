@@ -52,6 +52,12 @@
                 displayName: 'Stock',
                 type:  'Long',
                 required: true 
+            },            
+            color: {
+                
+                displayName: 'Color',
+                type:  'String',
+                required: true 
             },
             brand: {
                 displayName: 'Marca',
