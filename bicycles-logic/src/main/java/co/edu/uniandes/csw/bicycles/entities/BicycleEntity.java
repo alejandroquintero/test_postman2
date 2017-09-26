@@ -49,6 +49,9 @@ public class BicycleEntity extends BaseEntity implements Serializable {
     private String color;
     private String status;
 
+    
+    private Double price;
+
     @PodamExclude
     @ManyToOne
     private BrandEntity brand;
@@ -69,6 +72,15 @@ public class BicycleEntity extends BaseEntity implements Serializable {
     @OneToMany(mappedBy = "bicycle", cascade = CascadeType.REMOVE)
     private List<ShoppingEntity> shopping = new ArrayList<>();
 
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+    
+    
     /**
      * Obtiene el atributo description.
      *
