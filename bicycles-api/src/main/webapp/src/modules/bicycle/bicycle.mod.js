@@ -52,12 +52,24 @@
                 displayName: 'Stock',
                 type:  'Long',
                 required: true 
+            },            
+            color: {
+                
+                displayName: 'Color',
+                type:  'String',
+                required: true 
             },
             brand: {
                 displayName: 'Marca',
                 type: 'Reference',
                 model: 'brandModel',
                 options: [],
+                required: true
+            },
+            // nuevo atributo
+            price: {
+                displayName: 'Price',
+                type: 'Double',
                 required: true
             },
             category: {

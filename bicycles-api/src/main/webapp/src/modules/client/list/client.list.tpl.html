@@ -6,9 +6,10 @@ and open the template in the editor.
 -->
 
 <header>
+    <div ncy-breadcrumb></div>
     <toolbar name="model.name" display-name="model.displayName" actions='actions'></toolbar>
 </header>
-<list-records fields="model.fields" name="model.name" records="records" actions="recordActions"></list-records>
+<list-records fields="model.fields" name="model.name" records="records" actions="recordActions" buttons="buttons" ></list-records>
 <pagination ng-if="ctrl.itemsPerPage < ctrl.totalItems"
             total-items="ctrl.totalItems"
             max-size="5"

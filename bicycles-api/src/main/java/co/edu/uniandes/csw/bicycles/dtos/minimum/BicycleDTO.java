@@ -37,8 +37,9 @@ public class BicycleDTO implements Serializable {
     private String description;
     private Long id;
     private String name;
+    private Double price;
     private String status;
-
+    private String color;
     private Date creationDate;
     private Long stock;
 
@@ -63,6 +64,7 @@ public class BicycleDTO implements Serializable {
         this.status = entity.getStatus();
         this.creationDate = entity.getCreationDate();
         this.stock=entity.getStock();
+        this.color=entity.getColor();
        }
     }
 
@@ -80,7 +82,16 @@ public class BicycleDTO implements Serializable {
         entity.setStatus(this.getStatus());
         entity.setCreationDate(this.getCreationDate());
         entity.setStock(this.getStock());
+        entity.setColor(this.getColor());
     return entity;
+    }
+    
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     /**
@@ -191,4 +202,14 @@ public class BicycleDTO implements Serializable {
     public void setStock(Long stock){
         this.stock = stock;
     }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+    
+    
 }
