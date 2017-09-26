@@ -23,23 +23,11 @@ SOFTWARE.
 */
 package co.edu.uniandes.csw.bicycles.api;
 
-import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
+import co.edu.uniandes.csw.bicycles.entities.ShoppingEntity;
 import java.util.List;
 
-public interface IBicycleLogic {
-    public int countBicycles();
-    public List<BicycleEntity> getBicycles();
-    public List<BicycleEntity> getBicycles(Integer page, Integer maxRecords);
-    public BicycleEntity getBicycle(Long id);
-    public BicycleEntity createBicycle(BicycleEntity entity); 
-    public BicycleEntity updateBicycle(BicycleEntity entity);
-    public void deleteBicycle(Long id);
-
-    /**
-     * Validar vigencia.
-     * @param page numero de pagina.
-     * @param maxRecords maximo de records.
-     * @return Lista de Bicicletas.
-     */
-    public List<BicycleEntity> validarVigencia(Integer page, Integer maxRecords);
+public interface IShoppingLogic {
+    public List<ShoppingEntity> getShopping();
+    public List<ShoppingEntity> getShopping(Integer page, Integer maxRecords);
+    public ShoppingEntity getShopping(Long id);
 }

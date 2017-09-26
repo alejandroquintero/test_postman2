@@ -21,25 +21,50 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package co.edu.uniandes.csw.bicycles.api;
+package co.edu.uniandes.csw.bicycles.ejbs;
 
-import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
+import co.edu.uniandes.csw.bicycles.api.IShoppingLogic;
+import co.edu.uniandes.csw.bicycles.entities.ShoppingEntity;
+import co.edu.uniandes.csw.bicycles.persistence.ShoppingPersistence;
 import java.util.List;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 
-public interface IBicycleLogic {
-    public int countBicycles();
-    public List<BicycleEntity> getBicycles();
-    public List<BicycleEntity> getBicycles(Integer page, Integer maxRecords);
-    public BicycleEntity getBicycle(Long id);
-    public BicycleEntity createBicycle(BicycleEntity entity); 
-    public BicycleEntity updateBicycle(BicycleEntity entity);
-    public void deleteBicycle(Long id);
+/**
+ * @generated
+ */
+@Stateless
+public class ShoppingLogic implements IShoppingLogic {
+
+    @Inject private ShoppingPersistence persistence;
 
     /**
-     * Validar vigencia.
-     * @param page numero de pagina.
-     * @param maxRecords maximo de records.
-     * @return Lista de Bicicletas.
+     * Trae todas las compras.
+     * @return 
      */
-    public List<BicycleEntity> validarVigencia(Integer page, Integer maxRecords);
+    @Override
+    public List<ShoppingEntity> getShopping() {
+        return persistence.findAll();
+    }
+    
+    /**
+     * Trae las compras paginado.
+     * @param page
+     * @param maxRecords
+     * @return 
+     */    
+    @Override
+    public List<ShoppingEntity> getShopping(Integer page, Integer maxRecords) {
+        return persistence.findAll(page, maxRecords);
+    }
+
+    /**
+     * Una sola compra.
+     * @param id
+     * @return 
+     */
+    @Override
+    public ShoppingEntity getShopping(Long id) {
+        return persistence.find(id);
+    }
 }

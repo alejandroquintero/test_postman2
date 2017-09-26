@@ -252,5 +252,30 @@ public class BicycleLogicTest {
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getName(), resp.getName());
     }
+    
+    /**
+     * Prueba para consultar la lista de Bicycles.
+     */
+    @Test
+    public void getValidarVigenciaTest() {
+        //Arrange
+        int pagina = 1;
+        int maximo = 5;
+        
+        //Act
+        List<BicycleEntity> list = bicycleLogic.validarVigencia(pagina, maximo);
+        
+        //Assert
+        Assert.assertEquals(data.size(), list.size());
+        for (BicycleEntity entity : list) {
+            boolean found = false;
+            for (BicycleEntity storedEntity : data) {
+                if (entity.getId().equals(storedEntity.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
+    }
 }
 

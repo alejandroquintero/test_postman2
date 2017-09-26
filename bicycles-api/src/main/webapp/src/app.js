@@ -32,6 +32,7 @@ SOFTWARE.
         'categoryModule',
         'brandModule',
         'photoAlbumModule',
+        'clientModule',
         'authModule',
         'ncy-angular-breadcrumb'
     ]);

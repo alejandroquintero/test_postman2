@@ -21,25 +21,39 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package co.edu.uniandes.csw.bicycles.api;
+package co.edu.uniandes.csw.bicycles.persistence;
 
-import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
-import java.util.List;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import co.edu.uniandes.csw.bicycles.entities.ShoppingEntity;
+import co.edu.uniandes.csw.crud.spi.persistence.CrudPersistence;
 
-public interface IBicycleLogic {
-    public int countBicycles();
-    public List<BicycleEntity> getBicycles();
-    public List<BicycleEntity> getBicycles(Integer page, Integer maxRecords);
-    public BicycleEntity getBicycle(Long id);
-    public BicycleEntity createBicycle(BicycleEntity entity); 
-    public BicycleEntity updateBicycle(BicycleEntity entity);
-    public void deleteBicycle(Long id);
+/**
+ * @generated
+ */
+@Stateless
+public class ShoppingPersistence extends CrudPersistence<ShoppingEntity> {
+
+    @PersistenceContext(unitName="BicyclesPU")
+    protected EntityManager em;
 
     /**
-     * Validar vigencia.
-     * @param page numero de pagina.
-     * @param maxRecords maximo de records.
-     * @return Lista de Bicicletas.
+     * @generated
      */
-    public List<BicycleEntity> validarVigencia(Integer page, Integer maxRecords);
+    @Override
+    protected EntityManager getEntityManager() {
+        return em;
+    }
+
+    /**
+     * @generated
+     */
+    @Override
+    protected Class<ShoppingEntity> getEntityClass() {
+        return ShoppingEntity.class;
+    }
+
+
+
 }

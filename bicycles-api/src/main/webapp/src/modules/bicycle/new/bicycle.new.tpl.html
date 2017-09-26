@@ -39,36 +39,54 @@ SOFTWARE.
 </header>
 <form novalidate name="bicycleForm" role="form">
     <fieldset>
-    <input id="id" class="form-control" type="hidden" ng-model="currentRecord.id"/>
-    <div class="form-group col-md-12" ng-class="{'has-success': bicycleForm.description.$valid && bicycleForm.description.$dirty, 'has-error': bicycleForm.description.$invalid && bicycleForm.description.$dirty}" >
-        <label for="description" class="col-md-2 control-label">Description</label>
-        <div class="col-md-10">
-            <input id="description" name="description" class="form-control" type="text" ng-model="currentRecord.description" ng-required="true" />
+        <input id="id" class="form-control" type="hidden" ng-model="currentRecord.id"/>
+        <div class="form-group col-md-12" ng-class="{'has-success': bicycleForm.description.$valid && bicycleForm.description.$dirty, 'has-error': bicycleForm.description.$invalid && bicycleForm.description.$dirty}" >
+            <label for="description" class="col-md-2 control-label">Description</label>
+            <div class="col-md-10">
+                <input id="description" name="description" class="form-control" type="text" ng-model="currentRecord.description" ng-required="true" />
+            </div>
         </div>
-    </div>
-    <div class="form-group col-md-12" ng-class="{'has-success': bicycleForm.name.$valid && bicycleForm.name.$dirty, 'has-error': bicycleForm.name.$invalid && bicycleForm.name.$dirty}" >
-        <label for="name" class="col-md-2 control-label">Name</label>
-        <div class="col-md-10">
-            <input id="name" name="name" class="form-control" type="text" ng-model="currentRecord.name" ng-required="true" />
+        <div class="form-group col-md-12" ng-class="{'has-success': bicycleForm.name.$valid && bicycleForm.name.$dirty, 'has-error': bicycleForm.name.$invalid && bicycleForm.name.$dirty}" >
+            <label for="name" class="col-md-2 control-label">Name</label>
+            <div class="col-md-10">
+                <input id="name" name="name" class="form-control" type="text" ng-model="currentRecord.name" ng-required="true" />
+            </div>
         </div>
-    </div>
-    <div class="form-group col-md-12" ng-class="{'has-success': bicycleForm.brand.$valid && bicycleForm.brand.$dirty, 'has-error': bicycleForm.brand.$invalid && bicycleForm.brand.$dirty}" >
-        <label for="brand" class="col-md-2 control-label">Brand</label>
-        <div class="col-md-10">
-            <select id="brand" name="brand" class="form-control" ng-options="rc.name for rc in references.brand track by rc.id" ng-model="currentRecord.brand"></select>
+        <div class="form-group col-md-12" ng-class="{'has-success': bicycleForm.stock.$valid && bicycleForm.stock.$dirty, 'has-error': bicycleForm.stock.$invalid && bicycleForm.stock.$dirty}" >
+            <label for="stock" class="col-md-2 control-label">stock</label>
+            <div class="col-md-10">
+                <input id="stock" name="stock" class="form-control" type="number" ng-model="currentRecord.stock" ng-required="true" />
+            </div>
         </div>
-    </div>
-    <div class="form-group col-md-12" ng-class="{'has-success': bicycleForm.price.$valid && bicycleForm.price.$dirty, 'has-error': bicycleForm.price.$invalid && bicycleForm.price.$dirty}" >
-        <label for="price" class="col-md-2 control-label">Price</label>
-        <div class="col-md-10">
-            <select id="price" name="price" class="form-control" ng-options="rc.name for rc in references.price track by rc.id" ng-model="currentRecord.price"></select>
+        <div class="form-group col-md-12" ng-class="{'has-success': bicycleForm.color.$valid && bicycleForm.color.$dirty, 'has-error': bicycleForm.color.$invalid && bicycleForm.color.$dirty}" >
+            <label for="color" class="col-md-2 control-label">Color</label>
+            <div class="col-md-10">
+                <input id="color" name="color" class="form-control" type="text" ng-model="currentRecord.color" ng-required="true" />
+            </div>
         </div>
-    </div>
-    <div class="form-group col-md-12" ng-class="{'has-success': bicycleForm.category.$valid && bicycleForm.category.$dirty, 'has-error': bicycleForm.category.$invalid && bicycleForm.category.$dirty}" >
-        <label for="category" class="col-md-2 control-label">Category</label>
-        <div class="col-md-10">
-            <select id="category" name="category" class="form-control" ng-options="rc.name for rc in references.category track by rc.id" ng-model="currentRecord.category"></select>
+        <div class="form-group col-md-12" ng-class="{'has-success': bicycleForm.brand.$valid && bicycleForm.brand.$dirty, 'has-error': bicycleForm.brand.$invalid && bicycleForm.brand.$dirty}" >
+            <label for="brand" class="col-md-2 control-label">Brand</label>
+            <div class="col-md-10">
+                <select id="brand" name="brand" class="form-control" ng-options="rc.name for rc in references.brand track by rc.id" ng-model="currentRecord.brand"></select>
+            </div>
         </div>
-    </div>
+        <div class="form-group col-md-12" ng-class="{'has-success': bicycleForm.category.$valid && bicycleForm.category.$dirty, 'has-error': bicycleForm.category.$invalid && bicycleForm.category.$dirty}" >
+            <label for="category" class="col-md-2 control-label">Category</label>
+            <div class="col-md-10">
+                <select id="category" name="category" class="form-control" ng-options="rc.name for rc in references.category track by rc.id" ng-model="currentRecord.category"></select>
+            </div>
+        </div>
+        <div class="form-group col-md-12" ng-class="{'has-success': bicycleForm.status.$valid && bicycleForm.status.$dirty, 'has-error': bicycleForm.status.$invalid && bicycleForm.status.$dirty}" >
+            <label for="status" class="col-md-2 control-label">Status</label> 
+            <div class="col-md-10">
+                <input id="status" name="status" class="form-control" type="text" ng-model="currentRecord.status" ng-required="true" />
+            </div>
+        </div>
+        <div class="form-group col-md-12" ng-class="{'has-success': bicycleForm.category.$valid && bicycleForm.category.$dirty, 'has-error': bicycleForm.category.$invalid && bicycleForm.category.$dirty}" >
+          <label for="category" class="col-md-2 control-label">Category</label>
+          <div class="col-md-10">
+              <select id="category" name="category" class="form-control" ng-options="rc.name for rc in references.category track by rc.id" ng-model="currentRecord.category"></select>
+          </div>
+        </div>
     </fieldset>
 </form>

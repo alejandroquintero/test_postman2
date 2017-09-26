@@ -17,11 +17,12 @@
             registerURL: 'register',
             logoutURL: 'logout',
             forgotPassURL: 'forgot',
-            meURL: 'me'
+            meURL: 'me',
+            clientUrl: 'api/clients/'
         };
 
         //Default Roles
-        var roles = {admin:{}};
+        var roles = {cliente:{} };
         
          
         this.setValues = function (newValues) {
@@ -52,6 +53,8 @@
                         $cookies.put("username",user.userName);
                         var permissions = JSON.stringify(response.data.permissions);
                         $cookies.put("permissions",permissions);
+                        var roles = JSON.stringify(response.data.roles);
+                        $cookies.put("roles",roles);
                         $state.go(values.successState);
                       
                     });
@@ -66,14 +69,25 @@
                         $cookies.remove("id_token");
                         $cookies.remove("username");
                         $cookies.remove("permissions");
+                        $cookies.remove("roles");
                         $state.go(values.logoutRedirectState);
                     });
                 },
                 register: function (user) {
+
+                    var newClient = {'address': "",
+                        'email': user.email,
+                            'firstName': user.givenName + " " + user.middleName,
+                            'lastName': user.surName,
+                            'login': user.userName,
+                            'phone': ""
+                    };
                     
-                    return $http.post(values.apiUrl+values.registerURL, user).then(function (data) {
-                        $state.go(values.loginState);
-                    });
+                        return $http.post(values.apiUrl + values.registerURL, user).then(function (data) {
+                            $http.post(values.clientUrl, newClient).then(function (data1) {
+                                $state.go(values.loginState);
+                            });
+                        });
                 },
                 forgotPass: function (user) {
                     return $http.post(values.apiUrl+values.forgotPassURL, user).then(function (data) {
@@ -103,6 +117,8 @@
                     $http.get(values.apiUrl + values.meURL).then(function(response){
                        var permissions = JSON.stringify(response.data.permissions);
                         $cookies.put("permissions",permissions);
+                        var roles = JSON.stringify(response.data.roles);
+                        $cookies.put("roles",roles);
                    });
                     return $http.get(values.apiUrl + values.meURL);
                 }
