@@ -108,9 +108,9 @@
               for (var key in permissions) {
                 if (permissions[key].includes(name)) {
                   if ("read" === permissions[key].split(":")[0])
-                    allowedButtons.push("list", "detail", "refresh");
+                    allowedButtons.push("list", "detail","buy", "refresh");
                   if ("update" === permissions[key].split(":")[0])
-                    allowedButtons.push("edit", "save", "cancel");
+                    allowedButtons.push("edit", "save", "buy", "cancel");
                   if ("create" === permissions[key].split(":")[0])
                     allowedButtons.push("create");
                   if ("delete" === permissions[key].split(":")[0])
@@ -196,9 +196,9 @@
               for (var key in permissions) {
                 if (permissions[key].includes(name)) {
                   if ("read" === permissions[key].split(":")[0])
-                    allowedButtons.push("list", "detail", "refresh");
+                    allowedButtons.push("list", "detail","buy", "refresh");
                   if ("update" === permissions[key].split(":")[0])
-                    allowedButtons.push("edit", "save", "cancel");
+                    allowedButtons.push("edit", "save","buy", "cancel");
                   if ("create" === permissions[key].split(":")[0])
                     allowedButtons.push("create");
                   if ("delete" === permissions[key].split(":")[0])
@@ -335,7 +335,7 @@
                 if ("read" !== action && "list" !== action
                         && "categorys" !== action && "bicycles" !== action
                         && "brands" !== action && "photoAlbum" !== action
-                        && "refresh" !== action) {
+                        && "refresh" !== action && "shopping" !== action) {
                   delete actions[action];
                 }
               }
@@ -351,7 +351,7 @@
 
                 if (permissions[key].includes(name) | permissions[key].includes("photoAlbum")) {
                   if ("read" === permissions[key].split(":")[0])
-                    allowedButtons.push("list", "categorys", "bicycles", "brands", "photoAlbum", "refresh");
+                    allowedButtons.push("list", "categorys", "bicycles", "brands", "photoAlbum", "refresh","shopping");
                   if ("update" === permissions[key].split(":")[0])
                     allowedButtons.push("edit", "save", "cancel");
                   if ("create" === permissions[key].split(":")[0])

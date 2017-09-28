@@ -113,6 +113,11 @@ SOFTWARE.
         <script src="src/modules/client/instance/detail/client.detail.ctrl.js" type="text/javascript"></script>
         <script src="src/modules/client/instance/delete/client.delete.ctrl.js" type="text/javascript"></script>
         <script src="src/utils/menu/menu.ctrl.js"></script>
+        <script src="src/modules/shopping/shopping.mod.js" type="text/javascript"></script>
+        <script src="src/modules/shopping/shopping.ctrl.js" type="text/javascript"></script>
+        <script src="src/modules/shopping/new/shopping.new.ctrl.js" type="text/javascript"></script>
+        <script src="src/modules/shopping/list/shopping.list.ctrl.js" type="text/javascript"></script>
+        <script src="src/modules/shopping/instance/detail/shopping.detail.ctrl.js" type="text/javascript"></script>
         <!-- /include -->
         <!-- endbuild -->
 
@@ -168,6 +173,9 @@ SOFTWARE.
                                 <li if-permission name='clients'>
                                     <a ui-sref="clientList({page: 1, limit: 15})">Client</a>
                                 </li>
+                                <!--<li if-permission name='shopping'>
+                                    <a ui-sref="shoppingList({page: 1, limit: 15})">Shopping</a>
+                                </li>-->
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <login-button></login-button>

@@ -21,14 +21,34 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package co.edu.uniandes.csw.bicycles.api;
 
-import co.edu.uniandes.csw.bicycles.entities.ShoppingEntity;
-import java.util.List;
+(function (ng) {
 
-public interface IShoppingLogic {
-    public int countShopping(); 
-    public List<ShoppingEntity> getShopping();
-    public List<ShoppingEntity> getShopping(Integer page, Integer maxRecords);
-    public ShoppingEntity getShopping(Long id);
-}
+    var mod = ng.module("shoppingModule");
+
+    mod.controller("shoppingNewCtrl", ["$scope", "$state", "shopping","model",
+        function ($scope, $state, shopping, model) {
+            $scope.model = model;
+            $scope.currentRecord = {};
+            $scope.actions = {
+                save: {
+                    displayName: 'Save',
+                    icon: 'save',
+                    fn: function () {
+                        if ($scope.shoppingForm.$valid) {
+                            shopping.post($scope.currentRecord).then(function (rc) {
+                                $state.go('shoppingDetail', {bicycleId: rc.id}, {reload: true});
+                            });
+                        }
+                    }
+                },
+                cancel: {
+                    displayName: 'Cancel',
+                    icon: 'remove',
+                    fn: function () {
+                        $state.go('shoppingList');
+                    }
+                }
+            };
+        }]);
+})(window.angular);
