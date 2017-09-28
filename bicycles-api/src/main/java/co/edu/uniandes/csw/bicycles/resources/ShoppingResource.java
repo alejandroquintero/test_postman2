@@ -23,6 +23,7 @@ SOFTWARE.
 */
 package co.edu.uniandes.csw.bicycles.resources;
 
+import co.edu.uniandes.csw.auth.filter.StatusCreated;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -39,6 +40,7 @@ import co.edu.uniandes.csw.bicycles.dtos.detail.ShoppingDetailDTO;
 import co.edu.uniandes.csw.bicycles.entities.ShoppingEntity;
 import java.util.ArrayList;
 import javax.enterprise.context.RequestScoped;
+import javax.ws.rs.POST;
 
 /**
  * URI: /
@@ -98,6 +100,20 @@ public class ShoppingResource {
     @Path("{id: \\d+}")
     public ShoppingDetailDTO getShopping(@PathParam("id") Long id) {
         return new ShoppingDetailDTO(shoppingLogic.getShopping(id));
+    }
+    
+    
+    /**
+     * Se encarga de crear un Bicycle en la base de datos
+     *
+     * @param dto Objeto de BicycleDetailDTO con los datos nuevos
+     * @return Objeto de BicycleDetailDTOcon los datos nuevos y su ID
+     * @generated
+     */
+    @POST
+    @StatusCreated
+    public ShoppingDetailDTO createBicycle(ShoppingDetailDTO dto) {
+        return new ShoppingDetailDTO(shoppingLogic.createShopping(dto.toEntity()));
     }
 
     /**
