@@ -48,16 +48,16 @@
                 required: true
             },
             stock: {
-                
+
                 displayName: 'Stock',
-                type:  'Long',
-                required: true 
-            },            
+                type: 'Long',
+                required: true
+            },
             color: {
-                
+
                 displayName: 'Color',
-                type:  'String',
-                required: true 
+                type: 'String',
+                required: true
             },
             brand: {
                 displayName: 'Marca',
@@ -77,14 +77,14 @@
                 type: 'Reference',
                 model: 'categoryModel',
                 options: [],
-                required:  true 
+                required: true
             },
             creationDate: {
-                displayName:  'Fecha de Creación',
+                displayName: 'Fecha de Creación',
                 type: 'Date',
                 model: 'categoryModel',
                 options: [],
-                required:  false 
+                required: false
             }
         }
     });
@@ -115,23 +115,6 @@
                     bicycles: ['Restangular', 'model', '$stateParams', function (r, model, $params) {
                             return r.all(model.url).getList($params);
                         }]
-                }
-            });
-            $sp.state('bicycleList', {
-                url: '/list',
-                parent: 'bicycle',
-                views: {
-                    bicycleView: {
-                        templateUrl: basePath + 'list/bicycle.list.tpl.html',
-                        controller: 'bicycleListCtrl',
-                        controllerAs: 'ctrl'
-                    }
-                },
-                resolve: {
-                    model: 'bicycleModel'
-                },
-                ncyBreadcrumb: {
-                    label: 'bicycle'
                 }
             });
             $sp.state('bicycleNew', {
@@ -215,6 +198,23 @@
                 },
                 resolve: {
                     model: 'bicycleModel'
+                }
+            });
+            $sp.state('bicycleList', {
+                url: '/list/:name',
+                parent: 'bicycle',
+                views: {
+                    bicycleView: {
+                        templateUrl: basePath + 'list/bicycle.list.tpl.html',
+                        controller: 'bicycleListCtrl',
+                        controllerAs: 'ctrl'
+                    }
+                },
+                resolve: {
+                    model: 'bicycleModel'
+                },
+                ncyBreadcrumb: {
+                    label: 'bicycle'
                 }
             });
         }]);
