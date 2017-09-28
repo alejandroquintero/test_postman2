@@ -25,8 +25,9 @@
 
     var mod = ng.module("bicycleModule");
 
-    mod.controller("bicycleListCtrl", ["$scope", '$state', 'bicycles', '$stateParams', 'model',
-        function ($scope, $state, bicycles, $params, model) {
+    mod.controller("bicycleListCtrl", ["$scope", '$state', 'bicycles', '$stateParams', 'model', '$controller',
+        function ($scope, $state, bicycles, $params, model, $controller) {
+            $controller("authController",{$scope:$scope});
             $scope.model = model;
             $scope.records = bicycles;
             $scope.buttons = ['none'];
