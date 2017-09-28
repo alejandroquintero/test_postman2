@@ -43,13 +43,13 @@ SOFTWARE.
         <div class="form-group col-md-12" ng-class="{'has-success': shoppingForm.dateofpurchase.$valid && shoppingForm.dateofpurchase.$dirty, 'has-error': shoppingForm.dateofpurchase.$invalid && shoppingForm.dateofpurchase.$dirty}" >
             <label for="dateofpurchase" class="col-md-2 control-label">Date of Purchase</label>
             <div class="col-md-10">
-                <input id="dateofpurchase" name="dateofpurchase" class="form-control" type="text" ng-model="currentRecord.dateofpurchase" ng-required="true" />
+                <input id="dateofpurchase" value="<?php echo date('Y-m-d'); ?>" name="dateofpurchase" class="form-control" type="text" ng-model="currentRecord.dateofpurchase" ng-required="true" />
             </div>
         </div>
         <div class="form-group col-md-12" ng-class="{'has-success': shoppingForm.paymentstatus.$valid && shoppingForm.paymentstatus.$dirty, 'has-error': shoppingForm.paymentstatus.$invalid && shoppingForm.paymentstatus.$dirty}" >
             <label for="paymentstatus" class="col-md-2 control-label">Payment Status</label>
             <div class="col-md-10">
-                <input id="paymentstatus" name="paymentstatus" class="form-control" type="text" ng-model="currentRecord.paymentstatus" ng-required="true" />
+                <input id="paymentstatus" value="Aceptado" name="paymentstatus" class="form-control" type="text" ng-model="currentRecord.paymentstatus" ng-required="true" />
             </div>
         </div>
         <input id="bicycle_id" class="form-control" type="hidden" ng-model="currentRecord.bicycle_id"/>

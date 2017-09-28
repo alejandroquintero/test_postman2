@@ -28,6 +28,7 @@ import java.util.List;
 
 public interface IShoppingLogic {
     public int countShopping(); 
+    public ShoppingEntity createShopping(ShoppingEntity entity);
     public List<ShoppingEntity> getShopping();
     public List<ShoppingEntity> getShopping(Integer page, Integer maxRecords);
     public ShoppingEntity getShopping(Long id);
