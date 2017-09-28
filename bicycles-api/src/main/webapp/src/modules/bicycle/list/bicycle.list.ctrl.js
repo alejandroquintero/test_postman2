@@ -102,7 +102,7 @@
         },
         buy: {
           displayName: 'Buy',
-          icon: 'minus',
+          icon: 'edit',
           fn: function (rc) {
             $state.go('shoppingNew', {bicycleId: rc.id});
           },
