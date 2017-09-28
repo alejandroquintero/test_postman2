@@ -112,7 +112,7 @@ public class ShoppingResource {
      */
     @POST
     @StatusCreated
-    public ShoppingDetailDTO createBicycle(ShoppingDetailDTO dto) {
+    public ShoppingDetailDTO createShopping(ShoppingDetailDTO dto) {
         return new ShoppingDetailDTO(shoppingLogic.createShopping(dto.toEntity()));
     }
 
