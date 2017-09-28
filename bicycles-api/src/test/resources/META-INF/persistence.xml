@@ -6,6 +6,7 @@
         <class>co.edu.uniandes.csw.bicycles.entities.CategoryEntity</class>
         <class>co.edu.uniandes.csw.bicycles.entities.BrandEntity</class>
         <class>co.edu.uniandes.csw.bicycles.entities.PhotoAlbumEntity</class>
+        <class>co.edu.uniandes.csw.bicycles.entities.ClientEntity</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <shared-cache-mode>NONE</shared-cache-mode>
         <properties>
