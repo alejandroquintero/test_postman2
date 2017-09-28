@@ -208,5 +208,43 @@ public abstract class CrudPersistence<T> {
         }
         return q.getResultList();
     }
+    
+    /**
+     * Returns a list of bicycles that match the given criteria
+     * @param criteria Id of the attributte used as search criteria
+     * @param searchString keyword to find the Bicycles
+     * @return a list of BicycleEntity
+     */
+    public List<T> findByCriteria(Integer criteria, String searchString){
+        StringBuilder sb = new StringBuilder();
+        String parametro = null;
+        sb.append("select b from ");
+        sb.append(getEntityClass().getSimpleName());
+
+        switch(criteria){
+            case 1: //NAME
+                sb.append(" b where b.name LIKE :");
+                parametro = "NAME";
+                sb.append(parametro);
+                break;
+            case 2: //DESCRIPTION
+                sb.append(" b where b.description LIKE :");
+                parametro = "DESCRIPTION";
+                sb.append(parametro);
+                break;
+            default: //By default, select all
+                break;
+        }
+        
+        System.out.println("QUERY= " + sb.toString());
+        
+        Query q = getEntityManager().createQuery(sb.toString());
+        
+        if(parametro != null){
+            q.setParameter(parametro, "%"+searchString+"%");
+        }
+       
+        return q.getResultList();
+    }
 }
 

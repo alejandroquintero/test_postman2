@@ -28,6 +28,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
 import co.edu.uniandes.csw.crud.spi.persistence.CrudPersistence;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @generated
@@ -52,6 +55,28 @@ public class BicyclePersistence extends CrudPersistence<BicycleEntity> {
     @Override
     protected Class<BicycleEntity> getEntityClass() {
         return BicycleEntity.class;
+    }
+    
+    /**
+     * Obtener bicicletas por descripcion
+     * @param description
+     * @return Lista de bicicletas
+     */
+    public List<BicycleEntity> getByDescription(String description) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("description", "%" + description.toUpperCase() + "%");
+        return executeListNamedQuery("Bicycle.getByDescription", params);
+    }
+    
+    /**
+     * Obtener bicicletas por estado
+     * @param status
+     * @return Lista de bicicletas
+     */
+    public List<BicycleEntity> getByStatus(String status) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("status", "%" + status.toUpperCase() + "%");
+        return executeListNamedQuery("Bicycle.getByStatus", params);
     }
 
 
