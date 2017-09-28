@@ -27,16 +27,10 @@
 
     mod.controller("bicycleListCtrl", ["$scope", '$state', 'bicycles', '$stateParams', 'model',
         function ($scope, $state, bicycles, $params, model) {
-            //$controller("authController", {$scope: $scope});
             $scope.model = model;
             $scope.records = bicycles;
             $scope.buttons = ['none'];
             $scope.photos = [];
-
-//            if (bicycle !== null)
-//                $scope.records = bicycle;
-//            else
-//                $scope.records = bicycles;
 
             //Paginación
             this.itemsPerPage = $params.limit;
