@@ -110,7 +110,7 @@
                   if ("read" === permissions[key].split(":")[0])
                     allowedButtons.push("list", "detail", "refresh");
                   if ("update" === permissions[key].split(":")[0])
-                    allowedButtons.push("edit", "save", "cancel");
+                    allowedButtons.push("edit", "save", "buy", "cancel");
                   if ("create" === permissions[key].split(":")[0])
                     allowedButtons.push("create");
                   if ("delete" === permissions[key].split(":")[0])
@@ -198,7 +198,7 @@
                   if ("read" === permissions[key].split(":")[0])
                     allowedButtons.push("list", "detail", "refresh");
                   if ("update" === permissions[key].split(":")[0])
-                    allowedButtons.push("edit", "save", "cancel");
+                    allowedButtons.push("edit", "save","buy", "cancel");
                   if ("create" === permissions[key].split(":")[0])
                     allowedButtons.push("create");
                   if ("delete" === permissions[key].split(":")[0])
