@@ -104,7 +104,7 @@
           displayName: 'Buy',
           icon: 'minus',
           fn: function (rc) {
-            $state.go('shoppingDetail', {bicycleId: rc.id});
+            $state.go('shoppingNew', {bicycleId: rc.id});
           },
           show: function () {
             return true;
