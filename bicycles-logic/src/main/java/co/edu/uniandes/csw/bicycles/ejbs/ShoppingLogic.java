@@ -72,4 +72,12 @@ public class ShoppingLogic implements IShoppingLogic {
     public int countShopping() {
         return persistence.count();
     }
+
+    @Override
+    public ShoppingEntity createShopping(ShoppingEntity entity) {
+      entity.setDateOfPurchase(new java.util.Date());
+        persistence.create(entity);
+        return entity;  
+        
+    }
 }

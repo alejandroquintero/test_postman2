@@ -55,8 +55,6 @@ public class BicycleEntity extends BaseEntity implements Serializable {
     private Long stock;
     private String color;
     private String status;
-
-    
     private Double price;
 
     @PodamExclude
