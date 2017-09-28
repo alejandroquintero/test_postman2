@@ -63,6 +63,7 @@ public class BicycleDTO implements Serializable {
         this.name=entity.getName();
         this.status = entity.getStatus();
         this.creationDate = entity.getCreationDate();
+        this.price=entity.getPrice();
         this.stock=entity.getStock();
         this.color=entity.getColor();
        }
@@ -83,6 +84,7 @@ public class BicycleDTO implements Serializable {
         entity.setCreationDate(this.getCreationDate());
         entity.setStock(this.getStock());
         entity.setColor(this.getColor());
+        entity.setPrice(this.getPrice());
     return entity;
     }
     
