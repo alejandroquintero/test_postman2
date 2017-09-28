@@ -1,4 +1,4 @@
-/*
+<!--
 The MIT License (MIT)
 
 Copyright (c) 2015 Los Andes University
@@ -20,15 +20,6 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-*/
-package co.edu.uniandes.csw.bicycles.api;
-
-import co.edu.uniandes.csw.bicycles.entities.ShoppingEntity;
-import java.util.List;
-
-public interface IShoppingLogic {
-    public int countShopping(); 
-    public List<ShoppingEntity> getShopping();
-    public List<ShoppingEntity> getShopping(Integer page, Integer maxRecords);
-    public ShoppingEntity getShopping(Long id);
-}
+-->
+<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="ctrl.closeAlert($index)">{{alert.msg}} </alert>
+<div ui-view="shoppingView"></div>

@@ -18,7 +18,8 @@
             logoutURL: 'logout',
             forgotPassURL: 'forgot',
             meURL: 'me',
-            clientUrl: 'api/clients/'
+            clientUrl: 'api/clients/',
+            shoppingtUrl: 'api/shopping/'
         };
 
         //Default Roles
