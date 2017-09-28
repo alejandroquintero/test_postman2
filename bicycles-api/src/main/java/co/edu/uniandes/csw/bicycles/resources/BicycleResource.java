@@ -20,7 +20,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-*/
+ */
 package co.edu.uniandes.csw.bicycles.resources;
 
 import co.edu.uniandes.csw.auth.filter.StatusCreated;
@@ -47,6 +47,7 @@ import javax.ws.rs.WebApplicationException;
 
 /**
  * URI: bicycles/
+ *
  * @generated
  */
 @Path("/bicycles")
@@ -55,12 +56,17 @@ import javax.ws.rs.WebApplicationException;
 @RequestScoped
 public class BicycleResource {
 
-    @Inject private IBicycleLogic bicycleLogic;
-    @Context private HttpServletResponse response;
-    @QueryParam("page") private Integer page;
-    @QueryParam("limit") private Integer maxRecords;
+    @Inject
+    private IBicycleLogic bicycleLogic;
+    @Context
+    private HttpServletResponse response;
+    @QueryParam("page")
+    private Integer page;
+    @QueryParam("limit")
+    private Integer maxRecords;
+    @QueryParam("description")
+    private String bicycleDescription;
 
-   
     /**
      * Convierte una lista de BicycleEntity a una lista de BicycleDetailDTO.
      *
@@ -68,14 +74,13 @@ public class BicycleResource {
      * @return Lista de BicycleDetailDTO convertida.
      * @generated
      */
-    private List<BicycleDetailDTO> listEntity2DTO(List<BicycleEntity> entityList){
+    private List<BicycleDetailDTO> listEntity2DTO(List<BicycleEntity> entityList) {
         List<BicycleDetailDTO> list = new ArrayList<>();
         for (BicycleEntity entity : entityList) {
             list.add(new BicycleDetailDTO(entity));
         }
         return list;
     }
-
 
     /**
      * Obtiene la lista de los registros de Bicycle
@@ -85,18 +90,25 @@ public class BicycleResource {
      */
     @GET
     public List<BicycleDetailDTO> getBicycles() {
-        if (page != null && maxRecords != null) {
-            this.response.setIntHeader("X-Total-Count", bicycleLogic.countBicycles());
-            return listEntity2DTO(bicycleLogic.getBicycles(page, maxRecords));
+
+        if (bicycleDescription != null) {
+            return listEntity2DTO(bicycleLogic.getByDescription(bicycleDescription));
+        } else {
+            if (page != null && maxRecords != null) {
+                this.response.setIntHeader("X-Total-Count", bicycleLogic.countBicycles());
+                return listEntity2DTO(bicycleLogic.getBicycles(page, maxRecords));
+            }
+            return listEntity2DTO(bicycleLogic.getBicycles());
         }
-        return listEntity2DTO(bicycleLogic.getBicycles());
+
     }
 
     /**
      * Obtiene los datos de una instancia de Bicycle a partir de su ID
      *
      * @param id Identificador de la instancia a consultar
-     * @return Instancia de BicycleDetailDTO con los datos del Bicycle consultado
+     * @return Instancia de BicycleDetailDTO con los datos del Bicycle
+     * consultado
      * @generated
      */
     @GET
@@ -145,18 +157,17 @@ public class BicycleResource {
     public void deleteBicycle(@PathParam("id") Long id) {
         bicycleLogic.deleteBicycle(id);
     }
-    public void existsBicycle(Long bicyclesId){
+
+    public void existsBicycle(Long bicyclesId) {
         BicycleDetailDTO bicycle = getBicycle(bicyclesId);
-        if (bicycle== null) {
+        if (bicycle == null) {
             throw new WebApplicationException(404);
         }
     }
-    
-    
+
     @Path("{bicyclesId: \\d+}/photoAlbum")
-    public Class<PhotoAlbumResource> getPhotoAlbumResource(@PathParam("bicyclesId") Long bicyclesId){
+    public Class<PhotoAlbumResource> getPhotoAlbumResource(@PathParam("bicyclesId") Long bicyclesId) {
         existsBicycle(bicyclesId);
         return PhotoAlbumResource.class;
     }
-    
 }

@@ -20,7 +20,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-*/
+ */
 package co.edu.uniandes.csw.bicycles.ejbs;
 
 import co.edu.uniandes.csw.bicycles.api.IBicycleLogic;
@@ -37,8 +37,8 @@ import javax.inject.Inject;
 @Stateless
 public class BicycleLogic implements IBicycleLogic {
 
-    @Inject private BicyclePersistence persistence;
-
+    @Inject
+    private BicyclePersistence persistence;
 
     /**
      * Obtiene el número de registros de Bicycle.
@@ -63,7 +63,8 @@ public class BicycleLogic implements IBicycleLogic {
     }
 
     /**
-     * Obtiene la lista de los registros de Bicycle indicando los datos para la paginación.
+     * Obtiene la lista de los registros de Bicycle indicando los datos para la
+     * paginación.
      *
      * @param page Número de página.
      * @param maxRecords Número de registros que se mostraran en cada página.
@@ -122,9 +123,10 @@ public class BicycleLogic implements IBicycleLogic {
     public void deleteBicycle(Long id) {
         persistence.delete(id);
     }
-    
+
     /**
      * Regla de negocio de validar vigencia.
+     *
      * @param page pagina.
      * @param maxRecords max Records.
      * @return Lista depurada.
@@ -132,5 +134,27 @@ public class BicycleLogic implements IBicycleLogic {
     public List<BicycleEntity> validarVigencia(Integer page, Integer maxRecords) {
         Integer VIGENCIA_MESES = 3;
         return persistence.findAll(page, maxRecords, VIGENCIA_MESES);
+    }
+
+    /**
+     * Obtener bicicletas por descripcion
+     *
+     * @param description
+     * @return Lista de bibicletas
+     */
+    @Override
+    public List<BicycleEntity> getByDescription(String description) {
+        return persistence.getByDescription(description);
+    }
+
+    /**
+     * Obtener bicicletas por estado
+     *
+     * @param status
+     * @return Lista de bicicletas
+     */
+    @Override
+    public List<BicycleEntity> getByStatus(String status) {
+        return persistence.getByStatus(status);
     }
 }
