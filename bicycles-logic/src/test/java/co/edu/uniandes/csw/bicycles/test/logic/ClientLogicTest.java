@@ -82,7 +82,7 @@ public class ClientLogicTest {
     /**
      * @generated
      */
-    private List<ClientEntity> data = new ArrayList<ClientEntity>();
+    private List<ClientEntity> clientData = new ArrayList<>();
 
     /**
      * @generated
@@ -137,7 +137,11 @@ public class ClientLogicTest {
      * @generated
      */
     private void insertData() {
-
+        for (int i = 0; i < 3; i++) {
+            ClientEntity client = factory.manufacturePojo(ClientEntity.class);
+            em.persist(client);
+            clientData.add(client);
+        }
     }
     /**
      * Prueba para crear un Client
@@ -167,10 +171,10 @@ public class ClientLogicTest {
     @Test
     public void getClientsTest() {
         List<ClientEntity> list = clientLogic.getClients();
-        Assert.assertEquals(data.size(), list.size());
+        Assert.assertEquals(clientData.size(), list.size());
         for (ClientEntity entity : list) {
             boolean found = false;
-            for (ClientEntity storedEntity : data) {
+            for (ClientEntity storedEntity : clientData) {
                 if (entity.getId().equals(storedEntity.getId())) {
                     found = true;
                 }
@@ -187,7 +191,7 @@ public class ClientLogicTest {
      */
     @Test
     public void getClientTest() {
-        ClientEntity entity = data.get(0);
+        ClientEntity entity = clientData.get(0);
         ClientEntity resultEntity = clientLogic.getClient(entity.getId());
         Assert.assertNotNull(resultEntity);        
         Assert.assertEquals(entity.getLastName(), resultEntity.getLastName());
@@ -205,7 +209,7 @@ public class ClientLogicTest {
      */
     @Test
     public void deleteClientTest() {
-        ClientEntity entity = data.get(0);
+        ClientEntity entity = clientData.get(0);
         clientLogic.deleteClient(entity.getId());
         ClientEntity deleted = em.find(ClientEntity.class, entity.getId());
         Assert.assertNull(deleted);
@@ -218,7 +222,7 @@ public class ClientLogicTest {
      */
     @Test
     public void updateClientTest() {
-        ClientEntity entity = data.get(0);
+        ClientEntity entity = clientData.get(0);
         ClientEntity pojoEntity = factory.manufacturePojo(ClientEntity.class);
 
         pojoEntity.setId(entity.getId());
