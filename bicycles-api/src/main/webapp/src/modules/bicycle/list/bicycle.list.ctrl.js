@@ -23,36 +23,37 @@
  */
 (function (ng) {
 
-  var mod = ng.module("bicycleModule");
+    var mod = ng.module("bicycleModule");
 
-  mod.controller("bicycleListCtrl", ["$scope", '$state', 'bicycles', '$stateParams', 'model',
-    function ($scope, $state, bicycles, $params, model) {
-      $scope.model = model;
-      $scope.records = bicycles;
-      $scope.buttons = ['none'];
-      $scope.photos = [];
+    mod.controller("bicycleListCtrl", ["$scope", '$state', 'bicycles', '$stateParams', 'model', '$controller',
+        function ($scope, $state, bicycles, $params, model, $controller) {
+            $controller("authController",{$scope:$scope});
+            $scope.model = model;
+            $scope.records = bicycles;
+            $scope.buttons = ['none'];
+            $scope.photos = [];
 
-      //Paginación
-      this.itemsPerPage = $params.limit;
-      this.currentPage = $params.page;
-      this.totalItems = bicycles.totalRecords;
+            //Paginación
+            this.itemsPerPage = $params.limit;
+            this.currentPage = $params.page;
+            this.totalItems = bicycles.totalRecords;
 
-      this.loadPhotos = function () {
-        for (var i = 0; i < $scope.records.length; i++) {
-          $scope.records[i].getList('photoAlbum').then(function(photos){
-            var image = photos.plain()[Math.floor((Math.random()*photos.plain().length))];
-            if(image){
-              $scope.photos.push({image: image.image, id: image.bicycle.id});
-            }
-          });
-        }
-      };
+            this.loadPhotos = function () {
+                for (var i = 0; i < $scope.records.length; i++) {
+                    $scope.records[i].getList('photoAlbum').then(function (photos) {
+                        var image = photos.plain()[Math.floor((Math.random() * photos.plain().length))];
+                        if (image) {
+                            $scope.photos.push({image: image.image, id: image.bicycle.id});
+                        }
+                    });
+                }
+            };
 
-      this.loadPhotos();
+            this.loadPhotos();
 
-      this.pageChanged = function () {
-        $state.go('bicycleList', {page: this.currentPage});
-      };
+            this.pageChanged = function () {
+                $state.go('bicycleList', {page: this.currentPage});
+            };
 
       $scope.actions = {
         create: {
@@ -95,6 +96,16 @@
           icon: 'minus',
           fn: function (rc) {
             $state.go('bicycleDelete', {bicycleId: rc.id});
+          },
+          show: function () {
+            return true;
+          }
+        },
+        buy: {
+          displayName: 'Buy',
+          icon: 'edit',
+          fn: function (rc) {
+            $state.go('shoppingNew', {bicycleId: rc.id});
           },
           show: function () {
             return true;

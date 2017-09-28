@@ -20,23 +20,28 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-*/
+ */
 package co.edu.uniandes.csw.bicycles.dtos.minimum;
 
 import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @generated
  */
 @XmlRootElement
-public class BicycleDTO  implements Serializable{
+public class BicycleDTO implements Serializable {
 
     private String description;
     private Long id;
     private String name;
-
+    private Double price;
+    private String status;
+    private String color;
+    private Date creationDate;
+    private Long stock;
 
     /**
      * @generated
@@ -47,7 +52,8 @@ public class BicycleDTO  implements Serializable{
     /**
      * Crea un objeto BicycleDTO a partir de un objeto BicycleEntity.
      *
-     * @param entity Entidad BicycleEntity desde la cual se va a crear el nuevo objeto.
+     * @param entity Entidad BicycleEntity desde la cual se va a crear el nuevo
+     * objeto.
      * @generated
      */
     public BicycleDTO(BicycleEntity entity) {
@@ -55,6 +61,11 @@ public class BicycleDTO  implements Serializable{
         this.description=entity.getDescription();
         this.id=entity.getId();
         this.name=entity.getName();
+        this.status = entity.getStatus();
+        this.creationDate = entity.getCreationDate();
+        this.price=entity.getPrice();
+        this.stock=entity.getStock();
+        this.color=entity.getColor();
        }
     }
 
@@ -69,7 +80,20 @@ public class BicycleDTO  implements Serializable{
         entity.setDescription(this.getDescription());
         entity.setId(this.getId());
         entity.setName(this.getName());
+        entity.setStatus(this.getStatus());
+        entity.setCreationDate(this.getCreationDate());
+        entity.setStock(this.getStock());
+        entity.setColor(this.getColor());
+        entity.setPrice(this.getPrice());
     return entity;
+    }
+    
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     /**
@@ -132,5 +156,62 @@ public class BicycleDTO  implements Serializable{
         this.name = name;
     }
 
+    /**
+     * Obtiene el valor del atributo status
+     *
+     * @return atributo status
+     */
+    public String getStatus() {
+        return status;
+    }
 
+    /**
+     * Establece el valor del atributo status
+     *
+     * @param status nuevo valor del atributo status
+     */
+    public void setStatus(String status) {
+        this.status = status; 
+    }
+    /*
+     * Obtener la fecha de creación.
+     * @return Fecha de creación.
+     */
+    public java.util.Date getCreationDate() {
+        return creationDate;
+    }
+
+    /**
+     * Fecha de creación del a Bibicleta.
+     * @param creationDate Fecha de creación.
+     */
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+    
+    /**
+     * Obtener la cantidad en Stock.
+     * @return stock.
+     */
+    public Long getStock(){
+        return stock; 
+    }
+    
+    /**
+     * Asignar la cantidad en Stock.
+     * @param stock cantidad en stock.
+     */
+    public void setStock(Long stock){
+        this.stock = stock;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+    
+    
 }

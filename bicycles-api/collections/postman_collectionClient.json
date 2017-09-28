@@ -1,0 +1,207 @@
+{
+	"id": "dea52b01-8e92-b441-b55e-686952edbc13",
+	"name": "crud_Client",
+	"description": "",
+	"order": [
+		"42ae73da-53be-a441-fc97-7cb9abc40613",
+		"0b8e7ecb-ed09-6a01-dc2b-37c3e87b3d26",
+		"d59c2935-a536-e185-679a-bc6c52d4c66b",
+		"c920cdab-78b0-c6cf-3ead-ed2cdf3d6fdb",
+		"a73c2fdb-ff4d-71e3-c832-3c93d3d9a2dc",
+		"33f4ca1c-85fb-5972-97ad-d8d3372612f3"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 0,
+	"owner": "2846049",
+	"public": false,
+	"requests": [
+		{
+			"id": "0b8e7ecb-ed09-6a01-dc2b-37c3e87b3d26",
+			"name": "Clients create",
+			"description": "",
+			"collectionId": "dea52b01-8e92-b441-b55e-686952edbc13",
+			"method": "POST",
+			"headers": "Content-Type: application/json\nCookie: id_token={{id_token}}\nCookie: username={{username}}",
+			"dataMode": "raw",
+			"data": [],
+			"rawModeData": "{\"name\":\"EE5keF9jWz\",\"id\":\"8662081988216\"}",
+			"tests": "console.log(responseBody);\nvar data = JSON.parse(responseBody);\npostman.setGlobalVariable(\"new_id\",data.id);\npostman.setGlobalVariable(\"new_type\",data.type);\n\n",
+			"preRequestScript": "",
+			"url": "{{host}}/Clients",
+			"responses": [],
+			"pathVariableData": [],
+			"queryParams": [],
+			"headerData": [
+				{
+					"description": "",
+					"value": "application/json",
+					"key": "Content-Type"
+				},
+				{
+					"description": "",
+					"value": "id_token={{id_token}}",
+					"key": "Cookie"
+				},
+				{
+					"description": "",
+					"value": "username={{username}}",
+					"key": "Cookie"
+				}
+			],
+			"collection_id": "dea52b01-8e92-b441-b55e-686952edbc13"
+		},
+		{
+			"id": "33f4ca1c-85fb-5972-97ad-d8d3372612f3",
+			"headers": "Cookie: id_token={{id_token}}\nCookie: username={{username}}\n",
+			"headerData": [
+				{
+					"key": "Cookie",
+					"value": "id_token={{id_token}}",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Cookie",
+					"value": "username={{username}}",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{host}}/Clients/{{new_id}}",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "DELETE",
+			"data": [],
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1506581295930,
+			"name": "Clients delete",
+			"description": "",
+			"collectionId": "dea52b01-8e92-b441-b55e-686952edbc13",
+			"responses": []
+		},
+		{
+			"id": "42ae73da-53be-a441-fc97-7cb9abc40613",
+			"name": "login",
+			"description": "",
+			"collectionId": "dea52b01-8e92-b441-b55e-686952edbc13",
+			"method": "POST",
+			"headers": "Content-Type: application/json",
+			"dataMode": "raw",
+			"data": [],
+			"rawModeData": "{\"userName\": \"{{username}}\", \"password\": \"{{password}}\"}",
+			"tests": "console.log(responseBody);\nvar data = JSON.parse(responseBody);\npostman.setGlobalVariable(\"id_token\",postman.getResponseHeader(\"id_token\"));\n",
+			"preRequestScript": "",
+			"url": "{{host}}/users/login",
+			"responses": [],
+			"pathVariableData": [],
+			"queryParams": [],
+			"headerData": [
+				{
+					"description": "",
+					"value": "application/json",
+					"key": "Content-Type"
+				}
+			],
+			"collection_id": "dea52b01-8e92-b441-b55e-686952edbc13"
+		},
+		{
+			"id": "a73c2fdb-ff4d-71e3-c832-3c93d3d9a2dc",
+			"name": "Clients edit",
+			"description": "",
+			"collectionId": "dea52b01-8e92-b441-b55e-686952edbc13",
+			"method": "PUT",
+			"headers": "Content-Type: application/json\nCookie: id_token={{id_token}}\nCookie: username={{username}}",
+			"dataMode": "raw",
+			"data": [],
+			"rawModeData": "{\"name\":\"uWNHfNojcP\",\"id\":\"8662093630666\"}",
+			"tests": "console.log(responseBody);\nvar data = JSON.parse(responseBody);\ntests[\"Status code is 200\"] = responseCode.code === 200;\n",
+			"preRequestScript": "",
+			"url": "{{host}}/Clients/{{new_id}}",
+			"responses": [],
+			"pathVariableData": [],
+			"queryParams": [],
+			"headerData": [
+				{
+					"description": "",
+					"value": "application/json",
+					"key": "Content-Type"
+				},
+				{
+					"description": "",
+					"value": "id_token={{id_token}}",
+					"key": "Cookie"
+				},
+				{
+					"description": "",
+					"value": "username={{username}}",
+					"key": "Cookie"
+				}
+			],
+			"collection_id": "dea52b01-8e92-b441-b55e-686952edbc13"
+		},
+		{
+			"id": "c920cdab-78b0-c6cf-3ead-ed2cdf3d6fdb",
+			"name": "Clients find",
+			"description": "find Clients",
+			"collectionId": "dea52b01-8e92-b441-b55e-686952edbc13",
+			"method": "GET",
+			"headers": "Cookie: id_token={{id_token}}\nCookie: username={{username}}",
+			"data": [],
+			"rawModeData": "",
+			"tests": "console.log(responseBody);\nvar data = JSON.parse(responseBody);\ntests[\"Status code is 200\"] = responseCode.code === 200;\n",
+			"preRequestScript": "",
+			"url": "{{host}}/Clients/{{new_id}}",
+			"responses": [],
+			"pathVariableData": [],
+			"queryParams": [],
+			"headerData": [
+				{
+					"description": "",
+					"value": "id_token={{id_token}}",
+					"key": "Cookie"
+				},
+				{
+					"description": "",
+					"value": "username={{username}}",
+					"key": "Cookie"
+				}
+			],
+			"collection_id": "dea52b01-8e92-b441-b55e-686952edbc13"
+		},
+		{
+			"id": "d59c2935-a536-e185-679a-bc6c52d4c66b",
+			"name": "Clients list",
+			"description": "list all Clients",
+			"collectionId": "dea52b01-8e92-b441-b55e-686952edbc13",
+			"method": "GET",
+			"headers": "Cookie: id_token={{id_token}}\nCookie: username={{username}}",
+			"data": [],
+			"rawModeData": "",
+			"tests": "var data= JSON.parse(responseBody);\ntests[\"Status code is 200\"] = responseCode.code === 200;\ntests[\"Clients count\"] = data.length >= 0;\n",
+			"preRequestScript": "",
+			"url": "{{host}}/Clients",
+			"responses": [],
+			"pathVariableData": [],
+			"queryParams": [],
+			"headerData": [
+				{
+					"description": "",
+					"value": "id_token={{id_token}}",
+					"key": "Cookie"
+				},
+				{
+					"description": "",
+					"value": "username={{username}}",
+					"key": "Cookie"
+				}
+			],
+			"collection_id": "dea52b01-8e92-b441-b55e-686952edbc13"
+		}
+	]
+}

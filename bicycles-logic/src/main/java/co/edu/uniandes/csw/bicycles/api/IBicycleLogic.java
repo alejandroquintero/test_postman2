@@ -20,18 +20,50 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-*/
+ */
 package co.edu.uniandes.csw.bicycles.api;
 
 import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
 import java.util.List;
 
 public interface IBicycleLogic {
+
     public int countBicycles();
+
     public List<BicycleEntity> getBicycles();
+
     public List<BicycleEntity> getBicycles(Integer page, Integer maxRecords);
+
     public BicycleEntity getBicycle(Long id);
-    public BicycleEntity createBicycle(BicycleEntity entity); 
+
+    public BicycleEntity createBicycle(BicycleEntity entity);
+
     public BicycleEntity updateBicycle(BicycleEntity entity);
+
     public void deleteBicycle(Long id);
+
+    /**
+     * Validar vigencia.
+     *
+     * @param page numero de pagina.
+     * @param maxRecords maximo de records.
+     * @return Lista de Bicicletas.
+     */
+    public List<BicycleEntity> validarVigencia(Integer page, Integer maxRecords);
+
+    /**
+     * Obtener bicicletas por descripcion
+     *
+     * @param description
+     * @return Lista de bibicletas
+     */
+    public List<BicycleEntity> getByDescription(String description);
+
+    /**
+     * Obtener bicicletas por estado
+     *
+     * @param status
+     * @return Lista de bicicletas
+     */
+    public List<BicycleEntity> getByStatus(String status);
 }

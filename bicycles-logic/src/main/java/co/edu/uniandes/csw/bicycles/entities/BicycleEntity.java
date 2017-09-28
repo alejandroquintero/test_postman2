@@ -20,7 +20,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-*/
+ */
 package co.edu.uniandes.csw.bicycles.entities;
 
 import java.io.Serializable;
@@ -31,17 +31,31 @@ import javax.persistence.OneToMany;
 import javax.persistence.ManyToOne;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-
+import javax.persistence.Column;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * @generated
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Bicycle.getByDescription", query = "select u from BicycleEntity u Where UPPER(u.description) like :description")
+    ,
+    @NamedQuery(name = "Bicycle.getByStatus", query = "select u from BicycleEntity u Where UPPER(u.status) like :status")
+})
+
 public class BicycleEntity extends BaseEntity implements Serializable {
 
     private String description;
+    private Long stock;
+    private String color;
+    private String status;
+    private Double price;
 
     @PodamExclude
     @ManyToOne
@@ -55,13 +69,30 @@ public class BicycleEntity extends BaseEntity implements Serializable {
     @OneToMany(mappedBy = "bicycle", cascade = CascadeType.REMOVE)
     private List<PhotoAlbumEntity> photoAlbum = new ArrayList<>();
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creationDate")
+    private java.util.Date creationDate;
+
+    @PodamExclude
+    @OneToMany(mappedBy = "bicycle", cascade = CascadeType.REMOVE)
+    private List<ShoppingEntity> shopping = new ArrayList<>();
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+    
+    
     /**
      * Obtiene el atributo description.
      *
      * @return atributo description.
      * @generated
      */
-    public String getDescription(){
+    public String getDescription() {
         return description;
     }
 
@@ -71,8 +102,18 @@ public class BicycleEntity extends BaseEntity implements Serializable {
      * @param description nuevo valor del atributo
      * @generated
      */
-    public void setDescription(String description){
+    public void setDescription(String description) {
         this.description = description;
+    }
+
+    // atributo nuevo
+    public Long getStock() {
+        return stock;
+    }
+
+    // atributo nuevo
+    public void setStock(Long stock) {
+        this.stock = stock;
     }
 
     /**
@@ -134,4 +175,66 @@ public class BicycleEntity extends BaseEntity implements Serializable {
     public void setPhotoAlbum(List<PhotoAlbumEntity> photoalbum) {
         this.photoAlbum = photoalbum;
     }
+
+    /**
+     * Obtiene el valor del atributo status
+     *
+     * @return valor del atributo status
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * Establece el valor del atributo status
+     *
+     * @param status nuevo valor del atributo status
+     */
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    /*
+     * Obtener la fecha de creación.
+     * @return Fecha de creación.
+     */
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    /**
+     * Fecha de creación del a Bibicleta.
+     *
+     * @param creationDate Fecha de creación.
+     */
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    /**
+     * Lista de compras.
+     *
+     * @return
+     */
+    public List<ShoppingEntity> getShopping() {
+        return shopping;
+    }
+
+    /**
+     * Cambiar lista de compras.
+     *
+     * @param shopping
+     */
+    public void setShopping(List<ShoppingEntity> shopping) {
+        this.shopping = shopping;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
 }
