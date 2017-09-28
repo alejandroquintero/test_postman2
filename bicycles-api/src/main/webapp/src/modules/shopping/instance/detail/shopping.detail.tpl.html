@@ -28,52 +28,28 @@ SOFTWARE.
 <div  class="container-fluid well">
     <div class="col-md-12">
         <p>
-            <label><strong>Description: </strong></label>
-            <span id="description">{{currentRecord.description}}</span>
-        </p>
-        <p>
-            <label><strong>Name: </strong></label>
-            <span id="name-detail">{{currentRecord.name}}</span>
-        </p>
-        <p>
-            <label><strong>Stock: </strong></label>
-            <span id="stock-detail">{{currentRecord.stock}}</span>
-        </p>
-        <p>
-            <label><strong>Color: </strong></label>
-            <span id="description">{{currentRecord.color}}</span>
-        </p>
-        <p>
-            <label><strong>Brand: </strong></label>
-            <span id="brand">
-                {{currentRecord.brand.name}}
+            <label><strong>Bicycle: </strong></label>
+            <span id="bicycle">
+                {{currentRecord.bicycle.name}}
             </span>
         </p>
         <p>
-            <label><strong>Price: </strong></label>
-            <span id="price">
-                {{currentRecord.price}}
-            </span>
-        </p>        
-        <p>
-            <label><strong>Category: </strong></label>
-            <span id="category">
-                {{currentRecord.category.name}}
+            <label><strong>Client: </strong></label>
+            <span id="client">
+                {{currentRecord.client.name}}
             </span>
         </p>
         <p>
-            <label><strong>Status: </strong></label>
-            <span id="status">{{currentRecord.status}}</span> 
+            <label><strong>Payment Status: </strong></label>
+            <span id="paymentStatus">{{currentRecord.paymentStatus}}</span> 
         </p>
          <p>
-            <label><strong>Creation Date: </strong></label>
-            <span id="category">
-                {{currentRecord.creationDate}}
+            <label><strong>Date Of Purchase: </strong></label>
+            <span id="dateOfPurchase">
+                {{currentRecord.dateOfPurchase}}
             </span>
 
         </p>
     </div>
 </div>
-<gallery name="photoModel.name" fields="photoModel.fields" records="photos" actions="recordActions"></gallery>
-<div ui-view="bicycleChieldView"></div>
-<!-- TODO -->
+

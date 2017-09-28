@@ -125,6 +125,16 @@
           show: function () {
             return true;
           }
+        },
+        buy: {
+          displayName: 'Buy',
+          icon: 'edit',
+          fn: function (rc) {
+            $state.go('shoppingNew', {bicycleId: rc.id});
+          },
+          show: function () {
+            return true;
+          }
         }
       };
     }]);
