@@ -30,14 +30,12 @@
       $scope.model = model;
       $scope.records = shopping;
       $scope.buttons = ['none'];
-      $scope.photos = [];
+      //$scope.photos = [];
 
       //Paginación
       this.itemsPerPage = $params.limit;
       this.currentPage = $params.page;
       this.totalItems = shopping.totalRecords;
-
-      
 
       this.pageChanged = function () {
         $state.go('shoppingList', {page: this.currentPage});

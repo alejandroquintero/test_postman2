@@ -75,8 +75,8 @@
                 resolve: {
                     references: ['$q', 'Restangular', function ($q, r) {
                             return $q.all({
-                                client: r.all('client').getList()
-                                , bicycle: r.all('bicycle').getList()
+                                client: r.all('clients').getList()
+                                , bicycle: r.all('bicycles').getList()
                             });
                         }],
                     model: 'shoppingModel',
@@ -89,7 +89,7 @@
                 url: '/list',
                 parent: 'shopping',
                 views: {
-                    bicycleView: {
+                    shoppingView: {
                         templateUrl: basePath + 'list/shopping.list.tpl.html',
                         controller: 'shoppingListCtrl',
                         controllerAs: 'ctrl'
@@ -106,7 +106,7 @@
                 url: '/new',
                 parent: 'shopping',
                 views: {
-                    bicycleView: {
+                    shoppingView: {
                         templateUrl: basePath + 'new/shopping.new.tpl.html',
                         controller: 'shoppingNewCtrl',
                         controllerAs: 'ctrl'
@@ -125,7 +125,7 @@
                 abstract: true,
                 parent: 'shopping',
                 views: {
-                    bicycleView: {
+                    shoppingView: {
                         template: '<div ui-view="shoppingInstanceView"></div>'
                     }
                 },
@@ -139,7 +139,7 @@
                 url: '/details',
                 parent: 'shoppingInstance',
                 views: {
-                    bicycleInstanceView: {
+                    shoppingInstanceView: {
                         templateUrl: baseInstancePath + 'detail/shopping.detail.tpl.html',
                         controller: 'shoppingDetailCtrl'
                     }

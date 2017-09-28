@@ -335,7 +335,7 @@
                 if ("read" !== action && "list" !== action
                         && "categorys" !== action && "bicycles" !== action
                         && "brands" !== action && "photoAlbum" !== action
-                        && "refresh" !== action) {
+                        && "refresh" !== action && "shopping" !== action) {
                   delete actions[action];
                 }
               }
@@ -351,7 +351,7 @@
 
                 if (permissions[key].includes(name) | permissions[key].includes("photoAlbum")) {
                   if ("read" === permissions[key].split(":")[0])
-                    allowedButtons.push("list", "categorys", "bicycles", "brands", "photoAlbum", "refresh");
+                    allowedButtons.push("list", "categorys", "bicycles", "brands", "photoAlbum", "refresh","shopping");
                   if ("update" === permissions[key].split(":")[0])
                     allowedButtons.push("edit", "save", "cancel");
                   if ("create" === permissions[key].split(":")[0])
