@@ -23,43 +23,49 @@
  */
 (function (ng) {
 
-  var mod = ng.module("shoppingModule");
+    var mod = ng.module("shoppingModule");
 
-  mod.controller("shoppingListCtrl", ["$scope", '$state', 'shopping', '$stateParams', 'model',
-    function ($scope, $state, shopping, $params, model) {
-      $scope.model = model;
-      $scope.records = shopping;
-      $scope.buttons = ['none'];
-      //$scope.photos = [];
+    mod.controller("shoppingListCtrl", ["$scope", '$state', 'shopping', '$stateParams', 'model',
+        function ($scope, $state, shopping, $params, model) {
+            $scope.model = model;
+            $scope.records = shopping;
+            $scope.buttons = ['none'];
 
-      //Paginación
-      this.itemsPerPage = $params.limit;
-      this.currentPage = $params.page;
-      this.totalItems = shopping.totalRecords;
+            //Paginación
+            this.itemsPerPage = $params.limit;
+            this.currentPage = $params.page;
+            this.totalItems = shopping.totalRecords;
 
-      this.pageChanged = function () {
-        $state.go('shoppingList', {page: this.currentPage});
-      };
+            this.pageChanged = function () {
+                $state.go('shoppingList', {page: this.currentPage});
+            };
 
-      $scope.actions = {
-        refresh: {
-          displayName: 'Refresh',
-          icon: 'refresh',
-          fn: function () {
-            $state.reload();
-          }
-        }};
-      $scope.recordActions = {
-        detail: {
-          displayName: 'Detail',
-          icon: 'eye-open',
-          fn: function (rc) {
-            $state.go('shoppingDetail', {shoppingId: rc.id});
-          },
-          show: function () {
-            return true;
-          }
-        }
-      };
-    }]);
+            $scope.actions = {
+                create: {
+                    displayName: 'Create',
+                    icon: 'plus',
+                    fn: function () {
+                        $state.go('shoppingNew');
+                    }
+                },
+                refresh: {
+                    displayName: 'Refresh',
+                    icon: 'refresh',
+                    fn: function () {
+                        $state.reload();
+                    }
+                }};
+            $scope.recordActions = {
+                detail: {
+                    displayName: 'Detail',
+                    icon: 'eye-open',
+                    fn: function (rc) {
+                        $state.go('shoppingDetail', {shoppingId: rc.id});
+                    },
+                    show: function () {
+                        return true;
+                    }
+                }
+            };
+        }]);
 })(window.angular);
