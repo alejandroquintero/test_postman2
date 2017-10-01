@@ -27,11 +27,12 @@
 
   mod.controller("bicycleDetailCtrl", ['$scope', "$state", "bicycle", "model","photoAlbumModel",
     function ($scope, $state, bicycle, model, photoAlbumModel) {
-      $scope.model = model;
       $scope.currentRecord = bicycle;
+      $scope.model = model;
       $scope.buttons = ['none'];
       $scope.photos = bicycle.getList(photoAlbumModel.url).$object;
       $scope.photoModel = photoAlbumModel;
+      
       $scope.actions = {
         create: {
           displayName: 'Create',
