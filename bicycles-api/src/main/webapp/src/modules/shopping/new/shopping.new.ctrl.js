@@ -37,7 +37,7 @@ SOFTWARE.
                     fn: function () {
                         if ($scope.shoppingForm.$valid) {
                             shopping.post($scope.currentRecord).then(function (rc) {
-                                $state.go('shoppingDetail', {bicycleId: rc.id}, {reload: true});
+                                $state.go('shoppingDetail', {shoppingId: rc.id}, {reload: true});
                             });
                         }
                     }
@@ -46,7 +46,7 @@ SOFTWARE.
                     displayName: 'Cancel',
                     icon: 'remove',
                     fn: function () {
-                        $state.go('bicycleList');
+                        $state.go('shoppingList');
                     }
                 }
             };

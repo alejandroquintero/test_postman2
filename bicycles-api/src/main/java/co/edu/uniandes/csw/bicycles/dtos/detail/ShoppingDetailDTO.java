@@ -33,9 +33,6 @@ import uk.co.jemos.podam.common.PodamExclude;
  */
 @XmlRootElement
 public class ShoppingDetailDTO extends ShoppingDTO{
-
-    @PodamExclude
-    private BicycleDTO bicycle;
     
     @PodamExclude
     private ClientDTO client;
@@ -56,9 +53,6 @@ public class ShoppingDetailDTO extends ShoppingDTO{
      */
     public ShoppingDetailDTO(ShoppingEntity entity) {
         super(entity);
-        if (entity.getBicycle()!=null){
-            this.bicycle = new BicycleDTO(entity.getBicycle());
-        }
         if (entity.getClient()!=null){
             this.client = new ClientDTO(entity.getClient());
         }
@@ -73,21 +67,10 @@ public class ShoppingDetailDTO extends ShoppingDTO{
     @Override
     public ShoppingEntity toEntity() {
         ShoppingEntity entity = super.toEntity();
-        if (this.getBicycle()!=null){
-            entity.setBicycle(this.getBicycle().toEntity());
-        }
         if (this.getClient() !=null){
             entity.setClient(this.getClient().toEntity());
         }
         return entity;
-    }
-
-    public BicycleDTO getBicycle() {
-        return bicycle;
-    }
-
-    public void setBicycle(BicycleDTO bicycle) {
-        this.bicycle = bicycle;
     }
 
     public ClientDTO getClient() {

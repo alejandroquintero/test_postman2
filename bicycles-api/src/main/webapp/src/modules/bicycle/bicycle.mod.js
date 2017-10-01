@@ -66,7 +66,6 @@
                 options: [],
                 required: true
             },
-            // nuevo atributo
             price: {
                 displayName: 'Price',
                 type: 'Double',
