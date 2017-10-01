@@ -51,7 +51,7 @@
                 },
                 resolve: {
                     model: 'shoppingModel',
-                    photoAlbums: ['client', '$stateParams', 'model', function (client, $params, model) {
+                    shopping: ['client', '$stateParams', 'model', function (client, $params, model) {
                             return client.getList(model.url, $params);
                         }]                }
             });

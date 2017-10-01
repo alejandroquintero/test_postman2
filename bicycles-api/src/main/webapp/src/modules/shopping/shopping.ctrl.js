@@ -25,7 +25,7 @@ SOFTWARE.
     var mod = ng.module('shoppingModule');
 
     mod.controller('shoppingCtrl', ['$scope', 'model',
-        function ($scope, model,) {
+        function ($scope, model) {
             
             $scope.model = model;
             //Alertas
