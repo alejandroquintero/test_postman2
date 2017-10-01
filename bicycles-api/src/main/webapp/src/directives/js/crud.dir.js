@@ -349,7 +349,8 @@
 
               for (var key in permissions) {
 
-                if (permissions[key].includes(name) | permissions[key].includes("photoAlbum")) {
+                if (permissions[key].includes(name) | permissions[key].includes("photoAlbum")
+                        | permissions[key].includes("shopping")) {
                   if ("read" === permissions[key].split(":")[0])
                     allowedButtons.push("list", "categorys", "bicycles", "brands", "photoAlbum", "refresh","shopping");
                   if ("update" === permissions[key].split(":")[0])

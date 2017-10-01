@@ -23,7 +23,9 @@ SOFTWARE.
 */
 package co.edu.uniandes.csw.bicycles.ejbs;
 
+import co.edu.uniandes.csw.bicycles.api.IClientLogic;
 import co.edu.uniandes.csw.bicycles.api.IShoppingLogic;
+import co.edu.uniandes.csw.bicycles.entities.ClientEntity;
 import co.edu.uniandes.csw.bicycles.entities.ShoppingEntity;
 import co.edu.uniandes.csw.bicycles.persistence.ShoppingPersistence;
 import java.util.List;
@@ -38,14 +40,8 @@ public class ShoppingLogic implements IShoppingLogic {
 
     @Inject private ShoppingPersistence persistence;
 
-    /**
-     * Trae todas las compras.
-     * @return 
-     */
-    @Override
-    public List<ShoppingEntity> getShopping() {
-        return persistence.findAll();
-    }
+    @Inject
+    private IClientLogic clientLogic;
     
     /**
      * Trae las compras paginado.
@@ -54,10 +50,22 @@ public class ShoppingLogic implements IShoppingLogic {
      * @return 
      */    
     @Override
-    public List<ShoppingEntity> getShopping(Integer page, Integer maxRecords) {
-        return persistence.findAll(page, maxRecords);
+    public List<ShoppingEntity> getShopping(Integer page, Integer maxRecords, Long clientId) {
+        return persistence.findAll(page, maxRecords, clientId);
     }
 
+    /**
+     * Trae las compras paginado.
+     * @param page
+     * @param maxRecords
+     * @return 
+     */    
+    @Override
+    public List<ShoppingEntity> getShoppingList(Long clientId) {
+        ClientEntity client = clientLogic.getClient(clientId);
+        return client.getShopping();
+    }
+    
     /**
      * Una sola compra.
      * @param id
@@ -68,16 +76,48 @@ public class ShoppingLogic implements IShoppingLogic {
         return persistence.find(id);
     }
 
+    /**
+     * Contar las compras.
+     * @return numero de compras.
+     */
     @Override
     public int countShopping() {
         return persistence.count();
     }
 
+    /**
+     * Crear compra.
+     * @param clientId Id Cliente.
+     * @param entity Entidad Compra.
+     * @return Retorna la compra.
+     */
     @Override
-    public ShoppingEntity createShopping(ShoppingEntity entity) {
-      entity.setDateOfPurchase(new java.util.Date());
-        persistence.create(entity);
-        return entity;  
-        
+    public ShoppingEntity createShopping(Long clientId, ShoppingEntity entity) {
+        ClientEntity client = clientLogic.getClient(clientId);
+        entity.setClient(client);
+        entity = persistence.create(entity);
+        //Fecha actual de la compra
+        entity.setDateOfPurchase(new java.util.Date());
+        return entity;
+    }
+
+    /**
+     * Actualizar.
+     * @param shoppingId
+     * @param entity
+     * @return 
+     */
+    @Override
+    public ShoppingEntity updateShopping(Long shoppingId, ShoppingEntity entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * Borrar compra.
+     * @param id ID compra.
+     */
+    @Override
+    public void deleteShopping(Long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

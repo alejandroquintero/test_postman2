@@ -1,26 +1,3 @@
-/*
- The MIT License (MIT)
- 
- Copyright (c) 2015 Los Andes University
- 
- Permission is hereby granted, free of charge, to any person obtaining a copy
- of this software and associated documentation files (the "Software"), to deal
- in the Software without restriction, including without limitation the rights
- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- copies of the Software, and to permit persons to whom the Software is
- furnished to do so, subject to the following conditions:
- 
- The above copyright notice and this permission notice shall be included in all
- copies or substantial portions of the Software.
- 
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- SOFTWARE.
- */
 (function (ng) {
     var mod = ng.module('shoppingModule', ['ngCrud', 'ui.router']);
 
@@ -41,13 +18,13 @@
                 options: [],
                 required: true
             },
-            bicycle: {
+            /*bicycle: {
                 displayName: 'Categoria',
                 type: 'Reference',
                 model: 'bicycleModel',
                 options: [],
                 required:  true 
-            },
+            },*/
             dateOfPurchase: {
                 displayName:  'Fecha de Compra',
                 type: 'Date',
@@ -65,72 +42,65 @@
             $sp.state('shopping', {
                 url: '/shopping?page&limit',
                 abstract: true,
-
+                parent: 'clientDetail',
                 views: {
-                    mainView: {
+                    clientChieldView: {
                         templateUrl: basePath + 'shopping.tpl.html',
                         controller: 'shoppingCtrl'
                     }
                 },
                 resolve: {
-                    references: ['$q', 'Restangular', function ($q, r) {
-                            return $q.all({
-                                client: r.all('clients').getList()
-                                , bicycle: r.all('bicycles').getList()
-                            });
-                        }],
                     model: 'shoppingModel',
-                    shopping: ['Restangular', 'model', '$stateParams', function (r, model, $params) {
-                            return r.all(model.url).getList($params);
-                        }]
-                }
+                    photoAlbums: ['client', '$stateParams', 'model', function (client, $params, model) {
+                            return client.getList(model.url, $params);
+                        }]                }
             });
             $sp.state('shoppingList', {
                 url: '/list',
                 parent: 'shopping',
                 views: {
-                    shoppingView: {
+                     'clientInstanceView@clientInstance': {
                         templateUrl: basePath + 'list/shopping.list.tpl.html',
                         controller: 'shoppingListCtrl',
                         controllerAs: 'ctrl'
                     }
                 },
-                resolve: {
-                    model: 'shoppingModel'
-                },
-                ncyBreadcrumb: {
-                    label: 'shopping'
-                }
+                 resolve:{
+				   model: 'shoppingModel'
+					},
+                 ncyBreadcrumb: {
+                   label: 'shopping'
+                    }
             });
             $sp.state('shoppingNew', {
                 url: '/new',
                 parent: 'shopping',
                 views: {
-                    shoppingView: {
+                    'bicycleInstanceView@bicycleInstance': {
                         templateUrl: basePath + 'new/shopping.new.tpl.html',
-                        controller: 'shoppingNewCtrl',
+                        controller: 'shopppingNewCtrl',
                         controllerAs: 'ctrl'
                     }
                 },
-                resolve: {
-                    model: 'shoppingModel'
-                },
-                ncyBreadcrumb: {
-                    parent: 'shoppingList',
-                    label: 'new'
-                }
+                  resolve:{
+						model: 'shoppingModel'
+					},
+                  ncyBreadcrumb: {
+                        parent :'shoppingList', 
+                        label: 'new'
+                   }
             });
             $sp.state('shoppingInstance', {
                 url: '/{shoppingId:int}',
                 abstract: true,
                 parent: 'shopping',
                 views: {
-                    shoppingView: {
+                    'clientInstanceView@clientInstance': {
                         template: '<div ui-view="shoppingInstanceView"></div>'
                     }
                 },
                 resolve: {
-                    bicycle: ['shopping', '$stateParams', function (shopping, $params) {
+                    shopping: ['shopping', '$stateParams', function (shopping, $params) {
                             return shopping.get($params.shoppingId);
                         }]
                 }

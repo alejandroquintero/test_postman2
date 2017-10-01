@@ -130,7 +130,7 @@
           displayName: 'Buy',
           icon: 'edit',
           fn: function (rc) {
-            $state.go('shoppingNew', {bicycleId: rc.id});
+            $state.go('shoppingNew', {clientId: 1, bicycleId: rc.id});
           },
           show: function () {
             return true;
