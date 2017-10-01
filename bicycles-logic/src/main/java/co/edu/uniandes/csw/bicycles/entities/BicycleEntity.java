@@ -74,17 +74,24 @@ public class BicycleEntity extends BaseEntity implements Serializable {
     private java.util.Date creationDate;
 
     @PodamExclude
-    @OneToMany(mappedBy = "bicycle", cascade = CascadeType.REMOVE)
-    private List<ShoppingEntity> shopping = new ArrayList<>();
+    @ManyToOne
+    private ShoppingEntity shopping;
 
+    /**
+     * Obtener precio.
+     * @return precio.
+     */
     public Double getPrice() {
         return price;
     }
 
+    /**
+     * Cambiar precio.
+     * @param price precio.
+     */
     public void setPrice(Double price) {
         this.price = price;
     }
-    
     
     /**
      * Obtiene el atributo description.
@@ -106,12 +113,18 @@ public class BicycleEntity extends BaseEntity implements Serializable {
         this.description = description;
     }
 
-    // atributo nuevo
+    /**
+     * Obtener el stock.
+     * @return 
+     */
     public Long getStock() {
         return stock;
     }
 
-    // atributo nuevo
+    /**
+     * Camnbiar el stock.
+     * @param stock 
+     */
     public void setStock(Long stock) {
         this.stock = stock;
     }
@@ -212,29 +225,35 @@ public class BicycleEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     * Lista de compras.
-     *
-     * @return
+     * Obtener color.
+     * @return Color
      */
-    public List<ShoppingEntity> getShopping() {
-        return shopping;
-    }
-
-    /**
-     * Cambiar lista de compras.
-     *
-     * @param shopping
-     */
-    public void setShopping(List<ShoppingEntity> shopping) {
-        this.shopping = shopping;
-    }
-
     public String getColor() {
         return color;
     }
 
+    /**
+     * Cambiar color
+     * @param color Color
+     */
     public void setColor(String color) {
         this.color = color;
+    }
+
+    /**
+     * Obtener compra.
+     * @return  compra.
+     */
+    public ShoppingEntity getShopping() {
+        return shopping;
+    }
+
+    /**
+     * Cambiar compra.
+     * @param shopping compra.
+     */
+    public void setShopping(ShoppingEntity shopping) {
+        this.shopping = shopping;
     }
 
 }

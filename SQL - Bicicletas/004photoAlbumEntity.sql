@@ -1,4 +1,4 @@
-INSERT INTO APP.photoalbumentity (id, image, name, bicycle_id) VALUES (1, 'http://thecitylovesyou.com/wp-content/uploads/2013/03/Bicicletas-Pantone.png', '', 1);
+INSERT INTO APP.photoalbumentity (id, image, name, bicycle_id) VALUES (1, 'http://www.ateneupopular.com/wp-content/uploads/2012/05/bicipantone2.jpg', '', 1);
 INSERT INTO APP.photoalbumentity (id, image, name, bicycle_id) VALUES (2, 'https://s-media-cache-ak0.pinimg.com/originals/51/5f/43/515f43cb390ef410a4f1d383c98ab408.jpg', '', 1);
 INSERT INTO APP.photoalbumentity (id, image, name, bicycle_id) VALUES (3, 'https://www.bikestore.com.mx/media/catalog/product/cache/1/small_image/210x/9df78eab33525d08d6e5fb8d27136e95/g/r/grisley_20.jpg', '', 1);
 
@@ -15,7 +15,7 @@ INSERT INTO APP.photoalbumentity (id, image, name, bicycle_id) VALUES (11, 'http
 INSERT INTO APP.photoalbumentity (id, image, name, bicycle_id) VALUES (12, 'http://www.bikezona.com/todobici/fotosbicig/S10PAN26.jpg', '', 3);
 
 INSERT INTO APP.photoalbumentity (id, image, name, bicycle_id) VALUES (13, 'http://media.aws.alkosto.com/media/catalog/product/cache/6/image/69ace863370f34bdf190e4e164b6e123/2/8/28914266053_3_.jpg', '', 4);
-INSERT INTO APP.photoalbumentity (id, image, name, bicycle_id) VALUES (14, 'http://www.fabreguesbicicletas.es/353349-thickbox_default/bicicleta-ktm-macina-kapoho-275-11-cx5-2016.jpg', '', 4);
+INSERT INTO APP.photoalbumentity (id, image, name, bicycle_id) VALUES (14, 'https://ecomotorbike.es/1045-large_default/2017-ktm-macina-lycan-273.jpg', '', 4);
 INSERT INTO APP.photoalbumentity (id, image, name, bicycle_id) VALUES (15, 'http://kefixie.com/37/bicicleta-fixie-origin-8-fix8-negra-y-rosa.jpg', '', 4);
 
 INSERT INTO APP.photoalbumentity (id, image, name, bicycle_id) VALUES (16, 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/L-Hochrad.png/325px-L-Hochrad.png', '', 5);
@@ -42,11 +42,11 @@ INSERT INTO APP.photoalbumentity (id, image, name, bicycle_id) VALUES (31, 'http
 INSERT INTO APP.photoalbumentity (id, image, name, bicycle_id) VALUES (32, 'https://www.clootbike.com/images/products/comprar-bicicletas-de-carretera-sevilla.jpg', '', 9);
 INSERT INTO APP.photoalbumentity (id, image, name, bicycle_id) VALUES (33, 'http://labicikleta.com/wp-content/uploads/2012/01/Bicicleta-De_touring1600-1024x627.jpg', '', 9);
 
-INSERT INTO APP.photoalbumentity (id, image, name, bicycle_id) VALUES (34, 'http://tubici.xtreemhost.com/wp/wp-content/uploads/2016/03/BIK2628A-0.jpg?w=261&h=196&crop=1&i=1', '', 10);
+INSERT INTO APP.photoalbumentity (id, image, name, bicycle_id) VALUES (34, 'http://tubici.xtreemhost.com/wp/wp-content/uploads/2016/03/BIK2628A-0.jpg', '', 10);
 INSERT INTO APP.photoalbumentity (id, image, name, bicycle_id) VALUES (35, 'https://www.clootbike.com/images/products/comprar-bicicletas-de-carretera-valencia.jpg', '', 10);
 INSERT INTO APP.photoalbumentity (id, image, name, bicycle_id) VALUES (36, 'https://www.bikestore.com.mx/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/g/r/grisley-24-3-4.jpg', '', 10);
 
-INSERT INTO APP.photoalbumentity (id, image, name, bicycle_id) VALUES (37, 'https://giantcdn-qu2qwwv2de7wv85rz.stackpathdns.com/remote/www.giant-bicycles.com/_upload_mx/bikes/models/xxl/Reign%202_Green.jpg?width=800&height=533&mode=pad&bgcolor=white&anchor=middlecenter', '', 11);
+INSERT INTO APP.photoalbumentity (id, image, name, bicycle_id) VALUES (37, 'https://giantcdn-qu2qwwv2de7wv85rz.stackpathdns.com/remote/www.giant-bicycles.com/_upload_mx/bikes/models/xxl/Reign%202_Green.jpg', '', 11);
 INSERT INTO APP.photoalbumentity (id, image, name, bicycle_id) VALUES (38, 'http://falabella.scene7.com/is/image/FalabellaCO/3088479', '', 11);
 INSERT INTO APP.photoalbumentity (id, image, name, bicycle_id) VALUES (39, 'https://atomika-6tmkumcxmq1nlmjq.netdna-ssl.com/media/catalog/product/b/i/bicicleta-de-ruta-fuji-norcom-straight-1-3-carbon-citrus-2017.jpg', '', 11);
 

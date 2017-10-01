@@ -11,12 +11,27 @@
     mod.controller("clientListCtrl", ["$scope", '$state', 'clients', '$stateParams',
         function ($scope, $state, clients, $params) {
             $scope.records = clients;
+            $scope.shopping = [];
 
             //Paginación
             this.itemsPerPage = $params.limit;
             this.currentPage = $params.page;
             this.totalItems = clients.totalRecords;
 
+            this.loadShopping = function () {
+                for (var i = 0; i < $scope.records.length; i++) {
+                    $scope.records[i].getList('shopping').then(function (shopping) {
+                        var image = shopping.plain()[Math.floor((Math.random() * shopping.plain().length))];
+                        if (image) {
+                            $scope.shopping.push({paymentStatus: image.paymentStatus,
+                                dateOfPurchase: image.dateOfPurchase ,id: image.client.id});
+                        }
+                    });
+                }
+            };
+
+            this.loadShopping();
+            
             this.pageChanged = function () {
                 $state.go('clientList', {page: this.currentPage});
             };

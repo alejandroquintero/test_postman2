@@ -52,8 +52,22 @@ SOFTWARE.
                 <input id="paymentstatus" value="Aceptado" name="paymentstatus" class="form-control" type="text" ng-model="currentRecord.paymentstatus" ng-required="true" />
             </div>
         </div>
-        <input id="bicycle_id" class="form-control" type="hidden" ng-model="currentRecord.bicycle_id"/>
-        <input id="client_id" class="form-control" type="hidden" ng-model="currentRecord.client_id"/>
+        
+        <div class="form-group col-md-12" ng-class="{'has-success': shoppingForm.bicycle.$valid && shoppingForm.bicycle.$dirty, 'has-error': shoppingForm.bicycle.$invalid && shoppingForm.bicycle.$dirty}" >
+            <label for="bicycle_id" class="col-md-2 control-label">Bicycle id</label>
+            <div class="col-md-10">
+                <input id="bicycle" name="bicycle" class="form-control" type="text" ng-options="rc.name for rc in references.bicycle track by rc.id" ng-model="currentRecord.bicycle" ng-required="true" />
+            </div>
+        </div>
+        
+        <div class="form-group col-md-12" ng-class="{'has-success': shoppingForm.client.$valid && shoppingForm.client.$dirty, 'has-error': shoppingForm.client.$invalid && shoppingForm.client.$dirty}" >
+            <label for="client_id" class="col-md-2 control-label">Client id</label>
+            <div class="col-md-10">
+                <input id="client" name="client" class="form-control" type="text" ng-options="rc.name for rc in references.client track by rc.id" ng-model="currentRecord.client" ng-required="true" />
+            </div>
+        </div>
+       
+        
                 
     </fieldset>
 </form>

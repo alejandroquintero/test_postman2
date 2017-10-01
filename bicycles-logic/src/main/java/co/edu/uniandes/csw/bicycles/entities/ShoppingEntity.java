@@ -27,12 +27,15 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import co.edu.uniandes.csw.crud.spi.entity.PaymentStatus;
+import java.util.ArrayList;
 import uk.co.jemos.podam.common.PodamExclude;
 import javax.persistence.ManyToOne;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -48,12 +51,12 @@ public class ShoppingEntity extends BaseEntity implements Serializable {
     private PaymentStatus paymentStatus;
 
     @PodamExclude
-    @ManyToOne
-    private ClientEntity client;
-
+    @OneToMany(mappedBy = "shopping")
+    private List<BicycleEntity> bicycle = new ArrayList<>();
+    
     @PodamExclude
     @ManyToOne
-    private BicycleEntity bicycle;
+    private ClientEntity client;
     
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "dateOfPurchase")
@@ -67,31 +70,60 @@ public class ShoppingEntity extends BaseEntity implements Serializable {
         return paymentStatus;
     }
 
+    /**
+     * Cambiar estado del pago
+     * @param paymentStatus estado del pago
+     */
     public void setPaymentStatus(PaymentStatus paymentStatus) {
         this.paymentStatus = paymentStatus;
     }
 
+    /**
+     * Obtener cliente
+     * @return 
+     */
     public ClientEntity getClient() {
         return client;
     }
 
+    /**
+     * Camabiar cliente
+     * @param client cliente
+     */
     public void setClient(ClientEntity client) {
         this.client = client;
     }
 
+    /**
+     * Obtener fecha de compra
+     * @return fecha de compra
+     */
     public Date getDateOfPurchase() {
         return dateOfPurchase;
     }
 
+    /**
+     * Cambiar fecha de compra.
+     * @param dateOfPurchase 
+     */
     public void setDateOfPurchase(Date dateOfPurchase) {
         this.dateOfPurchase = dateOfPurchase;
     }
 
-    public BicycleEntity getBicycle() {
+    /**
+     * Obtener bicicletas.
+     * @return bicicletas.
+     */
+    public List<BicycleEntity> getBicycle() {
         return bicycle;
     }
 
-    public void setBicycle(BicycleEntity bicycle) {
+    /**
+     * Camabiar bicicletas
+     * @param bicycle bicicleta
+     */
+    public void setBicycle(List<BicycleEntity> bicycle) {
         this.bicycle = bicycle;
     }
+
 }

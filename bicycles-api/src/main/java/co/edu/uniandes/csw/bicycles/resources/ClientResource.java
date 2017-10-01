@@ -23,6 +23,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
@@ -31,9 +32,6 @@ import javax.ws.rs.core.MediaType;
  *
  * @author jd.runza
  */
-
-
-
 @Path("/clients")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
@@ -87,4 +85,16 @@ public class ClientResource {
         clientLogic.deleteClient(id);
     }
     
+    @Path("{clientId: \\d+}/shopping")
+    public Class<ShoppingResource> getShoppingResource(@PathParam("clientId") Long clientId) {
+        existsClient(clientId);
+        return ShoppingResource.class;
+    }
+    
+    public void existsClient(Long clientId) {
+        ClientDetailDTO client = getClient(clientId);
+        if (client == null) {
+            throw new WebApplicationException(404);
+        }
+    }
 }

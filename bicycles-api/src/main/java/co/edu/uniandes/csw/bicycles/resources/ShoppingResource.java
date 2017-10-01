@@ -23,6 +23,7 @@ SOFTWARE.
 */
 package co.edu.uniandes.csw.bicycles.resources;
 
+import co.edu.uniandes.csw.auth.filter.StatusCreated;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -39,22 +40,22 @@ import co.edu.uniandes.csw.bicycles.dtos.detail.ShoppingDetailDTO;
 import co.edu.uniandes.csw.bicycles.entities.ShoppingEntity;
 import java.util.ArrayList;
 import javax.enterprise.context.RequestScoped;
+import javax.ws.rs.POST;
+import javax.ws.rs.WebApplicationException;
 
 /**
- * URI: /
+ * URI: clients/{clientId: \\d+}/shopping
  * @generated
  */
-@Path("/shopping")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@RequestScoped
 public class ShoppingResource {
 
     @Inject private IShoppingLogic shoppingLogic;
     @Context private HttpServletResponse response;
     @QueryParam("page") private Integer page;
     @QueryParam("limit") private Integer maxRecords;
-
+    @PathParam("clientId") private Long clientId;
    
     /**
      * Convierte una lista de ShoppingEntity a una lista de ShoppingDetailDTO.
@@ -82,9 +83,9 @@ public class ShoppingResource {
     public List<ShoppingDetailDTO> getShopping() {
         if (page != null && maxRecords != null) {
             this.response.setIntHeader("X-Total-Count", shoppingLogic.countShopping());
-            return listEntity2DTO(shoppingLogic.getShopping(page, maxRecords));
+            return listEntity2DTO(shoppingLogic.getShopping(page, maxRecords, clientId));
         }
-        return listEntity2DTO(shoppingLogic.getShopping());
+        return listEntity2DTO(shoppingLogic.getShoppingList(clientId));
     }
 
     /**
@@ -95,22 +96,26 @@ public class ShoppingResource {
      * @generated
      */
     @GET
-    @Path("{id: \\d+}")
-    public ShoppingDetailDTO getShopping(@PathParam("id") Long id) {
-        return new ShoppingDetailDTO(shoppingLogic.getShopping(id));
+    @Path("{shoppingId: \\d+}")
+    public ShoppingDetailDTO getShopping(@PathParam("shoppingId") Long shoppingId) {
+        ShoppingEntity entity = shoppingLogic.getShopping(shoppingId);
+        if (entity.getClient() != null && !clientId.equals(entity.getClient().getId())) {
+            throw new WebApplicationException(404);
+        }
+        return new ShoppingDetailDTO(entity);
     }
-
+    
+    
     /**
-     * Se encarga de crear un Shopping en la base de datos
+     * Se encarga de crear un Bicycle en la base de datos
      *
-     * @param dto Objeto de ShoppingDetailDTO con los datos nuevos
-     * @return Objeto de ShoppingDetailDTOcon los datos nuevos y su ID
+     * @param dto Objeto de BicycleDetailDTO con los datos nuevos
+     * @return Objeto de BicycleDetailDTOcon los datos nuevos y su ID
      * @generated
-     *
+     */
     @POST
     @StatusCreated
     public ShoppingDetailDTO createShopping(ShoppingDetailDTO dto) {
-        return new ShoppingDetailDTO(shoppingLogic.createShopping(dto.toEntity()));
-    }*/
-    
+        return new ShoppingDetailDTO(shoppingLogic.createShopping(clientId, dto.toEntity()));
+    }
 }

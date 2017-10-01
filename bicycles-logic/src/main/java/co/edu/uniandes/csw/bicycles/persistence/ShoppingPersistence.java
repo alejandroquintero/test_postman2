@@ -23,11 +23,14 @@ SOFTWARE.
 */
 package co.edu.uniandes.csw.bicycles.persistence;
 
+import co.edu.uniandes.csw.bicycles.entities.PhotoAlbumEntity;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import co.edu.uniandes.csw.bicycles.entities.ShoppingEntity;
 import co.edu.uniandes.csw.crud.spi.persistence.CrudPersistence;
+import java.util.List;
+import javax.persistence.TypedQuery;
 
 /**
  * @generated
@@ -54,6 +57,33 @@ public class ShoppingPersistence extends CrudPersistence<ShoppingEntity> {
         return ShoppingEntity.class;
     }
 
+    /**
+     * Find all
+     * @param page
+     * @param maxRecords
+     * @param clientId
+     * @return 
+     */
+    public List<ShoppingEntity> findAll(Integer page, Integer maxRecords, Long clientId) {
+        TypedQuery<ShoppingEntity> q = em.createQuery("select p from ShoppingEntity p where (p.client.id = :clientid)", ShoppingEntity.class);
+        q.setParameter("clientid", clientId);
+        if (page != null && maxRecords != null) {
+            q.setFirstResult((page - 1) * maxRecords);
+            q.setMaxResults(maxRecords);
+        }
+        return q.getResultList();
+    }
 
-
+    /**
+     * Find shopping.
+     * @param clientid
+     * @param shoppingid
+     * @return 
+     */
+    public ShoppingEntity find(Long clientid, Long shoppingid) {
+        TypedQuery<ShoppingEntity> q = em.createQuery("select p from ShoppingEntity p where (p.client.id = :clientid) and (p.id = :shoppingid)", ShoppingEntity.class);
+        q.setParameter("clientid", clientid);
+        q.setParameter("shoppingid", shoppingid);
+        return q.getSingleResult();
+    }
 }
