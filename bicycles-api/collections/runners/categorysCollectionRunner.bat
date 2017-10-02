@@ -1,1 +1,0 @@
-newman run C:\Users\santi\Documents\NetBeansProjects\bicico\bicycles-api\collections\postman_collectionCategory.json -e C:\Users\santi\Documents\NetBeansProjects\bicico\bicycles-api\collections\postman_env.json --disable-unicode
