@@ -47,6 +47,7 @@ public class ShoppingLogic implements IShoppingLogic {
      * Trae las compras paginado.
      * @param page
      * @param maxRecords
+     * @param clientId
      * @return 
      */    
     @Override
@@ -56,8 +57,7 @@ public class ShoppingLogic implements IShoppingLogic {
 
     /**
      * Trae las compras paginado.
-     * @param page
-     * @param maxRecords
+     * @param clientId
      * @return 
      */    
     @Override
@@ -95,9 +95,8 @@ public class ShoppingLogic implements IShoppingLogic {
     public ShoppingEntity createShopping(Long clientId, ShoppingEntity entity) {
         ClientEntity client = clientLogic.getClient(clientId);
         entity.setClient(client);
-        entity = persistence.create(entity);
-        //Fecha actual de la compra
         entity.setDateOfPurchase(new java.util.Date());
+        persistence.create(entity);
         return entity;
     }
 
