@@ -23,7 +23,7 @@ SOFTWARE.
 */
 package co.edu.uniandes.csw.bicycles.tests.postman;
 
-import co.edu.uniandes.csw.bicycles.resources.CategoryResource;
+import co.edu.uniandes.csw.bicycles.resources.ClientResource;
 import co.edu.uniandes.csw.postman.tests.PostmanTestBuilder;
 import java.io.File;
 import java.io.IOException;
@@ -37,10 +37,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /*
- * Testing URI: categorys/
+ * Testing URI: clients/
  */
 @RunWith(Arquillian.class)
-public class CategoryIT {
+public class ClientIT {
 
     @Deployment
     public static WebArchive createDeployment() {
@@ -50,7 +50,7 @@ public class CategoryIT {
                         .importRuntimeDependencies().resolve()
                         .withTransitivity().asFile())
                 // Se agregan los compilados de los paquetes de servicios
-                .addPackage(CategoryResource.class.getPackage())
+                .addPackage(ClientResource.class.getPackage())
                 .addPackage("co.edu.uniandes.csw.auth.properties")
                 // El archivo que contiene la configuracion a la base de datos.
                 .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
@@ -60,11 +60,12 @@ public class CategoryIT {
                 // El archivo web.xml es necesario para el despliegue de los servlets
                 .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"));
     }
-   
+  
+
     @Test 
-    public void postman() throws IOException{
-    PostmanTestBuilder tp = new PostmanTestBuilder();
-     tp.setTestWithLogin("postman_collectionCategory","postman_env");
+    public void postman() throws  IOException{
+     PostmanTestBuilder tp = new PostmanTestBuilder();
+     tp.setTestWithLogin("postman_collectionClient","postman_env");
         String desiredResult="0";
        if( tp.getAssertions_failed() != null)
           Assert.assertEquals(desiredResult,tp.getAssertions_failed());
