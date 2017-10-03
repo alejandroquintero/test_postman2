@@ -27,7 +27,6 @@ import co.edu.uniandes.csw.bicycles.api.IBicycleLogic;
 import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
 import co.edu.uniandes.csw.bicycles.persistence.BicyclePersistence;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -46,6 +45,7 @@ public class BicycleLogic implements IBicycleLogic {
      * @return Número de registros de Bicycle.
      * @generated
      */
+    @Override
     public int countBicycles() {
         return persistence.count();
     }
@@ -58,7 +58,6 @@ public class BicycleLogic implements IBicycleLogic {
      */
     @Override
     public List<BicycleEntity> getBicycles() {
-        //return persistence.findAll();
         return this.validarVigencia(null, null);
     }
 
@@ -83,6 +82,7 @@ public class BicycleLogic implements IBicycleLogic {
      * @return Instancia de BicycleEntity con los datos del Bicycle consultado.
      * @generated
      */
+    @Override
     public BicycleEntity getBicycle(Long id) {
         return persistence.find(id);
     }
@@ -131,6 +131,7 @@ public class BicycleLogic implements IBicycleLogic {
      * @param maxRecords max Records.
      * @return Lista depurada.
      */
+    @Override
     public List<BicycleEntity> validarVigencia(Integer page, Integer maxRecords) {
         Integer VIGENCIA_MESES = 3;
         return persistence.findAll(page, maxRecords, VIGENCIA_MESES);
