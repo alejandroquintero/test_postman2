@@ -18,6 +18,7 @@ and open the template in the editor.
 </header>
 <form novalidate name="clientForm" role="form">
     <fieldset>
+        <legend>Cliente nuevo:</legend>
         <input id="id" class="form-control" type="hidden" ng-model="currentRecord.id"/>
         <div class="form-group col-md-12" ng-class="{'has-success': clientForm.lastName.$valid && clientForm.lastName.$dirty, 'has-error': clientForm.lastName.$invalid && clientForm.lastName.$dirty}" >
             <label for="lastName" class="col-md-2 control-label">Last Name</label>

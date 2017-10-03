@@ -23,58 +23,18 @@ SOFTWARE.
 */
 package co.edu.uniandes.csw.bicycles.tests.postman;
 
-import co.edu.uniandes.csw.bicycles.tests.postman.collections.BicyclePrepare;
-import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
-import co.edu.uniandes.csw.bicycles.dtos.detail.BicycleDetailDTO;
 import co.edu.uniandes.csw.bicycles.resources.BicycleResource;
-import co.edu.uniandes.csw.bicycles.tests.Utils;
-import com.mashape.unirest.http.exceptions.UnirestException;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import java.io.BufferedReader;
+import co.edu.uniandes.csw.postman.tests.PostmanTestBuilder;
 import java.io.File;
 import java.io.IOException;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.RandomAccessFile;
-import java.util.logging.Logger;
-import javax.inject.Inject;
-import java.lang.reflect.InvocationTargetException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-import javax.inject.Inject;
-import javax.transaction.UserTransaction;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import uk.co.jemos.podam.api.PodamFactory;
-import uk.co.jemos.podam.api.PodamFactoryImpl;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 /*
  * Testing URI: bicycles/
@@ -82,12 +42,7 @@ import org.json.simple.parser.ParseException;
 @RunWith(Arquillian.class)
 public class BicycleIT {
  
-    private static final String BASEPATH = System.getProperty("user.dir");
-   String path= BASEPATH.concat("\\collections\\runners\\bicyclesCollectionRunner.bat");
-   PodamFactory factory = new PodamFactoryImpl();
-   JSONParser parser = new JSONParser();
-   Gson gson = new Gson();
-
+  
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class,"bicycles-api.war")
@@ -105,51 +60,23 @@ public class BicycleIT {
                 
                 // El archivo web.xml es necesario para el despliegue de los servlets
                 .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"));
-    }
-   
-    public void setPostmanCollectionValues(String action) throws FileNotFoundException, IOException, ParseException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, UnirestException, JSONException, InterruptedException, ExecutionException{
-    
-    try(FileWriter wrt = new FileWriter(path)){
-        wrt.write("newman run ".concat(BASEPATH.concat("\\collections\\postman_collectionBicycle.json").concat(" -e ").concat(BASEPATH.concat("\\collections\\postman_env.json").concat(" --disable-unicode"))));
-    wrt.flush();
-    }
-     
-    Object obj;
-       try (FileReader reader = new FileReader(BicyclePrepare.getPATH())) {
-           obj = parser.parse(reader);
-       } 
-       try (FileWriter writer = new FileWriter(BicyclePrepare.getPATH())) {
-           BicycleDetailDTO Bicycle = factory.manufacturePojo(BicycleDetailDTO.class);
-           JsonArray jsonArray=gson.toJsonTree(obj).getAsJsonObject().get("item").getAsJsonArray();
-           Integer index= BicyclePrepare.findJsonIndex(jsonArray,action);
-           JsonElement jsonElement=gson.toJsonTree(obj);
-           BicyclePrepare.setCollectionBody(jsonElement, index, Bicycle, gson);
-           writer.write(jsonElement.toString());
-           writer.flush();
-       }
-}
-
+    } 
 
     @Test 
-    public void postman() throws FileNotFoundException, IOException, ParseException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, UnirestException, JSONException, InterruptedException, ExecutionException{
-      BicyclePrepare.loginCredentials(); 
-      setPostmanCollectionValues("create");
-      setPostmanCollectionValues("edit");
-
-   try {              
-            Process process = Runtime.getRuntime().exec(path);
-            InputStream inputStream = process.getInputStream();
-            BufferedReader bf= new BufferedReader(new InputStreamReader(inputStream));
-            String line="";
-            String ln;
-            while ((ln=bf.readLine()) != null) {
-                line=line.concat(ln+"\n");
-            }
-              System.out.println(line);   
-            inputStream.close();
-            bf.close();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        } 
+    public void postman() throws IOException {
+       PostmanTestBuilder tp = new PostmanTestBuilder();
+        tp.setTestWithLogin("postman_collectionBicycle","postman_env");
+        String desiredResult="0";
+       if( tp.getAssertions_failed() != null)
+          Assert.assertEquals(desiredResult,tp.getAssertions_failed());
+       if( tp.getIterations_failed() != null)
+           Assert.assertEquals(desiredResult,tp.getIterations_failed());
+       if ( tp.getPrerequest_scripts_failed() != null)
+           Assert.assertEquals(desiredResult,tp.getIterations_failed());
+       if( tp.getRequests_failed() != null)
+            Assert.assertEquals(desiredResult,tp.getRequests_failed());
+       if( tp.getTest_scripts_failed() != null)
+            Assert.assertEquals(desiredResult,tp.getTest_scripts_failed());
+       
     }
 }

@@ -2,10 +2,8 @@ package co.edu.uniandes.csw.bicycles.test.logic;
 
 import co.edu.uniandes.csw.bicycles.ejbs.ShoppingLogic;
 import co.edu.uniandes.csw.bicycles.api.IShoppingLogic;
-import co.edu.uniandes.csw.bicycles.api.IShoppingLogic;
 import co.edu.uniandes.csw.bicycles.entities.ShoppingEntity;
 import co.edu.uniandes.csw.bicycles.persistence.ShoppingPersistence;
-import co.edu.uniandes.csw.bicycles.entities.ClientEntity;
 import co.edu.uniandes.csw.bicycles.entities.ClientEntity;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +67,7 @@ public class ShoppingLogicTest {
     private List<ClientEntity> clientData = new ArrayList<>();
 
     /**
+     * @return 
      * @generated
      */
     @Deployment

@@ -23,59 +23,18 @@ SOFTWARE.
 */
 package co.edu.uniandes.csw.bicycles.tests.postman;
 
-import co.edu.uniandes.csw.bicycles.tests.postman.collections.PhotoAlbumPrepare;
-import co.edu.uniandes.csw.bicycles.entities.PhotoAlbumEntity;
-import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
-import co.edu.uniandes.csw.bicycles.dtos.detail.PhotoAlbumDetailDTO;
 import co.edu.uniandes.csw.bicycles.resources.PhotoAlbumResource;
-import co.edu.uniandes.csw.bicycles.tests.Utils;
-import com.mashape.unirest.http.exceptions.UnirestException;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import java.io.BufferedReader;
+import co.edu.uniandes.csw.postman.tests.PostmanTestBuilder;
 import java.io.File;
 import java.io.IOException;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.RandomAccessFile;
-import java.util.logging.Logger;
-import javax.inject.Inject;
-import java.lang.reflect.InvocationTargetException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-import javax.inject.Inject;
-import javax.transaction.UserTransaction;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import uk.co.jemos.podam.api.PodamFactory;
-import uk.co.jemos.podam.api.PodamFactoryImpl;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 /*
  * Testing URI: bicycles/{photoAlbumId: \\d+}/photoAlbum/
@@ -83,12 +42,6 @@ import org.json.simple.parser.ParseException;
 @RunWith(Arquillian.class)
 public class PhotoAlbumIT {
  
-    private static final String BASEPATH = System.getProperty("user.dir");
-   String path= BASEPATH.concat("\\collections\\runners\\photoAlbumCollectionRunner.bat");
-   PodamFactory factory = new PodamFactoryImpl();
-   JSONParser parser = new JSONParser();
-   Gson gson = new Gson();
-
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class,"bicycles-api.war")
@@ -107,50 +60,21 @@ public class PhotoAlbumIT {
                 // El archivo web.xml es necesario para el despliegue de los servlets
                 .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"));
     }
-   
-    public void setPostmanCollectionValues(String action) throws FileNotFoundException, IOException, ParseException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, UnirestException, JSONException, InterruptedException, ExecutionException{
-    
-    try(FileWriter wrt = new FileWriter(path)){
-        wrt.write("newman run ".concat(BASEPATH.concat("\\collections\\postman_collectionPhotoAlbum.json").concat(" -e ").concat(BASEPATH.concat("\\collections\\postman_env.json").concat(" --disable-unicode"))));
-    wrt.flush();
-    }
-     
-    Object obj;
-       try (FileReader reader = new FileReader(PhotoAlbumPrepare.getPATH())) {
-           obj = parser.parse(reader);
-       } 
-       try (FileWriter writer = new FileWriter(PhotoAlbumPrepare.getPATH())) {
-           PhotoAlbumDetailDTO PhotoAlbum = factory.manufacturePojo(PhotoAlbumDetailDTO.class);
-           JsonArray jsonArray=gson.toJsonTree(obj).getAsJsonObject().get("item").getAsJsonArray();
-           Integer index= PhotoAlbumPrepare.findJsonIndex(jsonArray,action);
-           JsonElement jsonElement=gson.toJsonTree(obj);
-           PhotoAlbumPrepare.setCollectionBody(jsonElement, index, PhotoAlbum, gson);
-           writer.write(jsonElement.toString());
-           writer.flush();
-       }
-}
-
 
     @Test 
-    public void postman() throws FileNotFoundException, IOException, ParseException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, UnirestException, JSONException, InterruptedException, ExecutionException{
-      PhotoAlbumPrepare.loginCredentials(); 
-      setPostmanCollectionValues("create");
-      setPostmanCollectionValues("edit");
-
-   try {              
-            Process process = Runtime.getRuntime().exec(path);
-            InputStream inputStream = process.getInputStream();
-            BufferedReader bf= new BufferedReader(new InputStreamReader(inputStream));
-            String line="";
-            String ln;
-            while ((ln=bf.readLine()) != null) {
-                line=line.concat(ln+"\n");
-            }
-              System.out.println(line);   
-            inputStream.close();
-            bf.close();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        } 
+    public void postman() throws IOException{
+       PostmanTestBuilder tp = new PostmanTestBuilder();
+     tp.setTestWithLogin("postman_collectionPhotoAlbum","postman_env");
+        String desiredResult="0";
+       if( tp.getAssertions_failed() != null)
+          Assert.assertEquals(desiredResult,tp.getAssertions_failed());
+       if( tp.getIterations_failed() != null)
+           Assert.assertEquals(desiredResult,tp.getIterations_failed());
+       if ( tp.getPrerequest_scripts_failed() != null)
+           Assert.assertEquals(desiredResult,tp.getIterations_failed());
+       if( tp.getRequests_failed() != null)
+            Assert.assertEquals(desiredResult,tp.getRequests_failed());
+       if( tp.getTest_scripts_failed() != null)
+            Assert.assertEquals(desiredResult,tp.getTest_scripts_failed());
     }
 }

@@ -1,9 +1,6 @@
 package co.edu.uniandes.csw.bicycles.test.persistence;
-import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
 import co.edu.uniandes.csw.bicycles.entities.ClientEntity;
 import co.edu.uniandes.csw.bicycles.entities.ShoppingEntity;
-import co.edu.uniandes.csw.bicycles.entities.ShoppingEntity;
-import co.edu.uniandes.csw.bicycles.persistence.ShoppingPersistence;
 import co.edu.uniandes.csw.bicycles.persistence.ShoppingPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +27,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 public class ShoppingPersistenceTest {
 
     /**
+     * @return 
      * @generated
      */
     @Deployment
