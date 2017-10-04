@@ -9,10 +9,12 @@
     </button>
     <ul class="dropdown-menu">
         <li ng-repeat="menuitem in menuitems">
-            <a ui-sref='{{menuitem.state}}'><span class='glyphicon glyphicon-{{menuitem.icon}}' aria-hidden='true'></span> {{menuitem.label}}</a></li>
+            <a ui-sref='{{menuitem.state}}'><span class='glyphicon glyphicon-{{menuitem.icon}}' aria-hidden='true'></span> {{menuitem.label}}</a>
         </li>
         <li if-permission name='shopping'>
-            <a ui-sref="shoppingList({page: 1, limit: 15})">Historial de compras</a>
+            <a ui-sref="shoppingList({page: 1, limit: 15})">
+                <span class="glyphicon glyphicon-usd"></span>Historial de compras
+            </a>
         </li>
         <li>
             <a href ng-click="logout()">
