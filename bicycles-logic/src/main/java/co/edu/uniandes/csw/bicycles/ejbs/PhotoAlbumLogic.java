@@ -28,7 +28,9 @@ import co.edu.uniandes.csw.bicycles.entities.PhotoAlbumEntity;
 import co.edu.uniandes.csw.bicycles.persistence.PhotoAlbumPersistence;
 import co.edu.uniandes.csw.bicycles.api.IBicycleLogic;
 import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import java.util.List;
+import java.util.function.Supplier;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
@@ -50,6 +52,7 @@ public class PhotoAlbumLogic implements IPhotoAlbumLogic {
      * @return Número de registros de PhotoAlbum.
      * @generated
      */
+    @Override
     public int countPhotoAlbums() {
         return persistence.count();
     }
@@ -95,6 +98,7 @@ public class PhotoAlbumLogic implements IPhotoAlbumLogic {
         try {
             return persistence.find(photoAlbumid);
         }catch(NoResultException e){
+            LOGGER.info((Supplier<String>) e);
             throw new IllegalArgumentException("El PhotoAlbum no existe");
         }
     }
@@ -111,8 +115,7 @@ public class PhotoAlbumLogic implements IPhotoAlbumLogic {
     public PhotoAlbumEntity createPhotoAlbum(Long bicycleid, PhotoAlbumEntity entity) {
         BicycleEntity bicycle = bicycleLogic.getBicycle(bicycleid);
         entity.setBicycle(bicycle);
-        entity = persistence.create(entity);
-        return entity;
+        return persistence.create(entity);
     }
 
     /**
@@ -134,7 +137,6 @@ public class PhotoAlbumLogic implements IPhotoAlbumLogic {
      * Elimina una instancia de PhotoAlbum de la base de datos.
      *
      * @param id Identificador de la instancia a eliminar.
-     * @param bicycleid id del Bicycle el cual es padre del PhotoAlbum.
      * @generated
      */
     @Override
@@ -142,5 +144,4 @@ public class PhotoAlbumLogic implements IPhotoAlbumLogic {
         PhotoAlbumEntity old = getPhotoAlbum(id);
         persistence.delete(old.getId());
     }
-  
 }
