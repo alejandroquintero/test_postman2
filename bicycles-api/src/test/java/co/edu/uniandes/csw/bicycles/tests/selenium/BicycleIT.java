@@ -28,7 +28,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 import java.util.Properties;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import java.util.logging.Level;
@@ -128,7 +127,8 @@ public class BicycleIT {
     }
 
     public void login() throws InterruptedException {
-
+        Logger.getAnonymousLogger().info("waiting");
+        driver.manage().timeouts().implicitlyWait(5, SECONDS);
         driver.manage().window().maximize();
         driver.get(deploymentURL.toExternalForm() + "#/login");
         driver.manage().deleteAllCookies();
