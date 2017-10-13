@@ -16,7 +16,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-*/
+ */
 package co.edu.uniandes.csw.bicycles.tests.selenium;
 
 import co.edu.uniandes.csw.bicycles.dtos.minimum.BicycleDTO;
@@ -61,37 +61,34 @@ import org.junit.After;
 
 @RunWith(Arquillian.class)
 public class BicycleIT {
-    
-    
-     @ArquillianResource
+
+    @ArquillianResource
     private URL deploymentURL;
 
- @Drone
-  private WebDriver driver;
- 
- private static PodamFactory factory = new PodamFactoryImpl();
+    @Drone
+    private WebDriver driver;
 
- 
- 
- private static  Properties prop;
+    private static PodamFactory factory = new PodamFactoryImpl();
+
+    private static Properties prop;
     private static InputStream input = null;
     private static final String path = System.getenv("AUTH0_PROPERTIES");
 
-static {
-            prop = new Properties();
+    static {
+        prop = new Properties();
         try {
-            input =  new FileInputStream(path);
+            input = new FileInputStream(path);
             prop.load(input);
-            
+
         } catch (FileNotFoundException ex) {
-           Logger.getAnonymousLogger().info("no se encontro archivo");
+            Logger.getAnonymousLogger().info("no se encontro archivo");
         } catch (IOException ex) {
             Logger.getAnonymousLogger().info("no se encontro archivo");
         }
-           
+
     }
- 
-     @Deployment(testable = true)
+
+    @Deployment(testable = true)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
                 // Se agrega las dependencias
@@ -100,7 +97,7 @@ static {
                         .withTransitivity().asFile())
                 // Se agregan los compilados de los paquetes de servicios
                 .addPackage(BicycleResource.class.getPackage())
-                 // archivo de propiedades para autenticacion de auth0
+                // archivo de propiedades para autenticacion de auth0
                 .addPackage("co.edu.uniandes.csw.auth.properties")
                 // El archivo que contiene la configuracion a la base de datos.
                 .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
@@ -111,27 +108,29 @@ static {
                 .merge(ShrinkWrap.create(GenericArchive.class).as(ExplodedImporter.class)
                         .importDirectory("src/main/webapp").as(GenericArchive.class), "/");
     }
-@Before
-public void setup() throws InterruptedException{
-try {
-             driver = new RemoteWebDriver(
-                     new URL("http://localhost:4445/wd/hub"), DesiredCapabilities.chrome()
-             );
-         } catch (MalformedURLException ex) {
-             Logger.getLogger(BicycleIT.class.getName()).log(Level.SEVERE, null, ex);
-         }  
-    login();
-}
-@After
-public void unload(){
 
-driver.quit();
-}
+    @Before
+    public void setup() throws InterruptedException {
+        try {
+            driver = new RemoteWebDriver(
+                    new URL("http://localhost:4445/wd/hub"), DesiredCapabilities.chrome()
+            );
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(BicycleIT.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        login();
+    }
 
-public  void login() throws InterruptedException{
-    
-        driver.manage().window().maximize(); 
-        driver.get(deploymentURL.toExternalForm()+"#/login");   
+    @After
+    public void unload() {
+
+        driver.quit();
+    }
+
+    public void login() throws InterruptedException {
+
+        driver.manage().window().maximize();
+        driver.get(deploymentURL.toExternalForm() + "#/login");
         driver.manage().deleteAllCookies();
         WebElement usernameInput = driver.findElement(By.id("username-input"));
         WebElement passwordInput = driver.findElement(By.id("password-input"));
@@ -140,82 +139,100 @@ public  void login() throws InterruptedException{
         usernameInput.clear();
         passwordInput.clear();
         usernameInput.sendKeys(prop.getProperty("username").trim());
-        passwordInput.sendKeys(prop.getProperty("password").trim()); 
+        passwordInput.sendKeys(prop.getProperty("password").trim());
         registerBtn.click();
-            
-}
 
+    }
 
     @Test
     @InSequence(0)
     @RunAsClient
-    public void createBicycle() throws InterruptedException  {
-     
-       Logger.getAnonymousLogger().info("waiting");
-       driver.manage().timeouts().implicitlyWait(5, SECONDS);
-       Integer expected = 0;
-       Integer countBicycles = driver.findElements(By.cssSelector("tbody > tr")).size();
-       Assert.assertEquals(expected,countBicycles);
-       WebElement createBtn = driver.findElement(By.id("create-bicycle"));
-       waitModel().until().element(createBtn).is().visible();
-       createBtn.click();
-       BicycleDTO expected_bicycle = factory.manufacturePojo(BicycleDTO.class);
-       WebElement nameInput = driver.findElement(By.id("name"));
-       WebElement descriptionInput = driver.findElement(By.id("description"));
-       WebElement saveBtn = driver.findElement(By.id("save-bicycle"));
-       nameInput.clear();
-       nameInput.sendKeys(expected_bicycle.getName()); 
-       descriptionInput.clear();
-       descriptionInput.sendKeys(expected_bicycle.getDescription());  
-       saveBtn.click();
-       WebElement  nameDetail = driver.findElement(By.id("name-detail")); 
-       waitGui().until().element(nameDetail).is().visible();     
-       BicycleDTO actual_bicycle = new BicycleDTO();
-       actual_bicycle.setName(nameDetail.getText());
-       Assert.assertEquals(expected_bicycle.getName(), actual_bicycle.getName()); 
+    public void createBicycle() throws InterruptedException {
+        Logger.getAnonymousLogger().info("waiting");
+        driver.manage().timeouts().implicitlyWait(5, SECONDS);
+        Integer expected = 0;
+        Integer countBicycles = driver.findElements(By.cssSelector("tbody > tr")).size();
+        Assert.assertEquals(expected, countBicycles);
+        WebElement createBtn = driver.findElement(By.id("create-bicycle"));
+        waitModel().until().element(createBtn).is().visible();
+        createBtn.click();
+        BicycleDTO expected_bicycle = factory.manufacturePojo(BicycleDTO.class);
+        WebElement nameInput = driver.findElement(By.id("name"));
+        WebElement descriptionInput = driver.findElement(By.id("description"));
+        WebElement stockInput = driver.findElement(By.id("stock"));
+        WebElement colorInput = driver.findElement(By.id("color"));
+        WebElement statusInput = driver.findElement(By.id("status"));
+        WebElement priceInput = driver.findElement(By.id("price"));
+        WebElement saveBtn = driver.findElement(By.id("save-bicycle"));
+        nameInput.clear();
+        nameInput.sendKeys(expected_bicycle.getName());
+        descriptionInput.clear();
+        descriptionInput.sendKeys(expected_bicycle.getDescription());
+        stockInput.clear();
+        stockInput.sendKeys(expected_bicycle.getStock().toString());
+        colorInput.clear();
+        colorInput.sendKeys(expected_bicycle.getColor());
+        statusInput.clear();
+        statusInput.sendKeys(expected_bicycle.getStatus());
+        priceInput.clear();
+        priceInput.sendKeys(expected_bicycle.getPrice().toString());
+        saveBtn.click();
+        WebElement nameDetail = driver.findElement(By.id("name-detail"));
+        waitGui().until().element(nameDetail).is().visible();
+        BicycleDTO actual_bicycle = new BicycleDTO();
+        actual_bicycle.setName(nameDetail.getText());
+        Assert.assertEquals(expected_bicycle.getName(), actual_bicycle.getName());
     }
-    
 
     @Test
-   @InSequence(1)
+    @InSequence(1)
     @RunAsClient
     public void editBicycle() throws InterruptedException {
-        
-     
-       
-       Logger.getAnonymousLogger().info("waiting");
-       driver.manage().timeouts().implicitlyWait(5, SECONDS);
+        Logger.getAnonymousLogger().info("waiting");
+        driver.manage().timeouts().implicitlyWait(5, SECONDS);
         BicycleDTO expected_bicycle = factory.manufacturePojo(BicycleDTO.class);
         WebElement editBtn = driver.findElement(By.id("0-edit-btn"));
         waitGui().until().element(editBtn).is().visible();
         editBtn.click();
-       WebElement nameInput = driver.findElement(By.id("name"));
-       WebElement descriptionInput = driver.findElement(By.id("description"));
-       WebElement saveBtn = driver.findElement(By.id("save-bicycle"));
-       nameInput.clear();
-       nameInput.sendKeys(expected_bicycle.getName());
-       descriptionInput.clear();
-       descriptionInput.sendKeys(expected_bicycle.getDescription());
-       saveBtn.click();
-         WebElement  nameDetail = driver.findElement(By.id("name-detail")); 
-       waitGui().until().element(nameDetail).is().visible(); 
+        WebElement nameInput = driver.findElement(By.id("name"));
+        WebElement descriptionInput = driver.findElement(By.id("description"));
+        WebElement stockInput = driver.findElement(By.id("stock"));
+        WebElement colorInput = driver.findElement(By.id("color"));
+        WebElement statusInput = driver.findElement(By.id("status"));
+        WebElement priceInput = driver.findElement(By.id("price"));
+        WebElement saveBtn = driver.findElement(By.id("save-bicycle"));
+        nameInput.clear();
+        nameInput.sendKeys(expected_bicycle.getName());
+        descriptionInput.clear();
+        descriptionInput.sendKeys(expected_bicycle.getDescription());
+        stockInput.clear();
+        stockInput.sendKeys(expected_bicycle.getStock().toString());
+        colorInput.clear();
+        colorInput.sendKeys(expected_bicycle.getColor());
+        statusInput.clear();
+        statusInput.sendKeys(expected_bicycle.getStatus());
+        priceInput.clear();
+        priceInput.sendKeys(expected_bicycle.getPrice().toString());
+        saveBtn.click();
+        WebElement nameDetail = driver.findElement(By.id("name-detail"));
+        waitGui().until().element(nameDetail).is().visible();
         BicycleDTO actual_bicycle = new BicycleDTO();
-       actual_bicycle.setName(nameDetail.getText());
-       Assert.assertEquals(expected_bicycle.getName(), actual_bicycle.getName());
+        actual_bicycle.setName(nameDetail.getText());
+        Assert.assertEquals(expected_bicycle.getName(), actual_bicycle.getName());
     }
 
     @Test
     @InSequence(2)
     @RunAsClient
     public void deleteProduct() throws InterruptedException {
-   
-       Logger.getAnonymousLogger().info("waiting");
-       driver.manage().timeouts().implicitlyWait(5, SECONDS);
-       WebElement deleteBtn = driver.findElement(By.id("0-delete-btn"));
+
+        Logger.getAnonymousLogger().info("waiting");
+        driver.manage().timeouts().implicitlyWait(5, SECONDS);
+        WebElement deleteBtn = driver.findElement(By.id("0-delete-btn"));
         waitGui().until().element(deleteBtn).is().visible();
         deleteBtn.click();
         WebElement confirmDel = driver.findElement(By.id("confirm-delete"));
-       waitGui().until().element(confirmDel).is().visible();
+        waitGui().until().element(confirmDel).is().visible();
         confirmDel.click();
         Integer expected = 0;
         Integer countBicycles = driver.findElements(By.cssSelector("tbody > tr")).size();
