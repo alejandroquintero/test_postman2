@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 import java.util.Properties;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import java.util.logging.Level;
@@ -82,11 +81,10 @@ public class PhotoAlbumIT {
             prop.load(input);
 
         } catch (FileNotFoundException ex) {
-           Logger.getAnonymousLogger().info("no se encontro archivo");
+            Logger.getAnonymousLogger().info("no se encontro archivo");
         } catch (IOException ex) {
             Logger.getAnonymousLogger().info("no se encontro archivo");
         }
-
     }
 
     @Deployment(testable = true)
@@ -124,13 +122,10 @@ public class PhotoAlbumIT {
 
     @After
     public void unload() {
-
         driver.quit();
-        
     }
 
     public void login() throws InterruptedException {
-
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(5, SECONDS);
         driver.get(deploymentURL.toExternalForm() + "#/login");
@@ -144,43 +139,51 @@ public class PhotoAlbumIT {
         usernameInput.sendKeys(prop.getProperty("username").trim());
         passwordInput.sendKeys(prop.getProperty("password").trim());
         registerBtn.click();
-
     }
 
     public void createBicycle() throws InterruptedException {
-
-        
-login();
+        login();
         Logger.getAnonymousLogger().info("waiting");
-       driver.manage().timeouts().implicitlyWait(5, SECONDS);
-       Integer expected = 0;
-       Integer countBicycles = driver.findElements(By.cssSelector("tbody > tr")).size();
-       Assert.assertEquals(expected,countBicycles);
+        driver.manage().timeouts().implicitlyWait(5, SECONDS);
+        Integer expected = 0;
+        Integer countBicycles = driver.findElements(By.cssSelector("tbody > tr")).size();
+        Assert.assertEquals(expected, countBicycles);
         WebElement createBtn = driver.findElement(By.id("create-bicycle"));
-       waitModel().until().element(createBtn).is().visible();
-       createBtn.click();
-       BicycleDTO expected_bicycle = factory.manufacturePojo(BicycleDTO.class);
-       WebElement nameInput = driver.findElement(By.id("name"));
-       WebElement descriptionInput = driver.findElement(By.id("description"));
-       WebElement saveBtn = driver.findElement(By.id("save-bicycle"));
-       nameInput.clear();
-       nameInput.sendKeys(expected_bicycle.getName()); 
-       descriptionInput.clear();
-       descriptionInput.sendKeys(expected_bicycle.getDescription());  
-       saveBtn.click();
-
+        waitModel().until().element(createBtn).is().visible();
+        createBtn.click();
+        BicycleDTO expected_bicycle = factory.manufacturePojo(BicycleDTO.class);
+        WebElement nameInput = driver.findElement(By.id("name"));
+        WebElement descriptionInput = driver.findElement(By.id("description"));
+        WebElement stockInput = driver.findElement(By.id("stock"));
+        WebElement colorInput = driver.findElement(By.id("color"));
+        WebElement statusInput = driver.findElement(By.id("status"));
+        WebElement priceInput = driver.findElement(By.id("price"));
+        WebElement saveBtn = driver.findElement(By.id("save-bicycle"));
+        nameInput.clear();
+        nameInput.sendKeys(expected_bicycle.getName());
+        descriptionInput.clear();
+        descriptionInput.sendKeys(expected_bicycle.getDescription());
+        stockInput.clear();
+        stockInput.sendKeys(expected_bicycle.getStock().toString());
+        colorInput.clear();
+        colorInput.sendKeys(expected_bicycle.getColor());
+        statusInput.clear();
+        statusInput.sendKeys(expected_bicycle.getStatus());
+        priceInput.clear();
+        priceInput.sendKeys(expected_bicycle.getPrice().toString());
+        saveBtn.click();
     }
-  public void deleteBicycle(){
-  
-  driver.navigate().to(deploymentURL.toExternalForm()+"#/bicycles/list");
-         WebElement deleteAnimalBtn = driver.findElement(By.id("0-delete-btn"));
+
+    public void deleteBicycle() {
+        driver.navigate().to(deploymentURL.toExternalForm() + "#/bicycles/list");
+        WebElement deleteAnimalBtn = driver.findElement(By.id("0-delete-btn"));
         waitGui().until().element(deleteAnimalBtn).is().visible();
         deleteAnimalBtn.click();
         WebElement confirmAnimalDel = driver.findElement(By.id("confirm-delete"));
-       waitGui().until().element(confirmAnimalDel).is().visible();
+        waitGui().until().element(confirmAnimalDel).is().visible();
         confirmAnimalDel.click();
-  }
- 
+    }
+
     @Test
     @InSequence(0)
     @RunAsClient
@@ -193,7 +196,7 @@ login();
         WebElement createPhotoAnimalBtn = driver.findElement(By.id("photoAlbum-bicycle"));
         waitModel().until().element(createPhotoAnimalBtn).is().visible();
         createPhotoAnimalBtn.click();
-         WebElement createPhotoBtn = driver.findElement(By.id("create-photoAlbum"));
+        WebElement createPhotoBtn = driver.findElement(By.id("create-photoAlbum"));
         waitModel().until().element(createPhotoBtn).is().visible();
         createPhotoBtn.click();
         WebElement nameInput = driver.findElement(By.id("name"));
@@ -209,71 +212,71 @@ login();
         waitGui().until().element(nameDetail).is().visible();
         PhotoAlbumDTO actual_photo = new PhotoAlbumDTO();
         actual_photo.setName(nameDetail.getText());
-        Assert.assertEquals(expected_photo.getName(),actual_photo.getName());
-      
-  }
+        Assert.assertEquals(expected_photo.getName(), actual_photo.getName());
+
+    }
+
     @Test
-   @InSequence(1)
+    @InSequence(1)
     @RunAsClient
     public void editPhoto() throws InterruptedException {
-         login();
-       driver.manage().timeouts().implicitlyWait(5, SECONDS);
+        //login();
+        driver.manage().timeouts().implicitlyWait(5, SECONDS);
         Logger.getAnonymousLogger().info("waiting");
         PhotoAlbumDTO expected_photo = factory.manufacturePojo(PhotoAlbumDTO.class);
-       
+
         WebElement bicycleDetail = driver.findElement(By.id("0-detail-btn"));
         waitGui().until().element(bicycleDetail).is().visible();
         bicycleDetail.click();
         WebElement bicyclePhoto = driver.findElement(By.id("photoAlbum-bicycle"));
         waitGui().until().element(bicyclePhoto).is().visible();
         bicyclePhoto.click();
-       
-        driver.get(deploymentURL.toExternalForm()+"#/bicycles/1/details/photoAlbum/1/edit");
-        
-         WebElement nameInput = driver.findElement(By.id("name"));
-         WebElement imageInput = driver.findElement(By.id("image"));
-         waitModel().until().element(nameInput).is().visible();
-         waitModel().until().element(imageInput).is().visible();
-         nameInput.clear();
-         nameInput.sendKeys(expected_photo.getName());
+
+        driver.get(deploymentURL.toExternalForm() + "#/bicycles/1/details/photoAlbum/1/edit");
+
+        WebElement nameInput = driver.findElement(By.id("name"));
+        WebElement imageInput = driver.findElement(By.id("image"));
+        waitModel().until().element(nameInput).is().visible();
+        waitModel().until().element(imageInput).is().visible();
+        nameInput.clear();
+        nameInput.sendKeys(expected_photo.getName());
         imageInput.clear();
-         imageInput.sendKeys(expected_photo.getImage());
-         
-       WebElement saveBtn = driver.findElement(By.id("save-photoAlbum"));
+        imageInput.sendKeys(expected_photo.getImage());
+
+        WebElement saveBtn = driver.findElement(By.id("save-photoAlbum"));
         waitModel().until().element(saveBtn).is().visible();
-       saveBtn.click();
-       
+        saveBtn.click();
+
         WebElement nameDetail = driver.findElement(By.id("name-detail"));
         waitGui().until().element(nameDetail).is().visible();
         PhotoAlbumDTO actual_photo = new PhotoAlbumDTO();
         actual_photo.setName(nameDetail.getText());
-        Assert.assertEquals(expected_photo.getName(),actual_photo.getName());
-       
-          
+        Assert.assertEquals(expected_photo.getName(), actual_photo.getName());
+
     }
 
     @Test
     @InSequence(2)
     @RunAsClient
     public void deletePhoto() throws InterruptedException {
-       login();
-       Logger.getAnonymousLogger().info("waiting");
-       driver.manage().timeouts().implicitlyWait(5, SECONDS);
-      
+        //login();
+        Logger.getAnonymousLogger().info("waiting");
+        driver.manage().timeouts().implicitlyWait(5, SECONDS);
+
         WebElement detailBtn = driver.findElement(By.id("0-detail-btn"));
         waitGui().until().element(detailBtn).is().visible();
         detailBtn.click();
-        WebElement photoList = driver.findElement(By.id("photoAlbum-bicycle")); 
+        WebElement photoList = driver.findElement(By.id("photoAlbum-bicycle"));
         waitGui().until().element(photoList).is().visible();
         photoList.click();
-      driver.get(deploymentURL.toExternalForm()+"#/bicycles/1/details/photoAlbum/1/delete");
+        driver.get(deploymentURL.toExternalForm() + "#/bicycles/1/details/photoAlbum/1/delete");
         WebElement confirmDel = driver.findElement(By.id("confirm-delete"));
-       waitGui().until().element(confirmDel).is().visible();
+        waitGui().until().element(confirmDel).is().visible();
         confirmDel.click();
         Integer expected = 0;
         Integer countPhotos = driver.findElements(By.cssSelector("tbody > tr")).size();
-       deleteBicycle();
+        //deleteBicycle();
         Assert.assertEquals(expected, countPhotos);
     }
- 
+
 }

@@ -20,13 +20,12 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-*/
+ */
 package co.edu.uniandes.csw.bicycles.test.logic;
 
 import co.edu.uniandes.csw.bicycles.ejbs.PhotoAlbumLogic;
 import co.edu.uniandes.csw.bicycles.api.IPhotoAlbumLogic;
 import co.edu.uniandes.csw.bicycles.entities.PhotoAlbumEntity;
-import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
 import co.edu.uniandes.csw.bicycles.persistence.PhotoAlbumPersistence;
 import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
 import java.util.ArrayList;
@@ -137,25 +136,26 @@ public class PhotoAlbumLogicTest {
     }
 
     /**
-     * Inserta los datos iniciales para el correcto funcionamiento de las pruebas.
+     * Inserta los datos iniciales para el correcto funcionamiento de las
+     * pruebas.
      *
      * @generated
      */
     private void insertData() {
-    
-            fatherEntity = factory.manufacturePojo(BicycleEntity.class);
-            fatherEntity.setId(1L);
-            em.persist(fatherEntity);
+
+        fatherEntity = factory.manufacturePojo(BicycleEntity.class);
+        fatherEntity.setId(1L);
+        em.persist(fatherEntity);
         for (int i = 0; i < 3; i++) {
             PhotoAlbumEntity entity = factory.manufacturePojo(PhotoAlbumEntity.class);
-                entity.setBicycle(fatherEntity);
-    
+            entity.setBicycle(fatherEntity);
 
             em.persist(entity);
             data.add(entity);
         }
     }
-   /**
+
+    /**
      * Prueba para crear un PhotoAlbum
      *
      * @generated
@@ -191,7 +191,43 @@ public class PhotoAlbumLogicTest {
         }
     }
 
-    
+    /**
+     * Prueba para consultar la lista de PhotoAlbums
+     *
+     * @generated
+     */
+    @Test
+    public void getPhotoAlbumsListTest() {
+        List<PhotoAlbumEntity> list = photoAlbumLogic.getPhotoAlbums(1, 10, fatherEntity.getId());
+        Assert.assertEquals(data.size(), list.size());
+        for (PhotoAlbumEntity entity : list) {
+            boolean found = false;
+            for (PhotoAlbumEntity storedEntity : data) {
+                if (entity.getId().equals(storedEntity.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
+    }
+
+    /**
+     * Prueba para contar la lista de PhotoAlbums
+     *
+     * @generated
+     */
+    @Test
+    public void getCountTest() {
+        int list = photoAlbumLogic.countPhotoAlbums();
+        boolean found = false;
+
+        if (list >= 0) {
+            found = true;
+        }
+        
+        Assert.assertTrue(found);
+    }
+
     /**
      * Prueba para consultar un PhotoAlbum
      *
@@ -241,4 +277,3 @@ public class PhotoAlbumLogicTest {
         Assert.assertEquals(pojoEntity.getName(), resp.getName());
     }
 }
-

@@ -203,6 +203,10 @@ public class BicycleTest {
 
         Assert.assertEquals(bicycle.getDescription(), bicycleTest.getDescription());
         Assert.assertEquals(bicycle.getName(), bicycleTest.getName());
+        Assert.assertEquals(bicycle.getPrice(), bicycleTest.getPrice());
+        Assert.assertEquals(bicycle.getStock(), bicycleTest.getStock());
+        Assert.assertEquals(bicycle.getColor(), bicycleTest.getColor());
+        Assert.assertEquals(bicycle.getStatus(), bicycleTest.getStatus());
 
         BicycleEntity entity = em.find(BicycleEntity.class, bicycleTest.getId());
         Assert.assertNotNull(entity);
@@ -227,6 +231,10 @@ public class BicycleTest {
         Assert.assertEquals(bicycleTest.getDescription(), oraculo.get(0).getDescription());
         Assert.assertEquals(bicycleTest.getId(), oraculo.get(0).getId());
         Assert.assertEquals(bicycleTest.getName(), oraculo.get(0).getName());
+        Assert.assertEquals(bicycleTest.getPrice(), oraculo.get(0).getPrice());
+        Assert.assertEquals(bicycleTest.getStock(), oraculo.get(0).getStock());
+        Assert.assertEquals(bicycleTest.getColor(), oraculo.get(0).getColor());
+        Assert.assertEquals(bicycleTest.getStatus(), oraculo.get(0).getStatus());
     }
 
     /**
@@ -277,6 +285,10 @@ public class BicycleTest {
         Assert.assertEquals(Ok, response.getStatus());
         Assert.assertEquals(bicycle.getDescription(), bicycleTest.getDescription());
         Assert.assertEquals(bicycle.getName(), bicycleTest.getName());
+        Assert.assertEquals(bicycle.getPrice(), bicycleTest.getPrice());
+        Assert.assertEquals(bicycle.getStock(), bicycleTest.getStock());
+        Assert.assertEquals(bicycle.getColor(), bicycleTest.getColor());
+        Assert.assertEquals(bicycle.getStatus(), bicycleTest.getStatus());
     }
 
     /**
