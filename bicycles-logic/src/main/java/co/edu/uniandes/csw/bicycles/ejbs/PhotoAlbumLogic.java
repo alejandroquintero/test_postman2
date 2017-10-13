@@ -28,9 +28,9 @@ import co.edu.uniandes.csw.bicycles.entities.PhotoAlbumEntity;
 import co.edu.uniandes.csw.bicycles.persistence.PhotoAlbumPersistence;
 import co.edu.uniandes.csw.bicycles.api.IBicycleLogic;
 import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
+
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
@@ -41,7 +41,8 @@ import javax.persistence.NoResultException;
 @Stateless
 public class PhotoAlbumLogic implements IPhotoAlbumLogic {
 
-    @Inject private PhotoAlbumPersistence persistence;
+    @Inject 
+    private PhotoAlbumPersistence persistence;
 
     @Inject
     private IBicycleLogic bicycleLogic;
@@ -98,7 +99,7 @@ public class PhotoAlbumLogic implements IPhotoAlbumLogic {
         try {
             return persistence.find(photoAlbumid);
         }catch(NoResultException e){
-            LOGGER.info((Supplier<String>) e);
+            Logger.getAnonymousLogger().info(e.getMessage());
             throw new IllegalArgumentException("El PhotoAlbum no existe");
         }
     }
