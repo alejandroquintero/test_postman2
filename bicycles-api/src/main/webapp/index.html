@@ -83,7 +83,8 @@ SOFTWARE.
         <script src="src/modules/bicycle/instance/edit/bicycle.edit.ctrl.js"></script>
         <script src="src/modules/bicycle/list/bicycle.list.ctrl.js"></script>
         <script src="src/modules/bicycle/new/bicycle.new.ctrl.js"></script>
-        <script src="src/modules/category/category.ctrl.js"></script>
+        <!-- Quitar categorias y marcas-->
+        <!--<script src="src/modules/category/category.ctrl.js"></script>
         <script src="src/modules/category/instance/bicycle/edit/category.bicycle.edit.ctrl.js"></script>
         <script src="src/modules/category/instance/bicycle/list/category.bicycle.list.ctrl.js"></script>
         <script src="src/modules/category/instance/delete/category.delete.ctrl.js"></script>
@@ -98,7 +99,7 @@ SOFTWARE.
         <script src="src/modules/brand/instance/detail/brand.detail.ctrl.js"></script>
         <script src="src/modules/brand/instance/edit/brand.edit.ctrl.js"></script>
         <script src="src/modules/brand/list/brand.list.ctrl.js"></script>
-        <script src="src/modules/brand/new/brand.new.ctrl.js"></script>
+        <script src="src/modules/brand/new/brand.new.ctrl.js"></script>-->
         <script src="src/modules/photoAlbum/photoAlbum.ctrl.js"></script>
         <script src="src/modules/photoAlbum/instance/delete/photoAlbum.delete.ctrl.js"></script>
         <script src="src/modules/photoAlbum/instance/detail/photoAlbum.detail.ctrl.js"></script>
@@ -145,7 +146,7 @@ SOFTWARE.
                                 <li if-permission name='bicycles'>
                                   <a ui-sref="bicycleList({page: 1, limit: 15})">Bicicletas</a>
                                 </li>
-                                <li if-permission name='categorys'>
+                                <!--<li if-permission name='categorys'>
                                   <button class="btn btn-default dropdown-toggle" 
                                           type="button" 
                                           id="categoryDropdown" 
@@ -157,8 +158,8 @@ SOFTWARE.
                                       <a ui-sref="categoryDetail({categoryId:category.id})">{{category.name}}</a>
                                     </li>
                                   </ul>
-                                </li>
-                                <li if-permission name='brands'>
+                                </li>-->
+                                <!--<li if-permission name='brands'>
                                   <button class="btn btn-default dropdown-toggle" 
                                           type="button" 
                                           id="BrandDropdown" 
@@ -170,7 +171,7 @@ SOFTWARE.
                                       <a ui-sref="brandDetail({brandId: brand.id})">{{brand.name}}</a>
                                     </li>
                                   </ul>
-                                </li>
+                                </li>-->
                                 <li if-permission name='clients'>
                                     <a ui-sref="clientList({page: 1, limit: 15})">Client</a>
                                 </li>
