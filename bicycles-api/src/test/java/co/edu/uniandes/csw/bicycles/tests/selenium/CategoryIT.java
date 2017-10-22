@@ -16,7 +16,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-*/
+ */
 package co.edu.uniandes.csw.bicycles.tests.selenium;
 
 import co.edu.uniandes.csw.bicycles.dtos.minimum.CategoryDTO;
@@ -28,7 +28,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 import java.util.Properties;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import java.util.logging.Level;
@@ -61,37 +60,34 @@ import org.junit.After;
 
 @RunWith(Arquillian.class)
 public class CategoryIT {
-    
-    
-     @ArquillianResource
+
+    @ArquillianResource
     private URL deploymentURL;
 
- @Drone
-  private WebDriver driver;
- 
- private static PodamFactory factory = new PodamFactoryImpl();
+    @Drone
+    private WebDriver driver;
 
- 
- 
- private static  Properties prop;
+    private static PodamFactory factory = new PodamFactoryImpl();
+
+    private static Properties prop;
     private static InputStream input = null;
     private static final String path = System.getenv("AUTH0_PROPERTIES");
 
-static {
-            prop = new Properties();
+    static {
+        prop = new Properties();
         try {
-            input =  new FileInputStream(path);
+            input = new FileInputStream(path);
             prop.load(input);
-            
+
         } catch (FileNotFoundException ex) {
-           Logger.getAnonymousLogger().info("no se encontro archivo");
+            Logger.getAnonymousLogger().info("no se encontro archivo");
         } catch (IOException ex) {
             Logger.getAnonymousLogger().info("no se encontro archivo");
         }
-           
+
     }
- 
-     @Deployment(testable = true)
+
+    @Deployment(testable = true)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
                 // Se agrega las dependencias
@@ -100,7 +96,7 @@ static {
                         .withTransitivity().asFile())
                 // Se agregan los compilados de los paquetes de servicios
                 .addPackage(CategoryResource.class.getPackage())
-                 // archivo de propiedades para autenticacion de auth0
+                // archivo de propiedades para autenticacion de auth0
                 .addPackage("co.edu.uniandes.csw.auth.properties")
                 // El archivo que contiene la configuracion a la base de datos.
                 .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
@@ -111,27 +107,29 @@ static {
                 .merge(ShrinkWrap.create(GenericArchive.class).as(ExplodedImporter.class)
                         .importDirectory("src/main/webapp").as(GenericArchive.class), "/");
     }
-@Before
-public void setup() throws InterruptedException{
-try {
-             driver = new RemoteWebDriver(
-                     new URL("http://localhost:4445/wd/hub"), DesiredCapabilities.chrome()
-             );
-         } catch (MalformedURLException ex) {
-             Logger.getLogger(BicycleIT.class.getName()).log(Level.SEVERE, null, ex);
-         }  
-    login();
-}
-@After
-public void unload(){
 
-driver.quit();
-}
+    @Before
+    public void setup() throws InterruptedException {
+        try {
+            driver = new RemoteWebDriver(
+                    new URL("http://localhost:4445/wd/hub"), DesiredCapabilities.chrome()
+            );
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(BicycleIT.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        login();
+    }
 
-public  void login() throws InterruptedException{
-    
-        driver.manage().window().maximize(); 
-        driver.get(deploymentURL.toExternalForm()+"#/login");   
+    @After
+    public void unload() {
+
+        driver.quit();
+    }
+
+    public void login() throws InterruptedException {
+
+        driver.manage().window().maximize();
+        driver.get(deploymentURL.toExternalForm() + "#/login");
         driver.manage().deleteAllCookies();
         WebElement usernameInput = driver.findElement(By.id("username-input"));
         WebElement passwordInput = driver.findElement(By.id("password-input"));
@@ -140,107 +138,105 @@ public  void login() throws InterruptedException{
         usernameInput.clear();
         passwordInput.clear();
         usernameInput.sendKeys(prop.getProperty("username").trim());
-        passwordInput.sendKeys(prop.getProperty("password").trim()); 
+        passwordInput.sendKeys(prop.getProperty("password").trim());
         registerBtn.click();
-            
-}
 
+    }
 
     @Test
     @InSequence(0)
     @RunAsClient
-    public void createCategory() throws InterruptedException  {
+    public void createCategory() throws InterruptedException {
         Logger.getAnonymousLogger().info("waiting for /bicycles/list");
-      while(!"/bicycles/list".equals(driver.getCurrentUrl().split("#")[1])){
-      
-      }
-     driver.get(deploymentURL.toExternalForm()+"#/categorys/list");
-       Logger.getAnonymousLogger().info("waiting");
-       driver.manage().timeouts().implicitlyWait(5, SECONDS);
-       Integer expected = 0;
-       Integer countCategorys = driver.findElements(By.cssSelector("tbody > tr")).size();
-       Assert.assertEquals(expected,countCategorys);
-       WebElement createBtn = driver.findElement(By.id("create-category"));
-       waitModel().until().element(createBtn).is().visible();
-       createBtn.click();
-       CategoryDTO expected_category = factory.manufacturePojo(CategoryDTO.class);
-       WebElement nameInput = driver.findElement(By.id("name"));
-       WebElement descriptionInput = driver.findElement(By.id("description"));
-       WebElement modalityInput = driver.findElement(By.id("modality"));
-       WebElement weightInput = driver.findElement(By.id("weight"));
-       WebElement saveBtn = driver.findElement(By.id("save-category"));
-       descriptionInput.clear();
-       descriptionInput.sendKeys(expected_category.getDescription());
-       modalityInput.clear();
-       modalityInput.sendKeys(expected_category.getModality());
-       weightInput.clear();
-       weightInput.sendKeys(expected_category.getWeight());
-       nameInput.clear();
-       nameInput.sendKeys(expected_category.getName()); 
-       saveBtn.click();
-       WebElement  nameDetail = driver.findElement(By.id("name-detail")); 
-       waitGui().until().element(nameDetail).is().visible();     
-       CategoryDTO actual_category = new CategoryDTO();
-       actual_category.setName(nameDetail.getText());
-       Assert.assertEquals(expected_category.getName(), actual_category.getName()); 
+        /*while (!"/bicycles/list".equals(driver.getCurrentUrl().split("#")[1])) {
+
+        }*/
+        driver.get(deploymentURL.toExternalForm() + "#/categorys/list");
+        Logger.getAnonymousLogger().info("waiting");
+        driver.manage().timeouts().implicitlyWait(5, SECONDS);
+        Integer expected = 0;
+        Integer countCategorys = driver.findElements(By.cssSelector("tbody > tr")).size();
+        Assert.assertEquals(expected, countCategorys);
+        WebElement createBtn = driver.findElement(By.id("create-category"));
+        waitModel().until().element(createBtn).is().visible();
+        createBtn.click();
+        CategoryDTO expected_category = factory.manufacturePojo(CategoryDTO.class);
+        WebElement nameInput = driver.findElement(By.id("name"));
+        WebElement descriptionInput = driver.findElement(By.id("description"));
+        WebElement modalityInput = driver.findElement(By.id("modality"));
+        WebElement weightInput = driver.findElement(By.id("weight"));
+        WebElement saveBtn = driver.findElement(By.id("save-category"));
+        descriptionInput.clear();
+        descriptionInput.sendKeys(expected_category.getDescription());
+        modalityInput.clear();
+        modalityInput.sendKeys(expected_category.getModality());
+        weightInput.clear();
+        weightInput.sendKeys(expected_category.getWeight());
+        nameInput.clear();
+        nameInput.sendKeys(expected_category.getName());
+        saveBtn.click();
+        WebElement nameDetail = driver.findElement(By.id("name-detail"));
+        waitGui().until().element(nameDetail).is().visible();
+        CategoryDTO actual_category = new CategoryDTO();
+        actual_category.setName(nameDetail.getText());
+        Assert.assertEquals(expected_category.getName(), actual_category.getName());
     }
-    
 
     @Test
-   @InSequence(1)
+    @InSequence(1)
     @RunAsClient
     public void editCategory() throws InterruptedException {
-        
-      Logger.getAnonymousLogger().info("waiting for /bicycles/list");
-      while(!"/bicycles/list".equals(driver.getCurrentUrl().split("#")[1])){
-      
-      }
-     driver.get(deploymentURL.toExternalForm()+"#/categorys/list");
-       
-       Logger.getAnonymousLogger().info("waiting");
-       driver.manage().timeouts().implicitlyWait(5, SECONDS);
+
+        Logger.getAnonymousLogger().info("waiting for /bicycles/list");
+        /*while (!"/bicycles/list".equals(driver.getCurrentUrl().split("#")[1])) {
+
+        }*/
+        driver.get(deploymentURL.toExternalForm() + "#/categorys/list");
+
+        Logger.getAnonymousLogger().info("waiting");
+        driver.manage().timeouts().implicitlyWait(5, SECONDS);
         CategoryDTO expected_category = factory.manufacturePojo(CategoryDTO.class);
         WebElement editBtn = driver.findElement(By.id("0-edit-btn"));
         waitGui().until().element(editBtn).is().visible();
         editBtn.click();
-       WebElement nameInput = driver.findElement(By.id("name"));
-       WebElement descriptionInput = driver.findElement(By.id("description"));
-       WebElement modalityInput = driver.findElement(By.id("modality"));
-       WebElement weightInput = driver.findElement(By.id("weight"));
-       nameInput.clear();
-       descriptionInput.clear();
-       modalityInput.clear();
-       weightInput.clear();
-       nameInput.sendKeys(expected_category.getName());
-       descriptionInput.sendKeys(expected_category.getDescription());
-       modalityInput.sendKeys(expected_category.getModality());
-       weightInput.sendKeys(expected_category.getWeight());
-       WebElement saveBtn = driver.findElement(By.id("save-category"));
-       saveBtn.click();
-         WebElement  nameDetail = driver.findElement(By.id("name-detail")); 
-       waitGui().until().element(nameDetail).is().visible(); 
+        WebElement nameInput = driver.findElement(By.id("name"));
+        WebElement descriptionInput = driver.findElement(By.id("description"));
+        WebElement modalityInput = driver.findElement(By.id("modality"));
+        WebElement weightInput = driver.findElement(By.id("weight"));
+        nameInput.clear();
+        descriptionInput.clear();
+        modalityInput.clear();
+        weightInput.clear();
+        nameInput.sendKeys(expected_category.getName());
+        descriptionInput.sendKeys(expected_category.getDescription());
+        modalityInput.sendKeys(expected_category.getModality());
+        weightInput.sendKeys(expected_category.getWeight());
+        WebElement saveBtn = driver.findElement(By.id("save-category"));
+        saveBtn.click();
+        WebElement nameDetail = driver.findElement(By.id("name-detail"));
+        waitGui().until().element(nameDetail).is().visible();
         CategoryDTO actual_category = new CategoryDTO();
-       actual_category.setName(nameDetail.getText());
-       Assert.assertEquals(expected_category.getName(), actual_category.getName());
+        actual_category.setName(nameDetail.getText());
+        Assert.assertEquals(expected_category.getName(), actual_category.getName());
     }
 
     @Test
     @InSequence(2)
     @RunAsClient
     public void deleteCategory() throws InterruptedException {
-         Logger.getAnonymousLogger().info("waiting for /bicycles/list");
-      while(!"/bicycles/list".equals(driver.getCurrentUrl().split("#")[1])){
-      
-      }
-     driver.get(deploymentURL.toExternalForm()+"#/categorys/list");
-   
-       Logger.getAnonymousLogger().info("waiting");
-       driver.manage().timeouts().implicitlyWait(5, SECONDS);
-       WebElement deleteBtn = driver.findElement(By.id("0-delete-btn"));
+        Logger.getAnonymousLogger().info("waiting for /bicycles/list");
+        /*while (!"/bicycles/list".equals(driver.getCurrentUrl().split("#")[1])) {
+
+        }*/
+        driver.get(deploymentURL.toExternalForm() + "#/categorys/list");
+
+        Logger.getAnonymousLogger().info("waiting");
+        driver.manage().timeouts().implicitlyWait(5, SECONDS);
+        WebElement deleteBtn = driver.findElement(By.id("0-delete-btn"));
         waitGui().until().element(deleteBtn).is().visible();
         deleteBtn.click();
         WebElement confirmDel = driver.findElement(By.id("confirm-delete"));
-       waitGui().until().element(confirmDel).is().visible();
+        waitGui().until().element(confirmDel).is().visible();
         confirmDel.click();
         Integer expected = 0;
         Integer countCategorys = driver.findElements(By.cssSelector("tbody > tr")).size();

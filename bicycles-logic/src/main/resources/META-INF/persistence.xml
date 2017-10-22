@@ -8,6 +8,7 @@
         <class>co.edu.uniandes.csw.bicycles.entities.BrandEntity</class>
         <class>co.edu.uniandes.csw.bicycles.entities.PhotoAlbumEntity</class>
         <class>co.edu.uniandes.csw.bicycles.entities.ClientEntity</class>
+        <class>co.edu.uniandes.csw.bicycles.entities.ShoppingEntity</class>
         <properties>
             <property name="eclipselink.logging.level" value="FINE"/>
             <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>

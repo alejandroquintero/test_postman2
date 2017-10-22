@@ -17,7 +17,9 @@
             registerURL: 'register',
             logoutURL: 'logout',
             forgotPassURL: 'forgot',
-            meURL: 'me'
+            meURL: 'me',
+            clientUrl: 'api/clients/',
+            shoppingtUrl: 'api/shopping/'
         };
 
         //Default Roles
@@ -73,10 +75,20 @@
                     });
                 },
                 register: function (user) {
+
+                    var newClient = {'address': "",
+                        'email': user.email,
+                            'firstName': user.givenName + " " + user.middleName,
+                            'lastName': user.surName,
+                            'login': user.userName,
+                            'phone': ""
+                    };
                     
-                    return $http.post(values.apiUrl+values.registerURL, user).then(function (data) {
-                        $state.go(values.loginState);
-                    });
+                        return $http.post(values.apiUrl + values.registerURL, user).then(function (data) {
+                            $http.post(values.clientUrl, newClient).then(function (data1) {
+                                $state.go(values.loginState);
+                            });
+                        });
                 },
                 forgotPass: function (user) {
                     return $http.post(values.apiUrl+values.forgotPassURL, user).then(function (data) {

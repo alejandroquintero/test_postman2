@@ -1,21 +1,25 @@
 package co.edu.uniandes.csw.crud.spi.entity;
+
 import java.io.Serializable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+
 /**
  * Generic entity with ID and name fields to inherit from.
- * 
- * This entity sets a standar of fields and functions all entities in a project should have.
- * For example, all entities should be compared by ID when not null, otherwise use the object equals method.
+ *
+ * This entity sets a standar of fields and functions all entities in a project
+ * should have. For example, all entities should be compared by ID when not
+ * null, otherwise use the object equals method.
  *
  * @author jd.patino10
  */
 @MappedSuperclass
-public abstract class BaseEntity implements Serializable{
+public abstract class BaseEntity implements Serializable {
+
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
@@ -37,10 +41,15 @@ public abstract class BaseEntity implements Serializable{
 
     @Override
     public boolean equals(Object obj) {
-        if (this.getId() != null && ((BaseEntity) obj).getId() != null) {
-            return this.getId().equals(((BaseEntity) obj).getId());
+        if (obj == null) {
+            return false;
         }
-        return super.equals(obj);
+
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
+
+        return this.getId().equals(((BaseEntity) obj).getId());
     }
 
     @Override
@@ -51,4 +60,3 @@ public abstract class BaseEntity implements Serializable{
         return super.hashCode();
     }
 }
-

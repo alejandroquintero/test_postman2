@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+/* global shopping */
+
 (function (ng) {
 
     var mod = ng.module("clientModule");
@@ -11,12 +13,13 @@
     mod.controller("clientListCtrl", ["$scope", '$state', 'clients', '$stateParams',
         function ($scope, $state, clients, $params) {
             $scope.records = clients;
+            $scope.shopping = [];
 
             //Paginación
             this.itemsPerPage = $params.limit;
             this.currentPage = $params.page;
             this.totalItems = clients.totalRecords;
-
+            
             this.pageChanged = function () {
                 $state.go('clientList', {page: this.currentPage});
             };

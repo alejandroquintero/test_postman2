@@ -25,8 +25,9 @@
 
     var mod = ng.module("bicycleModule");
 
-    mod.controller("bicycleListCtrl", ["$scope", '$state', 'bicycles', '$stateParams', 'model',
-        function ($scope, $state, bicycles, $params, model) {
+    mod.controller("bicycleListCtrl", ["$scope", '$state', 'bicycles', '$stateParams', 'model', '$controller',
+        function ($scope, $state, bicycles, $params, model, $controller) {
+            $controller("authController",{$scope:$scope});
             $scope.model = model;
             $scope.records = bicycles;
             $scope.buttons = ['none'];
@@ -54,52 +55,62 @@
                 $state.go('bicycleList', {page: this.currentPage});
             };
 
-            $scope.actions = {
-                create: {
-                    displayName: 'Create',
-                    icon: 'plus',
-                    fn: function () {
-                        $state.go('bicycleNew');
-                    }
-                },
-                refresh: {
-                    displayName: 'Refresh',
-                    icon: 'refresh',
-                    fn: function () {
-                        $state.reload();
-                    }
-                }};
-            $scope.recordActions = {
-                detail: {
-                    displayName: 'Detail',
-                    icon: 'eye-open',
-                    fn: function (rc) {
-                        $state.go('bicycleDetail', {bicycleId: rc.id});
-                    },
-                    show: function () {
-                        return true;
-                    }
-                },
-                edit: {
-                    displayName: 'Edit',
-                    icon: 'edit',
-                    fn: function (rc) {
-                        $state.go('bicycleEdit', {bicycleId: rc.id});
-                    },
-                    show: function () {
-                        return true;
-                    }
-                },
-                delete: {
-                    displayName: 'Delete',
-                    icon: 'minus',
-                    fn: function (rc) {
-                        $state.go('bicycleDelete', {bicycleId: rc.id});
-                    },
-                    show: function () {
-                        return true;
-                    }
-                }
-            };
-        }]);
+      $scope.actions = {
+        create: {
+          displayName: 'Create',
+          icon: 'plus',
+          fn: function () {
+            $state.go('bicycleNew');
+          }
+        },
+        refresh: {
+          displayName: 'Refresh',
+          icon: 'refresh',
+          fn: function () {
+            $state.reload();
+          }
+        }};
+      $scope.recordActions = {
+        detail: {
+          displayName: 'Detail',
+          icon: 'eye-open',
+          fn: function (rc) {
+            $state.go('bicycleDetail', {bicycleId: rc.id});
+          },
+          show: function () {
+            return true;
+          }
+        },
+        edit: {
+          displayName: 'Edit',
+          icon: 'edit',
+          fn: function (rc) {
+            $state.go('bicycleEdit', {bicycleId: rc.id});
+          },
+          show: function () {
+            return true;
+          }
+        },
+        delete: {
+          displayName: 'Delete',
+          icon: 'minus',
+          fn: function (rc) {
+            $state.go('bicycleDelete', {bicycleId: rc.id});
+          },
+          show: function () {
+            return true;
+          }
+        },
+        buy: {
+          displayName: 'Buy',
+          icon: 'usd',
+          fn: function (rc) {
+            $state.go('shoppingNew', {clientId: 1, bicycleId: rc.id});
+          },
+          show: function () {
+            return true;
+          }
+        }
+      };
+    }]);
 })(window.angular);

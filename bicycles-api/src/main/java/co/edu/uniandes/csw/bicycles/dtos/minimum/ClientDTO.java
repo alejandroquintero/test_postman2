@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.bicycles.dtos.minimum;
 
 import co.edu.uniandes.csw.bicycles.entities.ClientEntity;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 /**

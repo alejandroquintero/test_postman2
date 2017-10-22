@@ -66,6 +66,11 @@
                 options: [],
                 required: true
             },
+            price: {
+                displayName: 'Price',
+                type: 'Double',
+                required: true
+            },
             category: {
                 displayName: 'Categoria',
                 type: 'Reference',
@@ -195,20 +200,25 @@
                 }
             });
             $sp.state('bicycleList', {
-                url: '/list/:name',
-                parent: 'bicycle',
+                url: '/list/:description',
                 views: {
-                    bicycleView: {
+                    mainView: {
                         templateUrl: basePath + 'list/bicycle.list.tpl.html',
                         controller: 'bicycleListCtrl',
                         controllerAs: 'ctrl'
                     }
                 },
                 resolve: {
-                    model: 'bicycleModel'
-                },
-                ncyBreadcrumb: {
-                    label: 'bicycle'
+                    references: ['$q', 'Restangular', function ($q, r) {
+                            return $q.all({
+                                brand: r.all('brands').getList()
+                                , category: r.all('categorys').getList()
+                            });
+                        }],
+                    model: 'bicycleModel',
+                    bicycles: ['Restangular', 'model', '$stateParams', function (r, model, $params) {
+                            return r.all(model.url).getList($params);
+                        }]
                 }
             });
         }]);
