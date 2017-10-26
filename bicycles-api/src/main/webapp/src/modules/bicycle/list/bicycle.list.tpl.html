@@ -26,11 +26,16 @@ SOFTWARE.
     <toolbar name="model.name" display-name="model.displayName" actions='actions'></toolbar>
 </header>
 <form novalidate class="navbar-form navbar-left" role="search" >
-           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Categoría Bicicleta" ng-model="bicycleDescription" required>
-            </div>
-           <button type="submit" class="btn btn default" ui-sref="bicycleList({description: bicycleDescription})">Filtrar resultados</button>
-       </form>
+    <div class="form-group">
+        <p>
+            Búsqueda avanzada:
+            <input type="text" class="form-control" placeholder="Descripción Bicicleta" ng-model="bicycleDescription" required>
+            <input type="text" class="form-control" placeholder="Estado Bicicleta" ng-model="bicycleStatus" required>
+            <button type="submit" class="btn btn default" ui-sref="bicycleList({description: bicycleDescription, status: bicycleStatus})">Filtrar resultados</button>
+        </p>
+    </div>
+
+</form>
 <list-records thumbnail="true" thumbnail-uri="photos"  name="model.name" fields="model.fields" records="records" actions="recordActions" buttons="buttons" ></list-records>
 <pagination ng-if="ctrl.itemsPerPage < ctrl.totalItems"
             total-items="ctrl.totalItems"

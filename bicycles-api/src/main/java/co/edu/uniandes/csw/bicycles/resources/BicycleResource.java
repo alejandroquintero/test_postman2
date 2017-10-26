@@ -42,6 +42,8 @@ import co.edu.uniandes.csw.bicycles.api.IBicycleLogic;
 import co.edu.uniandes.csw.bicycles.dtos.detail.BicycleDetailDTO;
 import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.WebApplicationException;
 
@@ -66,6 +68,8 @@ public class BicycleResource {
     private Integer maxRecords;
     @QueryParam("description")
     private String bicycleDescription;
+    @QueryParam("status")
+    private String bicycleStatus;
 
     /**
      * Convierte una lista de BicycleEntity a una lista de BicycleDetailDTO.
@@ -91,15 +95,38 @@ public class BicycleResource {
     @GET
     public List<BicycleDetailDTO> getBicycles() {
 
+        // Initialize variables
+        List<BicycleDetailDTO> ListByDescription = null;
+        List<BicycleDetailDTO> ListByStatus = null;
+        List<BicycleDetailDTO> ListToReturn = null;
+        Set<BicycleDetailDTO> newSet = null;
+
         if (bicycleDescription != null) {
-            return listEntity2DTO(bicycleLogic.getByDescription(bicycleDescription));
-        } else {
-            if (page != null && maxRecords != null) {
-                this.response.setIntHeader("X-Total-Count", bicycleLogic.countBicycles());
-                return listEntity2DTO(bicycleLogic.getBicycles(page, maxRecords));
-            }
-            return listEntity2DTO(bicycleLogic.getBicycles());
+            // Get results from logic
+            ListByDescription = listEntity2DTO(bicycleLogic.getByDescription(bicycleDescription));
+            // Store the first result set
+            newSet = new HashSet<BicycleDetailDTO>(ListByDescription);
+            ListToReturn = new ArrayList<BicycleDetailDTO>(newSet);
         }
+
+        if (bicycleStatus != null) {
+            // Get results from logic
+            ListByStatus = listEntity2DTO(bicycleLogic.getByStatus(bicycleStatus));
+            // Merge the second result set
+            newSet.addAll(ListByStatus);
+            ListToReturn = new ArrayList<BicycleDetailDTO>(newSet);
+        }
+
+        if (bicycleStatus == null & bicycleDescription == null) {
+            ListToReturn = listEntity2DTO(bicycleLogic.getBicycles());
+        }
+
+        if (page != null && maxRecords != null) {
+            this.response.setIntHeader("X-Total-Count", bicycleLogic.countBicycles());
+            ListToReturn = listEntity2DTO(bicycleLogic.getBicycles(page, maxRecords));
+        }
+
+        return ListToReturn;
 
     }
 
@@ -168,6 +195,7 @@ public class BicycleResource {
     @Path("{bicyclesId: \\d+}/photoAlbum")
     public Class<PhotoAlbumResource> getPhotoAlbumResource(@PathParam("bicyclesId") Long bicyclesId) {
         existsBicycle(bicyclesId);
+
         return PhotoAlbumResource.class;
     }
 }
