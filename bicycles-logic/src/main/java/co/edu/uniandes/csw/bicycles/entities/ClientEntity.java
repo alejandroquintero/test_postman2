@@ -13,12 +13,18 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import uk.co.jemos.podam.common.PodamExclude;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author Asistente
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Client.getByLogin", query = "select u from ClientEntity u Where u.login = :login")
+})
+
 public class ClientEntity extends BaseEntity implements Serializable {
     
     @PodamExclude
@@ -31,6 +37,7 @@ public class ClientEntity extends BaseEntity implements Serializable {
     private String phone;
     private String address;
     private String email;
+    private String idAuth0;
 
     public String getLastName() {
         return lastName;
@@ -55,6 +62,10 @@ public class ClientEntity extends BaseEntity implements Serializable {
     public String getEmail() {
         return email;
     }
+    
+    public String getIdAuth0() {
+        return idAuth0;
+    }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
@@ -78,6 +89,10 @@ public class ClientEntity extends BaseEntity implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    
+    public void setIdAuth0(String idAuth0) {
+        this.idAuth0 = idAuth0;
     }
 
     public List<ShoppingEntity> getShopping() {

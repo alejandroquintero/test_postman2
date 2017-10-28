@@ -40,6 +40,11 @@
                 displayName: 'Email',
                 type: 'String',
                 required: true
+            },
+            idAuth0: {
+                displayName: 'Email',
+                type: 'String',
+                required: true
             }
         }
     });
@@ -132,6 +137,32 @@
                     clientInstanceView: {
                         templateUrl: baseInstancePath + 'delete/client.delete.tpl.html',
                         controller: 'clientDeleteCtrl',
+                        controllerAs: 'ctrl'
+                    }
+                }
+            });
+            $sp.state('clientInstanceUser', {
+                url: '/{clientUser:string}',
+                abstract: true,
+                parent: 'client',
+                views: {
+                    clientView: {
+                        template: '<div ui-view="clientInstanceView"></div>'
+                    }
+                },
+                resolve: {
+                    client: ['clients', '$stateParams', function (clients, $params) {
+                            return clients.get($params.clientUser);
+                        }]
+                }
+            });
+            $sp.state('clientEditUser', {
+                url: '/edit',
+                parent: 'clientInstanceUser',
+                views: {
+                    clientInstanceView: {
+                        templateUrl: baseInstancePath + 'edit/client.edit.tpl.html',
+                        controller: 'clientEditCtrl',
                         controllerAs: 'ctrl'
                     }
                 }

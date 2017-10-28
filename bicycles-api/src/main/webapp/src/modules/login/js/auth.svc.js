@@ -75,16 +75,16 @@
                     });
                 },
                 register: function (user) {
-
-                    var newClient = {'address': "",
-                        'email': user.email,
-                            'firstName': user.givenName + " " + user.middleName,
-                            'lastName': user.surName,
-                            'login': user.userName,
-                            'phone': ""
-                    };
                     
                         return $http.post(values.apiUrl + values.registerURL, user).then(function (data) {
+                            var newClient = {'address': "",
+                                'email': user.email,
+                                'firstName': user.givenName + " " + user.middleName,
+                                'lastName': user.surName,
+                                'login': user.userName,
+                                'phone': "",
+                                'idAuth0': data.data._id
+                            };
                             $http.post(values.clientUrl, newClient).then(function (data1) {
                                 $state.go(values.loginState);
                             });
@@ -122,6 +122,11 @@
                         $cookies.put("roles",roles);
                    });
                     return $http.get(values.apiUrl + values.meURL);
+                }, 
+                delete: function (idAuth0) {
+                        return $http.post('api/' + idAuth0).then(function (data) {
+                            //susseful
+                        });
                 }
             };
         }];

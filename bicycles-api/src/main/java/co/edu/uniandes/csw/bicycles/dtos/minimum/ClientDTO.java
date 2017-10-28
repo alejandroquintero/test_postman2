@@ -13,8 +13,8 @@ import java.io.Serializable;
  * @author Asistente
  */
 public class ClientDTO implements Serializable {
-    
-     private Long id;
+
+    private Long id;
     private String name;
     private String lastName;
     private String firstName;
@@ -22,25 +22,26 @@ public class ClientDTO implements Serializable {
     private String phone;
     private String address;
     private String email;
-    
+    private String idAuth0;
+
     public ClientDTO() {
     }
-    
-     public ClientDTO(ClientEntity entity) {
-	   if (entity!=null){
-        this.id=entity.getId();
-        this.name=entity.getName();
-        this.lastName=entity.getLastName();
-        this.firstName=entity.getFirstName();
-        this.login=entity.getLogin();
-        this.phone=entity.getPhone();
-        this.address=entity.getAddress();
-        this.email=entity.getEmail();
-        
-       }
+
+    public ClientDTO(ClientEntity entity) {
+        if (entity != null) {
+            this.id = entity.getId();
+            this.name = entity.getName();
+            this.lastName = entity.getLastName();
+            this.firstName = entity.getFirstName();
+            this.login = entity.getLogin();
+            this.phone = entity.getPhone();
+            this.address = entity.getAddress();
+            this.email = entity.getEmail();
+            this.idAuth0 = entity.getIdAuth0();
+        }
     }
-     
-     public ClientEntity toEntity() {
+
+    public ClientEntity toEntity() {
         ClientEntity entity = new ClientEntity();
         entity.setId(this.getId());
         entity.setName(this.getName());
@@ -50,7 +51,8 @@ public class ClientDTO implements Serializable {
         entity.setPhone(this.getPhone());
         entity.setAddress(this.getAddress());
         entity.setEmail(this.getEmail());
-    return entity;
+        entity.setIdAuth0(this.getIdAuth0());
+        return entity;
     }
 
     public Long getId() {
@@ -92,6 +94,10 @@ public class ClientDTO implements Serializable {
     public String getEmail() {
         return email;
     }
+    
+    public String getIdAuth0() {
+        return idAuth0;
+    }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
@@ -117,6 +123,7 @@ public class ClientDTO implements Serializable {
         this.email = email;
     }
 
-
-    
+    public void setIdAuth0(String idAuth0) {
+        this.idAuth0 = idAuth0;
+    }
 }

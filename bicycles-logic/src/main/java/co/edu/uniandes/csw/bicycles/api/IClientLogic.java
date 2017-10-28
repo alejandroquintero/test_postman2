@@ -18,6 +18,7 @@ public interface IClientLogic {
     public List<ClientEntity> getClients();
     public List<ClientEntity> getClients(Integer page, Integer maxRecords);
     public ClientEntity getClient(Long id);
+    public ClientEntity getClient(String login);
     public ClientEntity createClient(ClientEntity entity);
     public ClientEntity updateClient(ClientEntity entity);
     public void deleteClient(Long id);

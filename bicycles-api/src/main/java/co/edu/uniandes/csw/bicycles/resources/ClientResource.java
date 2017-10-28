@@ -65,6 +65,12 @@ public class ClientResource {
         return new ClientDetailDTO(clientLogic.getClient(id));
     }
     
+    @GET
+    @Path("{login: .+}")
+    public ClientDetailDTO getClient(@PathParam("login") String login) {
+        return new ClientDetailDTO(clientLogic.getClient(login));
+    }
+    
     @POST
     @StatusCreated
     public ClientDetailDTO createClient(ClientDetailDTO dto) {

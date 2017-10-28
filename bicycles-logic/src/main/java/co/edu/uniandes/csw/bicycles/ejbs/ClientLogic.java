@@ -39,6 +39,11 @@ public class ClientLogic implements IClientLogic {
     public ClientEntity getClient(Long id) {
         return persistence.find(id);
     }
+    
+    @Override
+    public ClientEntity getClient(String login) {
+        return persistence.getByLogin(login);
+    }
 
     @Override
     public ClientEntity createClient(ClientEntity entity) {
