@@ -126,7 +126,7 @@ public class PhotoAlbumIT {
     }
 
     public void login() throws InterruptedException {
-        driver.manage().window().maximize();
+        //driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(5, SECONDS);
         driver.get(deploymentURL.toExternalForm() + "#/login");
         driver.manage().deleteAllCookies();
@@ -175,7 +175,7 @@ public class PhotoAlbumIT {
     }
 
     public void deleteBicycle() {
-        driver.navigate().to(deploymentURL.toExternalForm() + "#/bicycles/list");
+        driver.navigate().to(deploymentURL.toExternalForm() + "#/list/");
         WebElement deleteAnimalBtn = driver.findElement(By.id("0-delete-btn"));
         waitGui().until().element(deleteAnimalBtn).is().visible();
         deleteAnimalBtn.click();
@@ -220,7 +220,7 @@ public class PhotoAlbumIT {
     @InSequence(1)
     @RunAsClient
     public void editPhoto() throws InterruptedException {
-        //login();
+        login();
         driver.manage().timeouts().implicitlyWait(5, SECONDS);
         Logger.getAnonymousLogger().info("waiting");
         PhotoAlbumDTO expected_photo = factory.manufacturePojo(PhotoAlbumDTO.class);
@@ -259,7 +259,7 @@ public class PhotoAlbumIT {
     @InSequence(2)
     @RunAsClient
     public void deletePhoto() throws InterruptedException {
-        //login();
+        login();
         Logger.getAnonymousLogger().info("waiting");
         driver.manage().timeouts().implicitlyWait(5, SECONDS);
 
@@ -275,7 +275,7 @@ public class PhotoAlbumIT {
         confirmDel.click();
         Integer expected = 0;
         Integer countPhotos = driver.findElements(By.cssSelector("tbody > tr")).size();
-        //deleteBicycle();
+        deleteBicycle();
         Assert.assertEquals(expected, countPhotos);
     }
 

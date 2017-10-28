@@ -128,7 +128,7 @@ public class BrandIT {
 
     public void login() throws InterruptedException {
 
-        driver.manage().window().maximize();
+        //driver.manage().window().maximize();
         driver.get(deploymentURL.toExternalForm() + "#/login");
         driver.manage().deleteAllCookies();
         WebElement usernameInput = driver.findElement(By.id("username-input"));
@@ -148,9 +148,9 @@ public class BrandIT {
     @RunAsClient
     public void createBrand() throws InterruptedException {
         Logger.getAnonymousLogger().info("waiting for /brands/list");
-        /*while(!"/bicycles/list".equals(driver.getCurrentUrl().split("#")[1])){
+        while(!"/list/".equals(driver.getCurrentUrl().split("#")[1])){
       
-        }*/
+        }
         driver.get(deploymentURL.toExternalForm() + "#/brands/list");
         Logger.getAnonymousLogger().info("waiting");
         driver.manage().timeouts().implicitlyWait(5, SECONDS);
@@ -180,9 +180,9 @@ public class BrandIT {
     public void editBrand() throws InterruptedException {
 
         Logger.getAnonymousLogger().info("waiting for /bicycles/list");
-        /*while(!"/bicycles/list".equals(driver.getCurrentUrl().split("#")[1])){
+        while(!"/list/".equals(driver.getCurrentUrl().split("#")[1])){
       
-      }*/
+        }
         driver.get(deploymentURL.toExternalForm() + "#/brands/list");
 
         Logger.getAnonymousLogger().info("waiting");
@@ -210,9 +210,9 @@ public class BrandIT {
     @RunAsClient
     public void deleteProduct() throws InterruptedException {
         Logger.getAnonymousLogger().info("waiting for /bicycles/list");
-        /*swhile(!"/bicycles/list".equals(driver.getCurrentUrl().split("#")[1])){
+        while(!"/list/".equals(driver.getCurrentUrl().split("#")[1])){
       
-        }*/
+        }
         driver.get(deploymentURL.toExternalForm() + "#/brands/list");
 
         Logger.getAnonymousLogger().info("waiting");

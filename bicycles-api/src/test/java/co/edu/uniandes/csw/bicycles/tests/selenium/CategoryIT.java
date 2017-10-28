@@ -127,8 +127,7 @@ public class CategoryIT {
     }
 
     public void login() throws InterruptedException {
-
-        driver.manage().window().maximize();
+        //driver.manage().window().maximize();
         driver.get(deploymentURL.toExternalForm() + "#/login");
         driver.manage().deleteAllCookies();
         WebElement usernameInput = driver.findElement(By.id("username-input"));
@@ -148,18 +147,23 @@ public class CategoryIT {
     @RunAsClient
     public void createCategory() throws InterruptedException {
         Logger.getAnonymousLogger().info("waiting for /bicycles/list");
-        /*while (!"/bicycles/list".equals(driver.getCurrentUrl().split("#")[1])) {
+        Logger.getAnonymousLogger().info(driver.getCurrentUrl().split("#")[1]);
+        while (!"/list/".equals(driver.getCurrentUrl().split("#")[1])) {
 
-        }*/
+        }
+        driver.get(deploymentURL.toExternalForm() + "#/categorys/list");
         driver.get(deploymentURL.toExternalForm() + "#/categorys/list");
         Logger.getAnonymousLogger().info("waiting");
-        driver.manage().timeouts().implicitlyWait(5, SECONDS);
-        Integer expected = 0;
-        Integer countCategorys = driver.findElements(By.cssSelector("tbody > tr")).size();
-        Assert.assertEquals(expected, countCategorys);
+        driver.manage().timeouts().implicitlyWait(10, SECONDS);
+        //Integer expected = 0;
+        //Integer countCategorys = driver.findElements(By.cssSelector("tbody > tr")).size();
+        //Assert.assertEquals(expected, countCategorys);
         WebElement createBtn = driver.findElement(By.id("create-category"));
         waitModel().until().element(createBtn).is().visible();
         createBtn.click();
+        
+        driver.manage().timeouts().implicitlyWait(5, SECONDS);
+        
         CategoryDTO expected_category = factory.manufacturePojo(CategoryDTO.class);
         WebElement nameInput = driver.findElement(By.id("name"));
         WebElement descriptionInput = driver.findElement(By.id("description"));
@@ -175,6 +179,9 @@ public class CategoryIT {
         nameInput.clear();
         nameInput.sendKeys(expected_category.getName());
         saveBtn.click();
+        
+        driver.manage().timeouts().implicitlyWait(5, SECONDS);
+        
         WebElement nameDetail = driver.findElement(By.id("name-detail"));
         waitGui().until().element(nameDetail).is().visible();
         CategoryDTO actual_category = new CategoryDTO();
@@ -188,9 +195,9 @@ public class CategoryIT {
     public void editCategory() throws InterruptedException {
 
         Logger.getAnonymousLogger().info("waiting for /bicycles/list");
-        /*while (!"/bicycles/list".equals(driver.getCurrentUrl().split("#")[1])) {
+        while (!"/list/".equals(driver.getCurrentUrl().split("#")[1])) {
 
-        }*/
+        }
         driver.get(deploymentURL.toExternalForm() + "#/categorys/list");
 
         Logger.getAnonymousLogger().info("waiting");
@@ -225,9 +232,9 @@ public class CategoryIT {
     @RunAsClient
     public void deleteCategory() throws InterruptedException {
         Logger.getAnonymousLogger().info("waiting for /bicycles/list");
-        /*while (!"/bicycles/list".equals(driver.getCurrentUrl().split("#")[1])) {
+        while (!"/list/".equals(driver.getCurrentUrl().split("#")[1])) {
 
-        }*/
+        }
         driver.get(deploymentURL.toExternalForm() + "#/categorys/list");
 
         Logger.getAnonymousLogger().info("waiting");

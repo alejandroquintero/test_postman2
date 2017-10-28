@@ -129,7 +129,7 @@ public class BicycleIT {
     public void login() throws InterruptedException {
         Logger.getAnonymousLogger().info("waiting");
         driver.manage().timeouts().implicitlyWait(5, SECONDS);
-        driver.manage().window().maximize();
+        //driver.manage().window().maximize();
         driver.get(deploymentURL.toExternalForm() + "#/login");
         driver.manage().deleteAllCookies();
         WebElement usernameInput = driver.findElement(By.id("username-input"));
