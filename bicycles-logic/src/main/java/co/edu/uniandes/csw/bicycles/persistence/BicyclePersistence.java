@@ -20,7 +20,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-*/
+ */
 package co.edu.uniandes.csw.bicycles.persistence;
 
 import javax.ejb.Stateless;
@@ -38,7 +38,7 @@ import java.util.Map;
 @Stateless
 public class BicyclePersistence extends CrudPersistence<BicycleEntity> {
 
-    @PersistenceContext(unitName="BicyclesPU")
+    @PersistenceContext(unitName = "BicyclesPU")
     protected EntityManager em;
 
     /**
@@ -56,9 +56,10 @@ public class BicyclePersistence extends CrudPersistence<BicycleEntity> {
     protected Class<BicycleEntity> getEntityClass() {
         return BicycleEntity.class;
     }
-    
+
     /**
      * Obtener bicicletas por descripcion
+     *
      * @param description
      * @return Lista de bicicletas
      */
@@ -67,9 +68,10 @@ public class BicyclePersistence extends CrudPersistence<BicycleEntity> {
         params.put("description", "%" + description.toUpperCase() + "%");
         return executeListNamedQuery("Bicycle.getByDescription", params);
     }
-    
+
     /**
      * Obtener bicicletas por estado
+     *
      * @param status
      * @return Lista de bicicletas
      */
@@ -78,7 +80,5 @@ public class BicyclePersistence extends CrudPersistence<BicycleEntity> {
         params.put("status", "%" + status.toUpperCase() + "%");
         return executeListNamedQuery("Bicycle.getByStatus", params);
     }
-
-
 
 }
