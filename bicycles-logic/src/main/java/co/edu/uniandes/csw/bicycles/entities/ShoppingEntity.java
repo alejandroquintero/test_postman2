@@ -27,60 +27,42 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import co.edu.uniandes.csw.crud.spi.entity.PaymentStatus;
+import java.security.Timestamp;
 import java.util.ArrayList;
 import uk.co.jemos.podam.common.PodamExclude;
 import javax.persistence.ManyToOne;
-import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
- * Entidad de compras.
- * @author ra.gomez11
+ * Entidad de compras (orden de compra).
+ * @author cc.huertas
  */
 @Entity
 public class ShoppingEntity extends BaseEntity implements Serializable {
 
-    @Column(name = "paymentStatus")
-    @Enumerated(EnumType.STRING)
-    private PaymentStatus paymentStatus;
-
-    @PodamExclude
-    @OneToMany(mappedBy = "shopping")
-    private List<BicycleEntity> bicycle = new ArrayList<>();
-    
     @PodamExclude
     @ManyToOne
     private ClientEntity client;
     
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "dateOfPurchase")
-    private java.util.Date dateOfPurchase;
-
-    /**
-     * Obtener el estado del pago.
-     * @return estado.
-     */
-    public PaymentStatus getPaymentStatus() {
-        return paymentStatus;
-    }
-
-    /**
-     * Cambiar estado del pago
-     * @param paymentStatus estado del pago
-     */
-    public void setPaymentStatus(PaymentStatus paymentStatus) {
-        this.paymentStatus = paymentStatus;
-    }
+    @PodamExclude
+    @OneToMany(mappedBy = "shopping", cascade = CascadeType.REMOVE)
+    private List<ItemShoppingEntity> itemShopping = new ArrayList<>();
+    
+    @Column(name = "paymentStatus")
+    @Enumerated(EnumType.STRING)
+    private String status;
+    
+    private Timestamp dateOfPurchase;
+    private Double totalPrice;
 
     /**
      * Obtener cliente
-     * @return 
+     * @return cliente 
      */
     public ClientEntity getClient() {
         return client;
@@ -95,35 +77,66 @@ public class ShoppingEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     * Obtener fecha de compra
-     * @return fecha de compra
+     * Obtener la lista de objetos de la orden de compra
+     * @return ItemShopping 
      */
-    public Date getDateOfPurchase() {
+    public List<ItemShoppingEntity> getItemShopping() {
+        return itemShopping;
+    }
+
+    /**
+     * Camabiar lista de Items
+     * @param itemShopping
+     */
+    public void setItemShopping(List<ItemShoppingEntity> itemShopping) {
+        this.itemShopping = itemShopping;
+    }
+
+    /**
+     * Obtener el estado de la orden de compra.
+     * @return estado.
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * Cambiar estado de la orden
+     * @param status estado de la orden
+     */
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    /**
+     * Obtener la fecha de la compra
+     * @return fecha de compra.
+     */
+    public Timestamp getDateOfPurchase() {
         return dateOfPurchase;
     }
 
     /**
-     * Cambiar fecha de compra.
-     * @param dateOfPurchase 
+     * Cambiar la fecha de la compra
+     * @param dateOfPurchase fecha de compra
      */
-    public void setDateOfPurchase(Date dateOfPurchase) {
+    public void setDateOfPurchase(Timestamp dateOfPurchase) {
         this.dateOfPurchase = dateOfPurchase;
     }
 
     /**
-     * Obtener bicicletas.
-     * @return bicicletas.
+     * Obtener el total de la compra
+     * @return precio total.
      */
-    public List<BicycleEntity> getBicycle() {
-        return bicycle;
+    public Double getTotalPrice() {
+        return totalPrice;
     }
 
     /**
-     * Camabiar bicicletas
-     * @param bicycle bicicleta
+     * Cambiar el total de la compra
+     * @param totalPrice precio total
      */
-    public void setBicycle(List<BicycleEntity> bicycle) {
-        this.bicycle = bicycle;
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
     }
-
 }

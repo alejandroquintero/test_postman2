@@ -23,19 +23,19 @@ SOFTWARE.
 */
 package co.edu.uniandes.csw.bicycles.persistence;
 
+import co.edu.uniandes.csw.bicycles.entities.ItemShoppingEntity;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import co.edu.uniandes.csw.bicycles.entities.ShoppingEntity;
 import co.edu.uniandes.csw.crud.spi.persistence.CrudPersistence;
 import java.util.List;
-import javax.persistence.TypedQuery;
 
 /**
  * @generated
  */
 @Stateless
-public class ShoppingPersistence extends CrudPersistence<ShoppingEntity> {
+public class ItemShoppingPersistence extends CrudPersistence<ItemShoppingEntity> {
 
     @PersistenceContext(unitName="BicyclesPU")
     protected EntityManager em;
@@ -52,8 +52,8 @@ public class ShoppingPersistence extends CrudPersistence<ShoppingEntity> {
      * @generated
      */
     @Override
-    protected Class<ShoppingEntity> getEntityClass() {
-        return ShoppingEntity.class;
+    protected Class<ItemShoppingEntity> getEntityClass() {
+        return ItemShoppingEntity.class;
     }
 
     /**
@@ -63,43 +63,27 @@ public class ShoppingPersistence extends CrudPersistence<ShoppingEntity> {
      * @param clientId
      * @return 
      */
-    public List<ShoppingEntity> findAll(Integer page, Integer maxRecords, Long clientId) {
-        TypedQuery<ShoppingEntity> q = em.createQuery("select p from ShoppingEntity p where (p.client.id = :clientid)", ShoppingEntity.class);
-        q.setParameter("clientid", clientId);
-        if (page != null && maxRecords != null) {
-            q.setFirstResult((page - 1) * maxRecords);
-            q.setMaxResults(maxRecords);
-        }
-        return q.getResultList();
+    public List<ShoppingEntity> findAll(Integer page, Integer maxRecords, Long shoppingId) {
+        return null;
     }
 
     /**
-     * Find shopping.
-     * @param clientid
-     * @param shoppingid
+     * Find item shopping.
+     * @param shoppingId
+     * @param itemShoppingId
      * @return 
      */
-    public ShoppingEntity find(Long clientid, Long shoppingid) {
-        TypedQuery<ShoppingEntity> q = em.createQuery("select p from ShoppingEntity p where (p.client.id = :clientid) and (p.id = :shoppingid)", ShoppingEntity.class);
-        q.setParameter("clientid", clientid);
-        q.setParameter("shoppingid", shoppingid);
-        return q.getSingleResult();
-    }
-    
-    /**
-     * add item shopping to shopping.
-     * @return ShoppingEntity state equal PROCESO
-     */
-    public ShoppingEntity getShoppingCar() {
+    public ItemShoppingEntity find(Long shoppingId, Long itemShoppingId) {
         return null;
     }
     
     /**
-     * checkout shopping
-     * @param shoppingId
-     * @return ShoppingEntity state equal PROCESO
+     * add item shopping.
+     * @param bicycleId
+     * @param quantity
+     * @return 
      */
-    public ShoppingEntity checkoutShopping(Long shoppingId) {
+    public ItemShoppingEntity addBicycleShopping(Long bicycleId, Long quantity) {
         return null;
     }
 }

@@ -73,10 +73,6 @@ public class BicycleEntity extends BaseEntity implements Serializable {
     @Column(name = "creationDate")
     private java.util.Date creationDate;
 
-    @PodamExclude
-    @ManyToOne
-    private ShoppingEntity shopping;
-
     /**
      * Obtener precio.
      * @return precio.
@@ -239,21 +235,4 @@ public class BicycleEntity extends BaseEntity implements Serializable {
     public void setColor(String color) {
         this.color = color;
     }
-
-    /**
-     * Obtener compra.
-     * @return  compra.
-     */
-    public ShoppingEntity getShopping() {
-        return shopping;
-    }
-
-    /**
-     * Cambiar compra.
-     * @param shopping compra.
-     */
-    public void setShopping(ShoppingEntity shopping) {
-        this.shopping = shopping;
-    }
-
 }

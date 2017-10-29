@@ -95,7 +95,6 @@ public class ShoppingLogic implements IShoppingLogic {
     public ShoppingEntity createShopping(Long clientId, ShoppingEntity entity) {
         ClientEntity client = clientLogic.getClient(clientId);
         entity.setClient(client);
-        entity.setDateOfPurchase(new java.util.Date());
         persistence.create(entity);
         return entity;
     }
