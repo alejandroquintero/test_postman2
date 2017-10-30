@@ -27,7 +27,9 @@ import co.edu.uniandes.csw.bicycles.entities.ShoppingEntity;
 import co.edu.uniandes.csw.crud.spi.entity.PaymentStatus;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.security.Timestamp;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * @generated
@@ -37,7 +39,8 @@ public class ShoppingDTO implements Serializable {
 
     private String paymentStatus;
     private Long id;
-    private Date dateOfPurchase;
+    private Timestamp dateOfPurchase;
+    private Double totalPrice;
     
     /**
      * @generated
@@ -55,9 +58,10 @@ public class ShoppingDTO implements Serializable {
     public ShoppingDTO(ShoppingEntity entity) {
         if (entity!=null)
         {
-            this.paymentStatus = entity.getPaymentStatus().toString();
+            this.paymentStatus = entity.getStatus().toString();
             this.id = entity.getId();
             this.dateOfPurchase = entity.getDateOfPurchase();
+            this.totalPrice = entity.getTotalPrice();
         }
     }
 
@@ -70,7 +74,7 @@ public class ShoppingDTO implements Serializable {
     public ShoppingEntity toEntity() {
         ShoppingEntity entity = new ShoppingEntity();
         entity.setId(this.getId());
-        entity.setPaymentStatus(PaymentStatus.valueOf(this.getPaymentStatus()));
+        entity.setStatus(PaymentStatus.valueOf(this.getPaymentStatus()).toString());
         entity.setDateOfPurchase(this.getDateOfPurchase());
         return entity;
     }
@@ -91,11 +95,11 @@ public class ShoppingDTO implements Serializable {
         this.id = id;
     }
 
-    public Date getDateOfPurchase() {
+    public Timestamp getDateOfPurchase() {
         return dateOfPurchase;
     }
 
-    public void setDateOfPurchase(Date dateOfPurchase) {
+    public void setDateOfPurchase(Timestamp dateOfPurchase) {
         this.dateOfPurchase = dateOfPurchase;
     } 
 }
