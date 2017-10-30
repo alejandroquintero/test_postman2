@@ -1,9 +1,9 @@
-<button id="login-btn" ng-hide="isAuthenticated()" type="button" class="btn btn-default navbar-btn" ng-click="goToLogin()">
-    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Login
+<button id="login-btn" ng-hide="isAuthenticated()" type="button" class="btn btn-success navbar-btn" ng-click="goToLogin()">
+    <span class="fa fa-user" aria-hidden="true"></span> Iniciar sesión 
 </button>
 
 <div ng-show="isAuthenticated()" class="btn-group">
-    <button id="menu-btn" type="button" class="btn btn-default dropdown-toggle navbar-btn" data-toggle="dropdown" aria-haspopup="true"
+    <button id="menu-btn" type="button" class="btn btn-success dropdown-toggle navbar-btn" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
         {{currentUser.userName}} <span class="caret"></span>
     </button>
@@ -13,7 +13,7 @@
         </li>
         <li if-permission name='shopping'>
             <a ui-sref="shoppingList({page: 1, limit: 15})">
-                <span class="glyphicon glyphicon-usd"></span>Historial de compras
+                <span class="fa fa-shopping-cart" style="color:green"></span>Historial de compras
             </a>
         </li>
         <li if-permission name='shopping'>
@@ -23,7 +23,7 @@
         </li>
         <li>
             <a href ng-click="logout()">
-                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout
+                <span class="glyphicon glyphicon-log-out" aria-hidden="true"  style="color:red"></span> Logout
             </a>
         </li>
     </ul>

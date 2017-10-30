@@ -25,6 +25,7 @@ SOFTWARE.
     <div ncy-breadcrumb></div>
     <toolbar name="model.name" display-name="model.displayName" actions='actions'></toolbar>
 </header>
+
 <form novalidate class="navbar-form navbar-left" role="search" >
     <div class="form-group">
         <p>
@@ -36,7 +37,10 @@ SOFTWARE.
     </div>
 
 </form>
+
 <list-records thumbnail="true" thumbnail-uri="photos"  name="model.name" fields="model.fields" records="records" actions="recordActions" buttons="buttons" ></list-records>
+
+
 <pagination ng-if="ctrl.itemsPerPage < ctrl.totalItems"
             total-items="ctrl.totalItems"
             max-size="5"
@@ -46,4 +50,5 @@ SOFTWARE.
             class="pagination-md" 
             boundary-links="true" 
             rotate="false">
+
 </pagination>

@@ -1,4 +1,4 @@
-<nav ng-if="!hide" class="navbar navbar-default" role="navigation">
+<nav ng-if="!hide" class="navbar-secondary navbar-default" role="navigation">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -15,7 +15,7 @@
         <div class="collapse navbar-collapse" id="{{name}}-navbar">
             <button ng-repeat="(key, action) in actions" id="{{key}}-{{name}}"
                     ng-hide="action.show && !action.show()"
-                    ng-class="action.class || 'btn btn-default navbar-btn'"
+                    ng-class="action.class || 'btn btn-info navbar-btn'"
                     ng-click="action.fn()">
                 <span class="glyphicon glyphicon-{{action.icon}}"></span> {{action.displayName}}
             </button>
