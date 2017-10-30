@@ -87,11 +87,13 @@ public class ShoppingPersistence extends CrudPersistence<ShoppingEntity> {
     }
     
     /**
-     * add item shopping to shopping.
-     * @return ShoppingEntity state equal PROCESO
+     * Find shopping status PROCESO
+     * @return ShoppingEntity
      */
-    public ShoppingEntity getShoppingCar() {
-        return null;
+    public ShoppingEntity getShoppingCar(Long clientid) {
+        TypedQuery<ShoppingEntity> q = em.createQuery("select p from ShoppingEntity p where (p.client.id = :clientid) and (p.status = 'PROCESO')", ShoppingEntity.class);
+        q.setParameter("clientid", clientid);
+        return q.getSingleResult();
     }
     
     /**
