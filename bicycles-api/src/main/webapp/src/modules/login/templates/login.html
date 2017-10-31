@@ -4,27 +4,27 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Please Login</h3>
+                    <h3 class="panel-title">Por favor autentíquese</h3>
                 </div>
                 <div class="panel-body">
                     <form name="loginform" accept-charset="UTF-8" role="form">
                         <div class="form-group">
-                            <input class="form-control" id="username-input" required ng-model="user.userName" placeholder="Username or Email" name="username" type="text">
+                            <input class="form-control" id="username-input" required ng-model="user.userName" placeholder="Usuario o Correo electrónico" name="username" type="text">
                         </div>
                         <div class="form-group">
                             <div class="text-right">
-                                <a align="right" ng-click="authCtrl.goToForgotPass()">Forgot your password?</a>
+                                <a align="right" ng-click="authCtrl.goToForgotPass()">¿Olvidó su contraseña?</a>
                             </div>
-                            <input class="form-control" id="password-input" required ng-model="user.password" placeholder="Password" name="password" type="password" >
+                            <input class="form-control" id="password-input" required ng-model="user.password" placeholder="Contraseña" name="password" type="password" >
                         </div>
                         <div class="checkbox">
                             <label>
-                                <input id="remember-me-input" name="rememberMe" type="checkbox" ng-model="user.rememberMe" value="false"> Remember Me
+                                <input id="remember-me-input" name="rememberMe" type="checkbox" ng-model="user.rememberMe" value="false"> ¿Recuerdame?
                             </label>
                         </div>
-                        <input id="log-in-btn" class="btn btn-lg btn-success btn-block" ng-click="authCtrl.login(user)" type="submit" value="Login">
+                        <input id="log-in-btn" class="btn btn-lg btn-success btn-block" ng-click="authCtrl.login(user)" type="submit" value="Iniciar sesión">
                     </form>
-                    <button id="register-btn" class="btn btn-lg btn-default btn-block" ng-click="authCtrl.registration()">Create an account</button>
+                    <button id="register-btn" class="btn btn-lg btn-default btn-block" ng-click="authCtrl.registration()">Crear una cuenta</button>
                     <div class="spinner text-center" ng-show="loading">
                         <img src="http://www.lectulandia.com/wp-content/themes/ubook/images/spinner.gif" alt="Loading" style="width:48px;height:48px;">
                     </div>

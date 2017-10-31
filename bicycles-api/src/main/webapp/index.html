@@ -37,6 +37,8 @@ SOFTWARE.
         <!-- endbuild -->
 
         <!-- build:css(<%= meta.src %>) styles/main.css -->
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
         <!-- include: "type": "css", "files": "<%= meta.includeCssFiles %>" -->
         <link rel="stylesheet" href="styles/main.css" type="text/css">
         <!-- /include -->
@@ -60,7 +62,7 @@ SOFTWARE.
         <script src="bower_components/angular-touch/angular-touch.min.js"></script>
         <script src="bower_components/angular-animate/angular-animate.min.js"></script>
         <script src="bower_components/angular-breadcrumb/release/angular-breadcrumb.min.js" type="text/javascript"></script>
-      
+        <script src="bower_components/angular-ng-table/ng-table.min.js" type="text/javascript" language="javascript" ></script>
         <!-- endbower -->
         <!-- endbuild -->
 
@@ -83,7 +85,6 @@ SOFTWARE.
         <script src="src/modules/bicycle/instance/edit/bicycle.edit.ctrl.js"></script>
         <script src="src/modules/bicycle/list/bicycle.list.ctrl.js"></script>
         <script src="src/modules/bicycle/new/bicycle.new.ctrl.js"></script>
-        <!-- Quitar categorias y marcas-->
         <script src="src/modules/category/category.ctrl.js"></script>
         <script src="src/modules/category/instance/bicycle/edit/category.bicycle.edit.ctrl.js"></script>
         <script src="src/modules/category/instance/bicycle/list/category.bicycle.list.ctrl.js"></script>
@@ -127,7 +128,7 @@ SOFTWARE.
     <body style="padding-top: 120px;">
         <div class="container">
             <div class="col-md-12">
-                <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+                <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                     <div class="container-fluid header">
                         <!-- Brand and toggle get grouped for better mobile display -->
                         <div class="navbar-header">
@@ -137,56 +138,124 @@ SOFTWARE.
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                          <a class="navbar-brand" href>Bicy<strong>Shop</strong></a>
+                            <a class="navbar-brand" href="#/"><img src="src/img/Bicico-min.png" style='height: 110%; width: 110%; object-fit: contain'/> </a>
                         </div>
 
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse" id="main-bar" ng-controller="menuCtrl">
-                            <ul class="nav navbar-nav">
+                            <ul class="nav navbar-nav bicico-left">
                                 <li if-permission name='bicycles'>
-                                  <a ui-sref="bicycleList({page: 1, limit: 15})">Bicicletas</a>
+                                    <a class="btn btn-group dropdown-toggle" 
+                                       type="button" 
+                                       id="categoryDropdown" 
+                                       data-toggle="dropdown"
+                                       ui-sref="bicycleList({page: 1, limit: 15})">Bicicletas</a>
                                 </li>
-                                <!--<li if-permission name='categorys'>
-                                  <button class="btn btn-default dropdown-toggle" 
-                                          type="button" 
-                                          id="categoryDropdown" 
-                                          data-toggle="dropdown">
-                                    Categorias
-                                  </button>
-                                  <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
-                                    <li ng-repeat="category in categories">
-                                      <a ui-sref="categoryDetail({categoryId:category.id})">{{category.name}}</a>
-                                    </li>
-                                  </ul>
-                                </li>-->
-                                <!--<li if-permission name='brands'>
-                                  <button class="btn btn-default dropdown-toggle" 
-                                          type="button" 
-                                          id="BrandDropdown" 
-                                          data-toggle="dropdown">
-                                    Marcas
-                                  </button>
-                                  <ul class="dropdown-menu" aria-labelledby="BrandDropdown">
-                                    <li ng-repeat="brand in brands">
-                                      <a ui-sref="brandDetail({brandId: brand.id})">{{brand.name}}</a>
-                                    </li>
-                                  </ul>
-                                </li>-->
+                                <li if-permission name='categorys'>
+                                    <a class="btn btn-group dropdown-toggle" 
+                                       type="button" 
+                                       id="categoryDropdown" 
+                                       data-toggle="dropdown">
+                                        Categorias
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+                                        <li ng-repeat="category in categories">
+                                            <a ui-sref="categoryDetail({categoryId:category.id})">{{category.name}}</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li if-permission name='brands'>
+                                    <a class="btn btn-group dropdown-toggle" 
+                                       type="button" 
+                                       id="categoryDropdown" 
+                                       data-toggle="dropdown">
+                                        Marcas
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="BrandDropdown">
+                                        <li ng-repeat="brand in brands">
+                                            <a ui-sref="brandDetail({brandId: brand.id})">{{brand.name}}</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
                                 <li if-permission name='clients'>
-                                    <a ui-sref="clientList({page: 1, limit: 15})">Client</a>
+                                    <a class="btn btn-group dropdown-toggle" 
+                                       type="button" 
+                                       id="categoryDropdown" 
+                                       data-toggle="dropdown"
+                                       ui-sref="clientList({page: 1, limit: 15})">Clientes</a>
                                 </li>
+
                                 <!--<li if-permission name='shopping'>
                                     <a ui-sref="shoppingList({page: 1, limit: 15})">Shopping</a>
                                 </li>-->
                             </ul>
-                            <ul class="nav navbar-nav navbar-right">
+                            <ul class="nav navbar-nav bicico-right">
                                 <login-button></login-button>
                             </ul>
                         </div> <!-- /.navbar-collapse -->
                     </div> <!-- /.container-fluid -->
                 </nav>
             </div>
-            <div ui-view="mainView"></div>
+            <div ui-view="mainView">
+
+
+                <div id="bicico-index-bienvenida-container" class="container-fluid text-center">
+                    <div>
+                        <h1 class="bicico-logo"><i class="fa fa-bicycle"></i> BiCiCo</h1>
+                        <p>Recorriendo el camino contigo.</p>
+                    </div>
+                </div>
+
+                <div class="container text-center bicico-index-section">
+                    <h2>Servicios</h2>
+                    <div class="row">
+                        <div id="bicico-index-servicios-c-container" class="col-md-12">
+                            <h3>Nuestros Seervicios:</h3>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="bicico-index-services-c-container img-circle">
+                                        <i class="fa fa-shopping-basket fa-5x"></i>
+                                    </div>
+                                    <h4>Carro de Ventas</h4>
+                                    <p>Podras comprar facilmente las bicicletas de temporada.</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="bicico-index-services-c-container img-circle">
+                                        <i class="fa fa-shopping-cart fa-5x"></i>
+                                    </div>
+                                    <h4>Compra Online</h4>
+                                    <p>Paga desde la comodidad de tu casa.</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="bicico-index-services-c-container img-circle">
+                                        <i class="fa fa-map-marker fa-5x"></i>
+                                    </div>
+                                    <h4>Entrega Cercana</h4>
+                                    <p>Llevamos tus productos a tu domicilio.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
         </div>
+
+        <div class="container-fluid">
+
+            <!-- Content Views-->
+            <div ng-view class="smarttools-encode-sans"></div>
+
+            <footer>
+                <h3 class="smarttools-logo"><i class="fa fa-bicycle"></i>BICICO</h3>
+                <p>Desarrollado por E.T SOFT Grupo 3 Gerencia de Proyectos Software 2017</p>
+                <div>
+                    <a><i class="fa fa-facebook-square fa-2x"></i></a>
+                    <a><i class="fa fa-twitter-square fa-2x"></i></a>
+                </div>
+            </footer>
+        </div>     
     </body>
 </html>
