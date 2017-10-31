@@ -40,8 +40,7 @@ public class ShoppingLogic implements IShoppingLogic {
 
     @Inject private ShoppingPersistence persistence;
 
-    @Inject
-    private IClientLogic clientLogic;
+    @Inject private IClientLogic clientLogic;
     
     /**
      * Trae las compras paginado.
@@ -95,7 +94,7 @@ public class ShoppingLogic implements IShoppingLogic {
     public ShoppingEntity createShopping(Long clientId, ShoppingEntity entity) {
         ClientEntity client = clientLogic.getClient(clientId);
         entity.setClient(client);
-        entity.setDateOfPurchase(new java.util.Date());
+        entity.setStatus("PROCESO");
         persistence.create(entity);
         return entity;
     }
@@ -118,5 +117,25 @@ public class ShoppingLogic implements IShoppingLogic {
     @Override
     public void deleteShopping(Long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    /**
+     * Devuelve la compra en estado Pendiente.
+     * @param clientID id del cliente.
+     * @return ShoppingEntity
+     */
+    @Override
+    public ShoppingEntity getShoppingCar(Long clientID) {
+        return persistence.getShoppingCar(clientID);
+    }
+    
+    /**
+     * Realizar el pago de la compra pendiente.
+     * @param clientID id del cliente.
+     */
+    @Override
+    public void checkoutShoppingCar(Long clientID) {
+        ShoppingEntity shopping = persistence.getShoppingCar(clientID);
+        persistence.checkoutShopping(shopping.getId());        
     }
 }

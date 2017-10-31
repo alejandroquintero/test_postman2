@@ -1,3 +1,4 @@
+
 /*
 The MIT License (MIT)
 
@@ -23,17 +24,14 @@ SOFTWARE.
 */
 package co.edu.uniandes.csw.bicycles.api;
 
-import co.edu.uniandes.csw.bicycles.entities.ShoppingEntity;
+import co.edu.uniandes.csw.bicycles.entities.ItemShoppingEntity;
 import java.util.List;
 
-public interface IShoppingLogic {
-    public int countShopping(); 
-    public ShoppingEntity createShopping(Long clientId, ShoppingEntity entity);
-    public List<ShoppingEntity> getShopping(Integer page, Integer maxRecords, Long clientId);
-    public List<ShoppingEntity> getShoppingList(Long shoppingId);
-    public ShoppingEntity getShopping(Long shoppingId);
-    public ShoppingEntity updateShopping(Long shoppingId, ShoppingEntity entity);
-    public void deleteShopping(Long id);
-    public ShoppingEntity getShoppingCar(Long clientId);
-    public void checkoutShoppingCar(Long clientId);
+public interface IItemShoppingLogic {
+    public List<ItemShoppingEntity> getItemShopping(Integer page, Integer maxRecords, Long shoppingId);
+    public List<ItemShoppingEntity> getItemShoppingList(Long shoppingId);
+    public ItemShoppingEntity getItemShopping(Long itemShoppingId);
+    public void deleteItemShopping(Long itemShoppingId);
+    public int countItemShopping(Long shoppingId); 
+    public ItemShoppingEntity addItemShopping(Long clientId, Long quantity, Long bicycleId);
 }

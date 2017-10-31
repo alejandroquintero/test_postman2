@@ -10,8 +10,7 @@ package co.edu.uniandes.csw.crud.spi.entity;
  * @author ra.gomez11
  */
 public enum PaymentStatus {
-    SINPAGO,
+    PROCESO,
     PAGADO,
-    PENDIENTE,
     RECHAZADO
 }
