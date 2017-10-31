@@ -30,6 +30,7 @@ import javax.persistence.PersistenceContext;
 import co.edu.uniandes.csw.bicycles.entities.ShoppingEntity;
 import co.edu.uniandes.csw.crud.spi.persistence.CrudPersistence;
 import java.util.List;
+import javax.persistence.TypedQuery;
 
 /**
  * @generated
@@ -57,33 +58,30 @@ public class ItemShoppingPersistence extends CrudPersistence<ItemShoppingEntity>
     }
 
     /**
-     * Find all
+     * Find all 
      * @param page
      * @param maxRecords
-     * @param clientId
-     * @return 
-     */
-    public List<ShoppingEntity> findAll(Integer page, Integer maxRecords, Long shoppingId) {
-        return null;
-    }
-
-    /**
-     * Find item shopping.
      * @param shoppingId
-     * @param itemShoppingId
      * @return 
      */
-    public ItemShoppingEntity find(Long shoppingId, Long itemShoppingId) {
-        return null;
+    public List<ItemShoppingEntity> findAll(Integer page, Integer maxRecords, Long shoppingId) {
+        TypedQuery<ItemShoppingEntity> q = em.createQuery("select p from ItemShoppingEntity p where (p.shopping.id = :shoppingId)", ItemShoppingEntity.class);
+        q.setParameter("shoppingId", shoppingId);
+        if (page != null && maxRecords != null) {
+            q.setFirstResult((page - 1) * maxRecords);
+            q.setMaxResults(maxRecords);
+        }
+        return q.getResultList();
     }
     
     /**
-     * add item shopping.
-     * @param bicycleId
-     * @param quantity
+     * Find all 
+     * @param shoppingId
      * @return 
      */
-    public ItemShoppingEntity addBicycleShopping(Long bicycleId, Long quantity) {
-        return null;
+    public List<ItemShoppingEntity> findAll( Long shoppingId) {
+        TypedQuery<ItemShoppingEntity> q = em.createQuery("select p from ItemShoppingEntity p where (p.shopping.id = :shoppingId)", ItemShoppingEntity.class);
+        q.setParameter("shoppingId", shoppingId);
+        return q.getResultList();
     }
 }
