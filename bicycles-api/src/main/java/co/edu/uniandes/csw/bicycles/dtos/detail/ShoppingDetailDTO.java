@@ -25,6 +25,9 @@ package co.edu.uniandes.csw.bicycles.dtos.detail;
 
 import co.edu.uniandes.csw.bicycles.dtos.minimum.*;
 import co.edu.uniandes.csw.bicycles.entities.ShoppingEntity;
+import co.edu.uniandes.csw.bicycles.entities.ItemShoppingEntity;
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -36,6 +39,8 @@ public class ShoppingDetailDTO extends ShoppingDTO{
     
     @PodamExclude
     private ClientDTO client;
+    @PodamExclude
+    private List<ItemShoppingDTO> itemShopping;
     
 
     /**
@@ -46,15 +51,21 @@ public class ShoppingDetailDTO extends ShoppingDTO{
     }
 
     /**
-     * Crea un objeto BicycleDetailDTO a partir de un objeto BicycleEntity incluyendo los atributos de BicycleDTO.
+     * Crea un objeto ShoppingDetailDTO a partir de un objeto ClientEntity incluyendo los atributos de ItemShoppingDTO.
      *
-     * @param entity Entidad BicycleEntity desde la cual se va a crear el nuevo objeto.
+     * @param entity Entidad ShoppingEntity desde la cual se va a crear el nuevo objeto.
      * @generated
      */
     public ShoppingDetailDTO(ShoppingEntity entity) {
         super(entity);
         if (entity.getClient()!=null){
             this.client = new ClientDTO(entity.getClient());
+        }
+        if (entity.getItemShopping()!=null){
+          itemShopping = new ArrayList<>();
+          for(ItemShoppingEntity ishop : entity.getItemShopping()){
+            itemShopping.add(new ItemShoppingDTO(ishop));
+          }
         }
     }
 
