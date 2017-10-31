@@ -26,16 +26,12 @@ package co.edu.uniandes.csw.bicycles.entities;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
-import co.edu.uniandes.csw.crud.spi.entity.PaymentStatus;
 import java.security.Timestamp;
 import java.util.ArrayList;
 import uk.co.jemos.podam.common.PodamExclude;
 import javax.persistence.ManyToOne;
 import java.util.List;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 
 /**
@@ -53,8 +49,6 @@ public class ShoppingEntity extends BaseEntity implements Serializable {
     @OneToMany(mappedBy = "shopping", cascade = CascadeType.REMOVE)
     private List<ItemShoppingEntity> itemShopping = new ArrayList<>();
     
-    @Column(name = "paymentStatus")
-    @Enumerated(EnumType.STRING)
     private String status;
     
     private Timestamp dateOfPurchase;
