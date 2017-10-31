@@ -110,7 +110,7 @@ public class ItemShoppingResource {
     /**
      * Elimina una instancia de ItemShopping de la base de datos
      *
-     * @param id Identificador de la instancia a eliminar
+     * @param itemShoppingId Identificador de la instancia a eliminar
      * @generated
      */
     @DELETE
