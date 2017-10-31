@@ -13,6 +13,11 @@ and open the template in the editor.
         <legend>Edición del cliente:</legend>
         <input id="id" class="form-control" type="hidden" ng-model="currentRecord.id"/>
         <div class="form-group col-md-12" ng-class="{'has-success': clientForm.lastName.$valid && clientForm.lastName.$dirty, 'has-error': clientForm.lastName.$invalid && clientForm.lastName.$dirty}" >
+            <label for="login" class="col-md-2 control-label">Login</label>
+            <div class="col-md-10">
+                <input readonly id="login" name="login" class="form-control" type="text" ng-model="currentRecord.login" ng-required="true" />
+            </div>
+
             <label for="lastName" class="col-md-2 control-label">Last Name</label>
             <div class="col-md-10">
                 <input id="lastName" name="lastName" class="form-control" type="text" ng-model="currentRecord.lastName" ng-required="true" />
@@ -21,11 +26,6 @@ and open the template in the editor.
             <label for="firstName" class="col-md-2 control-label">First Name</label>
             <div class="col-md-10">
                 <input id="firstName" name="firstName" class="form-control" type="text" ng-model="currentRecord.firstName" ng-required="true" />
-            </div>
-
-            <label for="login" class="col-md-2 control-label">Login</label>
-            <div class="col-md-10">
-                <input id="login" name="login" class="form-control" type="text" ng-model="currentRecord.login" ng-required="true" />
             </div>
 
             <label for="phone" class="col-md-2 control-label">Phone</label>

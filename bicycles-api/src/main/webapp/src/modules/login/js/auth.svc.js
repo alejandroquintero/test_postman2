@@ -13,6 +13,7 @@
             forgotPassState: 'forgot',
             successState: 'home',
             forbiddenState: 'forbidden',
+            perfilState: 'clientEditUser',
             loginURL: 'login',
             registerURL: 'register',
             logoutURL: 'logout',
@@ -113,6 +114,9 @@
                 },
                 goToForbidden: function(){
                     $state.go(values.forbiddenState);
+                },
+                goToPerfil: function(username){
+                    $state.go(values.perfilState, {clientUser:username});
                 },
                 userAuthenticated: function(){
                     $http.get(values.apiUrl + values.meURL).then(function(response){
