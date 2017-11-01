@@ -28,12 +28,10 @@ SOFTWARE.
 
 <form novalidate class="navbar-form navbar-left" role="search" >
     <div class="form-group">
-        <p>
-            Búsqueda avanzada:
-            <input type="text" class="form-control" placeholder="Descripción Bicicleta" ng-model="bicycleDescription" required>
-            <input type="text" class="form-control" placeholder="Estado Bicicleta" ng-model="bicycleStatus" required>
-            <button type="submit" class="btn btn default" ui-sref="bicycleList({description: bicycleDescription, status: bicycleStatus})">Filtrar resultados</button>
-        </p>
+        Búsqueda avanzada:
+        <input type="text" class="form-control" placeholder="Descripción Bicicleta" ng-model="bicycleDescription" required>
+        <input type="text" class="form-control" placeholder="Estado Bicicleta" ng-model="bicycleStatus" required>
+        <button type="submit" class="btn btn default" ui-sref="bicycleList({description: bicycleDescription, status: bicycleStatus})">Filtrar resultados</button>
     </div>
 
 </form>
