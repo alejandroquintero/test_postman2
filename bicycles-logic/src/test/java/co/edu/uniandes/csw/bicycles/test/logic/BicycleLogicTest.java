@@ -20,7 +20,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-*/
+ */
 package co.edu.uniandes.csw.bicycles.test.logic;
 
 import co.edu.uniandes.csw.bicycles.ejbs.BicycleLogic;
@@ -57,7 +57,6 @@ public class BicycleLogicTest {
     /**
      * @generated
      */
-
     /**
      * @generated
      */
@@ -143,30 +142,32 @@ public class BicycleLogicTest {
     }
 
     /**
-     * Inserta los datos iniciales para el correcto funcionamiento de las pruebas.
+     * Inserta los datos iniciales para el correcto funcionamiento de las
+     * pruebas.
      *
      * @generated
      */
     private void insertData() {
-            for (int i = 0; i < 3; i++) {
-                BrandEntity brand = factory.manufacturePojo(BrandEntity.class);
-                em.persist(brand);
-                brandData.add(brand);
-            }
-            for (int i = 0; i < 3; i++) {
-                CategoryEntity category = factory.manufacturePojo(CategoryEntity.class);
-                em.persist(category);
-                categoryData.add(category);
-            }
+        for (int i = 0; i < 3; i++) {
+            BrandEntity brand = factory.manufacturePojo(BrandEntity.class);
+            em.persist(brand);
+            brandData.add(brand);
+        }
+        for (int i = 0; i < 3; i++) {
+            CategoryEntity category = factory.manufacturePojo(CategoryEntity.class);
+            em.persist(category);
+            categoryData.add(category);
+        }
         for (int i = 0; i < 3; i++) {
             BicycleEntity entity = factory.manufacturePojo(BicycleEntity.class);
-                entity.setBrand(brandData.get(0));
-                entity.setCategory(categoryData.get(0));
+            entity.setBrand(brandData.get(0));
+            entity.setCategory(categoryData.get(0));
 
             em.persist(entity);
             data.add(entity);
         }
     }
+
     /**
      * Prueba para crear un Bicycle
      *
@@ -203,7 +204,6 @@ public class BicycleLogicTest {
         }
     }
 
-    
     /**
      * Prueba para consultar un Bicycle
      *
@@ -252,7 +252,7 @@ public class BicycleLogicTest {
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getName(), resp.getName());
     }
-    
+
     /**
      * Prueba para consultar la lista de Bicycles.
      */
@@ -261,10 +261,10 @@ public class BicycleLogicTest {
         //Arrange
         int pagina = 1;
         int maximo = 5;
-        
+
         //Act
         List<BicycleEntity> list = bicycleLogic.validarVigencia(pagina, maximo);
-        
+
         //Assert
         Assert.assertEquals(data.size(), list.size());
         for (BicycleEntity entity : list) {
@@ -277,5 +277,50 @@ public class BicycleLogicTest {
             Assert.assertTrue(found);
         }
     }
-}
 
+    /**
+     * Prueba para la consulta avanzada de bicicletas por descripcion
+     */
+    @Test
+    public void getFilteredByDescriptionBicycles() {
+        // Lista sin filtrar
+        List<BicycleEntity> listaCompleta = bicycleLogic.getBicycles();
+
+        // Lista filtrada
+        List<BicycleEntity> listaFiltrada = bicycleLogic.getByDescription("Rin 29");
+
+        // Fallar si no se puede ejecutar la prueba por datos
+        if (listaCompleta.isEmpty()) {
+            Assert.assertFalse("No hay datos para ejecutar la prueba", true);
+        }
+
+        // Si hay resultados filtrados, prueba correcta
+        if (!listaFiltrada.isEmpty()) {
+            Assert.assertTrue("Prueba exitosa", true);
+        }
+
+    }
+
+    /**
+     * Prueba para la consulta avanzada de bicicletas por estado
+     */
+    @Test
+    public void getFilteredByStatusBicycles() {
+        // Lista sin filtrar
+        List<BicycleEntity> listaCompleta = bicycleLogic.getBicycles();
+
+        // Lista filtrada
+        List<BicycleEntity> listaFiltrada = bicycleLogic.getByStatus("Nuevo");
+
+        // Fallar si no se puede ejecutar la prueba por datos
+        if (listaCompleta.isEmpty()) {
+            Assert.assertFalse("No hay datos para ejecutar la prueba", true);
+        }
+
+        // Si hay resultados filtrados, prueba correcta
+        if (!listaFiltrada.isEmpty()) {
+            Assert.assertTrue("Prueba exitosa", true);
+        }
+
+    }
+}

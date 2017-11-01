@@ -20,8 +20,9 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-*/
+ */
 package co.edu.uniandes.csw.bicycles.test.persistence;
+
 import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
 import co.edu.uniandes.csw.bicycles.entities.PhotoAlbumEntity;
 import co.edu.uniandes.csw.bicycles.persistence.BicyclePersistence;
@@ -64,7 +65,6 @@ public class BicyclePersistenceTest {
     /**
      * @generated
      */
-
     /**
      * @generated
      */
@@ -122,7 +122,8 @@ public class BicyclePersistenceTest {
     private List<BicycleEntity> data = new ArrayList<BicycleEntity>();
 
     /**
-     * Inserta los datos iniciales para el correcto funcionamiento de las pruebas.
+     * Inserta los datos iniciales para el correcto funcionamiento de las
+     * pruebas.
      *
      * @generated
      */
@@ -130,11 +131,12 @@ public class BicyclePersistenceTest {
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
             BicycleEntity entity = factory.manufacturePojo(BicycleEntity.class);
-            
+
             em.persist(entity);
             data.add(entity);
         }
     }
+
     /**
      * Prueba para crear un Bicycle.
      *
@@ -221,7 +223,7 @@ public class BicyclePersistenceTest {
         Assert.assertEquals(newEntity.getDescription(), resp.getDescription());
         Assert.assertEquals(newEntity.getName(), resp.getName());
     }
-    
+
     /**
      * Prueba para consultar la lista de Bicycles.
      */
@@ -231,10 +233,10 @@ public class BicyclePersistenceTest {
         int pagina = 1;
         int maximo = 5;
         int vigenciaMeses = 3;
-        
+
         //Act
         List<BicycleEntity> list = bicyclePersistence.findAll(pagina, maximo, vigenciaMeses);
-        
+
         //Assert
         Assert.assertEquals(data.size(), list.size());
         for (BicycleEntity ent : list) {
@@ -246,5 +248,50 @@ public class BicyclePersistenceTest {
             }
             Assert.assertTrue(found);
         }
+    }
+
+    /**
+     * Prueba para consultar el filtro de búsqueda avanzada por descripcion
+     */
+    @Test
+    public void getFilteredByDescriptionBicyclesTest() {
+        //Cargar bicicletas por descripcion
+        List<BicycleEntity> listaFiltrada = bicyclePersistence.getByDescription("Rin 29");
+
+        // Cargar todas las bicicletas
+        List<BicycleEntity> listaCompleta = bicyclePersistence.findAll();
+
+        // Fallar si no se puede ejecutar la prueba por datos
+        if (listaCompleta.isEmpty()) {
+            Assert.assertFalse("No hay datos para ejecutar la prueba", true);
+        }
+
+        if (listaFiltrada.size() != listaCompleta.size()) {
+            Assert.assertTrue("Prueba exitosa", true);
+        }
+
+    }
+
+    /**
+     * Prueba para consultar el filtro de búsqueda avanzada por estado
+     */
+    @Test
+    public void getFilteredByStatusBicyclesTest() {
+        //Cargar bicicletas por estado (Nuevo o Usado)
+        List<BicycleEntity> listaFiltrada = bicyclePersistence.getByStatus("Nuevo");
+
+        // Cargar todas las bicicletas
+        List<BicycleEntity> listaCompleta = bicyclePersistence.findAll();
+
+        // Fallar si no se puede ejecutar la prueba por datos
+        if (listaCompleta.isEmpty()) {
+            Assert.assertFalse("No hay datos para ejecutar la prueba", true);
+        }
+        
+        // Si hay resultados filtrados, prueba correcta
+        if (!listaFiltrada.isEmpty()) {
+            Assert.assertTrue("Prueba exitosa", true);
+        }
+
     }
 }
