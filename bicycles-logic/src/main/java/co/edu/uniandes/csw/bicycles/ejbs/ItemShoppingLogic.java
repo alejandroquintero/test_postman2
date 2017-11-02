@@ -24,11 +24,8 @@ SOFTWARE.
 package co.edu.uniandes.csw.bicycles.ejbs;
 
 import co.edu.uniandes.csw.bicycles.api.IBicycleLogic;
-import co.edu.uniandes.csw.bicycles.api.IClientLogic;
 import co.edu.uniandes.csw.bicycles.api.IItemShoppingLogic;
 import co.edu.uniandes.csw.bicycles.api.IShoppingLogic;
-import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
-import co.edu.uniandes.csw.bicycles.entities.ClientEntity;
 import co.edu.uniandes.csw.bicycles.entities.ItemShoppingEntity;
 import co.edu.uniandes.csw.bicycles.entities.ShoppingEntity;
 import co.edu.uniandes.csw.bicycles.persistence.ItemShoppingPersistence;
@@ -97,28 +94,10 @@ public class ItemShoppingLogic implements IItemShoppingLogic {
         persistence.delete(itemShoppingId);
     }
 
-    /*@Override
-    public ItemShoppingEntity addItemShopping(Long clientId, Long quantity, Long bicycleId) {
-        ItemShoppingEntity itemShoppingEntity = new ItemShoppingEntity();
-        
-        ShoppingEntity shopping = shoppingLogic.getShoppingCar(clientId);
-        BicycleEntity bicycle = bicycleLogic.getBicycle(bicycleId);
-        
-        if(shopping == null){
-            shopping = new ShoppingEntity();
-            shopping.setTotalPrice(new Double(0));
-            shopping = shoppingLogic.createShopping(clientId, shopping);
-        }
-        
-        itemShoppingEntity.setBicycle(bicycle);
-        itemShoppingEntity.setQuantity(quantity);
-        itemShoppingEntity.setShopping(shopping);
-        
-        return persistence.create(itemShoppingEntity);
-    }*/
-
     @Override
     public ItemShoppingEntity createItemShopping(ItemShoppingEntity toEntity) {
+        ShoppingEntity compra = shoppingLogic.getShoppingCar(toEntity.getTempUser());
+        toEntity.setShopping(compra);
         return persistence.create(toEntity);
     }
     
