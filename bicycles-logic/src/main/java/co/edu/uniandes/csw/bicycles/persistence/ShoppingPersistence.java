@@ -104,14 +104,4 @@ public class ShoppingPersistence extends CrudPersistence<ShoppingEntity> {
             return null;
         }
     }
-    
-    /**
-     * checkout shopping
-     * @param shoppingId
-     */
-    public void checkoutShopping(Long shoppingId) {
-        TypedQuery<ShoppingEntity> q = em.createQuery("update ShoppingEntity set status = 'PAGADO' where ShoppingEntity.id = :shoppingId", ShoppingEntity.class);
-        q.setParameter("shoppingId", shoppingId);
-        q.executeUpdate();
-    }
 }

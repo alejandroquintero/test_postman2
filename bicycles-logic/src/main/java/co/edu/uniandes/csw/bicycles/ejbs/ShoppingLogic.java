@@ -145,6 +145,7 @@ public class ShoppingLogic implements IShoppingLogic {
     @Override
     public void checkoutShoppingCar(Long clientID) {
         ShoppingEntity shopping = persistence.getShoppingCar(clientID);
-        persistence.checkoutShopping(shopping.getId());        
+        shopping.setStatus("PAGADO");
+        persistence.update(shopping);      
     }
 }

@@ -134,6 +134,15 @@
                         return $http.get(values.shoppingUrl + 'count?clientId=' + JSON.parse(request.responseText).id);
                     }
                 },
+                checkout: function (username) {
+                    var request = new XMLHttpRequest();
+                    request.open('GET', values.clientUrl + username, false);  // `false` makes the request synchronous
+                    request.send(null);
+
+                    if (request.status === 200) {
+                        return $http.get(values.shoppingUrl + 'checkout?clientId=' + JSON.parse(request.responseText).id);
+                    }
+                },
                 userAuthenticated: function(){
                     $http.get(values.apiUrl + values.meURL).then(function(response){
                        var permissions = JSON.stringify(response.data.permissions);

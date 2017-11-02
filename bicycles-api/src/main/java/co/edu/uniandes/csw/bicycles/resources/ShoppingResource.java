@@ -132,4 +132,18 @@ public class ShoppingResource {
     public ShoppingDetailDTO countItemShopping() {
         return new ShoppingDetailDTO(shoppingLogic.getShoppingCar(clientId));
     }
+    
+    /**
+     * realiza la compra del shopping car
+     *
+     * @param clientId
+     * @return 
+     * @generated
+     */
+    @GET
+    @Path("/checkout")
+    public void checkout() {
+        System.out.print(clientId);
+        shoppingLogic.checkoutShoppingCar(clientId);
+    }
 }

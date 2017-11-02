@@ -160,6 +160,10 @@
                 authSvc.goToShoppingList($scope.currentUser.userName);
             };
             
+            $scope.checkout = function () {
+                authSvc.checkout($scope.currentUser.userName);
+            };
+            
             $scope.loadShoppingCar = function () {
                 $scope.itemsShopping = load;
             }
