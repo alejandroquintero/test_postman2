@@ -6,13 +6,10 @@
 package co.edu.uniandes.csw.bicycles.dtos.minimum;
 
 
+import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
+import co.edu.uniandes.csw.bicycles.entities.ClientEntity;
 import co.edu.uniandes.csw.bicycles.entities.ItemShoppingEntity;
-import co.edu.uniandes.csw.crud.spi.entity.PaymentStatus;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
-import java.security.Timestamp;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  *
@@ -23,6 +20,8 @@ public class ItemShoppingDTO implements Serializable{
     
     private Long quantity;
     private String name;    
+    private Long bicycleId;
+    private String clientId;
     
     /**
      * @generated
@@ -53,7 +52,12 @@ public class ItemShoppingDTO implements Serializable{
      */
     public ItemShoppingEntity toEntity() {
         ItemShoppingEntity entity = new ItemShoppingEntity();
+        BicycleEntity bici = new BicycleEntity();
+        bici.setId(getBicycleId());
+        
         entity.setQuantity(this.getQuantity());
+        entity.setBicycle(bici);
+        entity.setTempUser(getClientId());
         return entity;
     }
 
@@ -74,4 +78,19 @@ public class ItemShoppingDTO implements Serializable{
         this.name = name;
     }
 
+    public Long getBicycleId() {
+        return bicycleId;
+    }
+
+    public void setBicycleId(Long bicycleId) {
+        this.bicycleId = bicycleId;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
 }

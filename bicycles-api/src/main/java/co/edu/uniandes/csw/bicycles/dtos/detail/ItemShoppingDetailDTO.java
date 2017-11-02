@@ -8,7 +8,6 @@ package co.edu.uniandes.csw.bicycles.dtos.detail;
 
 import co.edu.uniandes.csw.bicycles.dtos.minimum.*;
 import co.edu.uniandes.csw.bicycles.entities.ItemShoppingEntity;
-import javax.xml.bind.annotation.XmlRootElement;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -57,7 +56,7 @@ public class ItemShoppingDetailDTO extends ItemShoppingDTO{
     @Override
     public ItemShoppingEntity toEntity() {
         ItemShoppingEntity entity = super.toEntity();
-        if (entity.getBicycle()!=null){
+        if (entity.getBicycle()!=null && entity.getBicycle().getId() == null){
             entity.setBicycle(this.getBicycle().toEntity());
         }
         if (entity.getShopping()!=null){

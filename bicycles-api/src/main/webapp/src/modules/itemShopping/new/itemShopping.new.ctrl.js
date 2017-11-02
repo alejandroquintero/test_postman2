@@ -36,7 +36,9 @@ SOFTWARE.
                     icon: 'save',
                     fn: function () {
                         if ($scope.itemShoppingForm.$valid) {
-                            itemShoppings.post($scope.currentRecord).then(function (rc) {
+                            var datos = $scope.currentRecord;
+                            datos.clientId = readCookie('username')
+                            itemShoppings.post(datos).then(function (rc) {
                                 $state.go('itemShoppingDetail', {itemShoppingId: rc.id}, {reload: true});
                             });
                         }
