@@ -35,5 +35,6 @@ public interface IShoppingLogic {
     public ShoppingEntity updateShopping(Long shoppingId, ShoppingEntity entity);
     public void deleteShopping(Long id);
     public ShoppingEntity getShoppingCar(Long clientId);
+    public ShoppingEntity getShoppingCar(String clientLogin);
     public void checkoutShoppingCar(Long clientId);
 }
