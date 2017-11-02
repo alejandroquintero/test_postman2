@@ -19,6 +19,7 @@ public class ItemShoppingDTO implements Serializable{
     
     
     private Long quantity;
+    private String name;    
     private Long bicycleId;
     private String clientId;
     
@@ -39,7 +40,7 @@ public class ItemShoppingDTO implements Serializable{
         if (entity!=null)
         {
             this.quantity = entity.getQuantity();
-            //this.bicycleId = entity.getBicycle().getId();
+            this.name = entity.getName();
         }
     }
 
@@ -67,6 +68,14 @@ public class ItemShoppingDTO implements Serializable{
 
     public void setQuantity(Long quantity) {
         this.quantity = quantity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Long getBicycleId() {

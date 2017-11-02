@@ -28,7 +28,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import co.edu.uniandes.csw.bicycles.entities.ShoppingEntity;
 import co.edu.uniandes.csw.crud.spi.persistence.CrudPersistence;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -88,21 +92,16 @@ public class ShoppingPersistence extends CrudPersistence<ShoppingEntity> {
     
     /**
      * Find shopping status PROCESO
+     * @param clientId
      * @return ShoppingEntity
      */
-    public ShoppingEntity getShoppingCar(Long clientid) {
-        TypedQuery<ShoppingEntity> q = em.createQuery("select p from ShoppingEntity p where (p.client.id = :clientid) and (p.status = 'PROCESO')", ShoppingEntity.class);
-        q.setParameter("clientid", clientid);
-        return q.getSingleResult();
-    }
-    
-    /**
-     * checkout shopping
-     * @param shoppingId
-     */
-    public void checkoutShopping(Long shoppingId) {
-        TypedQuery<ShoppingEntity> q = em.createQuery("update ShoppingEntity set status = 'PAGADO' where ShoppingEntity.id = :shoppingId", ShoppingEntity.class);
-        q.setParameter("shoppingId", shoppingId);
-        q.executeUpdate();
+    public ShoppingEntity getShoppingCar(Long clientId) {
+        try {
+            Map<String, Object> params = new HashMap<>();
+            params.put("clientId", clientId);
+            return executeSingleNamedQuery("Shopping.getShoppingCar", params);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
