@@ -32,7 +32,7 @@ public interface IItemShoppingLogic {
     public ItemShoppingEntity getItemShopping(Long itemShoppingId);
     public void deleteItemShopping(Long itemShoppingId);
     public int countItemShopping(); 
-    public ItemShoppingEntity addItemShopping(Long clientId, Long quantity, Long bicycleId);
+    //public ItemShoppingEntity addItemShopping(Long clientId, Long quantity, Long bicycleId);
 
     public ItemShoppingEntity createItemShopping(ItemShoppingEntity toEntity);
     public ItemShoppingEntity updateItemShopping(ItemShoppingEntity entity);

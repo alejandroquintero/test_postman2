@@ -97,7 +97,7 @@ public class ItemShoppingLogic implements IItemShoppingLogic {
         persistence.delete(itemShoppingId);
     }
 
-    @Override
+    /*@Override
     public ItemShoppingEntity addItemShopping(Long clientId, Long quantity, Long bicycleId) {
         ItemShoppingEntity itemShoppingEntity = new ItemShoppingEntity();
         
@@ -115,7 +115,7 @@ public class ItemShoppingLogic implements IItemShoppingLogic {
         itemShoppingEntity.setShopping(shopping);
         
         return persistence.create(itemShoppingEntity);
-    }
+    }*/
 
     @Override
     public ItemShoppingEntity createItemShopping(ItemShoppingEntity toEntity) {
