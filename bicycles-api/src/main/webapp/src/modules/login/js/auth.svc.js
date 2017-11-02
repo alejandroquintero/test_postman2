@@ -21,7 +21,8 @@
             forgotPassURL: 'forgot',
             meURL: 'me',
             clientUrl: 'api/clients/',
-            shoppingUrl: 'api/shopping/'
+            shoppingUrl: 'api/shopping/',
+            itemShopping: 'api/itemShopping'
         };
 
         //Default Roles

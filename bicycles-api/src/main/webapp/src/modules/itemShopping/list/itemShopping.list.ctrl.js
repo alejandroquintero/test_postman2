@@ -23,37 +23,26 @@
  */
 (function (ng) {
 
-    var mod = ng.module("bicycleModule");
+    var mod = ng.module("itemShoppingModule");
 
-    mod.controller("bicycleListCtrl", ["$scope", '$state', 'bicycles', '$stateParams', 'model', '$controller',
-        function ($scope, $state, bicycles, $params, model, $controller) {
+    mod.controller("itemShoppingListCtrl", ["$scope", '$state', 'itemShoppings', '$stateParams', 'model', '$controller',
+        function ($scope, $state, itemShoppings, $params, model, $controller) {
             $controller("authController", {$scope: $scope});
             $scope.model = model;
-            $scope.records = bicycles;
+            $scope.records = itemShoppings;
             $scope.buttons = ['none'];
-            $scope.photos = [];
-
+            
 
             //Paginación
             this.itemsPerPage = $params.limit;
             this.currentPage = $params.page;
-            this.totalItems = bicycles.totalRecords;
+            this.totalItems = itemShoppings.totalRecords;
 
-            this.loadPhotos = function () {
-                for (var i = 0; i < $scope.records.length; i++) {
-                    $scope.records[i].getList('photoAlbum').then(function (photos) {
-                        var image = photos.plain()[Math.floor((Math.random() * photos.plain().length))];
-                        if (image) {
-                            $scope.photos.push({image: image.image, id: image.bicycle.id});
-                        }
-                    });
-                }
-            };
-
-            this.loadPhotos();
+            
+            
 
             this.pageChanged = function () {
-                $state.go('bicycleList', {page: this.currentPage});
+                $state.go('itemShoppingList', {page: this.currentPage});
             };
 
             $scope.actions = {
@@ -61,7 +50,7 @@
                     displayName: 'Create',
                     icon: 'plus',
                     fn: function () {
-                        $state.go('bicycleNew');
+                        $state.go('itemShoppingNew');
                     }
                 },
                 refresh: {
@@ -76,7 +65,7 @@
                     displayName: 'Detail',
                     icon: 'eye-open',
                     fn: function (rc) {
-                        $state.go('bicycleDetail', {bicycleId: rc.id});
+                        $state.go('itemShoppingDetail', {itemShoppingId: rc.id});
                     },
                     show: function () {
                         return true;
@@ -86,7 +75,7 @@
                     displayName: 'Edit',
                     icon: 'edit',
                     fn: function (rc) {
-                        $state.go('bicycleEdit', {bicycleId: rc.id});
+                        $state.go('itemShoppingEdit', {itemShoppingId: rc.id});
                     },
                     show: function () {
                         return true;
@@ -96,17 +85,7 @@
                     displayName: 'Delete',
                     icon: 'minus',
                     fn: function (rc) {
-                        $state.go('bicycleDelete', {bicycleId: rc.id});
-                    },
-                    show: function () {
-                        return true;
-                    }
-                },
-                buy: {
-                    displayName: 'Buy',
-                    icon: 'usd',
-                    fn: function (rc) {
-                        $state.go('itemShoppingList', {clientId: 1, bicycleId: rc.id});
+                        $state.go('itemShoppingDelete', {itemShoppingId: rc.id});
                     },
                     show: function () {
                         return true;
