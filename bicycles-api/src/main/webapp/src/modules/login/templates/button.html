@@ -3,6 +3,30 @@
 </button>
 
 <div ng-show="isAuthenticated()" class="btn-group">
+    <button id="car-btn" type="button" class="btn btn-success dropdown-toggle navbar-btn" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false" if-permission name='shopping'>
+        <span class="badge">{{shoppingCar.itemShopping.length}}</span> <span class="glyphicon glyphicon-shopping-cart"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li ng-repeat="item in shoppingCar.itemShopping">
+            <span class="badge">{{item.quantity}}</span> {{item.name}}
+        </li>
+        
+        <li ng-show="shoppingCar.itemShopping.length > 0">
+            <center>
+                <a  href ng-click="goToCheckout()" >
+                    <span class="label label-success">Comprar</span>
+                </a>
+            </center>
+        </li>
+        
+        <li ng-show="shoppingCar.itemShopping.length == 0" >
+            <center>Carro Sin Elementos</center>
+        </li>
+    </ul>
+</div>
+
+<div ng-show="isAuthenticated()" class="btn-group">
     <button id="menu-btn" type="button" class="btn btn-success dropdown-toggle navbar-btn" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
         {{currentUser.userName}} <span class="caret"></span>
@@ -12,11 +36,11 @@
             <a ui-sref='{{menuitem.state}}'><span class='glyphicon glyphicon-{{menuitem.icon}}' aria-hidden='true'></span> {{menuitem.label}}</a>
         </li>
         <li if-permission name='shopping'>
-            <a ui-sref="shoppingList({page: 1, limit: 15})">
+            <a href ng-click="goToShoppingList()">
                 <span class="fa fa-shopping-cart" style="color:green"></span>Historial de compras
             </a>
         </li>
-        <li if-permission name='shopping'>
+        <li>
             <a href ng-click="goToPerfil()">
                 <span class="glyphicon glyphicon-user"></span>Perfil
             </a>
@@ -28,4 +52,3 @@
         </li>
     </ul>
 </div>
-

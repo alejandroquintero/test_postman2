@@ -126,7 +126,16 @@ public class ShoppingLogic implements IShoppingLogic {
      */
     @Override
     public ShoppingEntity getShoppingCar(Long clientID) {
-        return persistence.getShoppingCar(clientID);
+        ShoppingEntity entity = persistence.getShoppingCar(clientID);
+        if (entity == null) {
+            entity = new ShoppingEntity();
+            entity.setClient(clientLogic.getClient(clientID));
+            entity.setStatus("PROCESO");
+            entity.setTotalPrice(new Double(0));
+            entity = persistence.create(entity);   
+        }
+        
+        return entity;
     }
     
     /**

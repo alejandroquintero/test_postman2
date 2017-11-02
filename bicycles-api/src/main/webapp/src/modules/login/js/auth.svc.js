@@ -14,13 +14,14 @@
             successState: 'home',
             forbiddenState: 'forbidden',
             perfilState: 'clientEditUser',
+            shoppingList:'shoppingListTo',
             loginURL: 'login',
             registerURL: 'register',
             logoutURL: 'logout',
             forgotPassURL: 'forgot',
             meURL: 'me',
             clientUrl: 'api/clients/',
-            shoppingtUrl: 'api/shopping/'
+            shoppingUrl: 'api/shopping/'
         };
 
         //Default Roles
@@ -117,6 +118,20 @@
                 },
                 goToPerfil: function(username){
                     $state.go(values.perfilState, {clientUser:username});
+                },
+                goToShoppingList: function (username) {
+                    $http.get(values.clientUrl + username).then(function (data) {
+                        $state.go(values.shoppingList, {clientId: data.data.id});
+                    });
+                },
+                getCarShopping: function (username) {
+                    var request = new XMLHttpRequest();
+                    request.open('GET', values.clientUrl + username, false);  // `false` makes the request synchronous
+                    request.send(null);
+
+                    if (request.status === 200) {
+                        return $http.get(values.shoppingUrl + 'count?clientId=' + JSON.parse(request.responseText).id);
+                    }
                 },
                 userAuthenticated: function(){
                     $http.get(values.apiUrl + values.meURL).then(function(response){

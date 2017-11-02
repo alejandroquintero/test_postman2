@@ -47,6 +47,7 @@ import javax.ws.rs.WebApplicationException;
  * URI: clients/{clientId: \\d+}/shopping
  * @generated
  */
+@Path("/shopping")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ShoppingResource {
@@ -55,7 +56,7 @@ public class ShoppingResource {
     @Context private HttpServletResponse response;
     @QueryParam("page") private Integer page;
     @QueryParam("limit") private Integer maxRecords;
-    @PathParam("clientId") private Long clientId;
+    @QueryParam("clientId") private Long clientId;
    
     /**
      * Convierte una lista de ShoppingEntity a una lista de ShoppingDetailDTO.
@@ -85,7 +86,7 @@ public class ShoppingResource {
             this.response.setIntHeader("X-Total-Count", shoppingLogic.countShopping());
             return listEntity2DTO(shoppingLogic.getShopping(page, maxRecords, clientId));
         }
-        return listEntity2DTO(shoppingLogic.getShoppingList(clientId));
+        return listEntity2DTO(shoppingLogic.getShoppingList(new Long(1)));
     }
 
     /**
@@ -99,7 +100,7 @@ public class ShoppingResource {
     @Path("{shoppingId: \\d+}")
     public ShoppingDetailDTO getShopping(@PathParam("shoppingId") Long shoppingId) {
         ShoppingEntity entity = shoppingLogic.getShopping(shoppingId);
-        if (entity.getClient() != null && !clientId.equals(entity.getClient().getId())) {
+        if (entity.getClient() != null && !clientId.equals(clientId)) {
             throw new WebApplicationException(404);
         }
         return new ShoppingDetailDTO(entity);
@@ -116,6 +117,19 @@ public class ShoppingResource {
     @POST
     @StatusCreated
     public ShoppingDetailDTO createShopping(ShoppingDetailDTO dto) {
-        return new ShoppingDetailDTO(shoppingLogic.createShopping(clientId, dto.toEntity()));
+        return new ShoppingDetailDTO(shoppingLogic.createShopping(dto.getClient().getId(), dto.toEntity()));
+    }
+    
+    /**
+     * Devuelve la cantidad de productos en el carro
+     *
+     * @param clientId
+     * @return 
+     * @generated
+     */
+    @GET
+    @Path("/count")
+    public ShoppingDetailDTO countItemShopping() {
+        return new ShoppingDetailDTO(shoppingLogic.getShoppingCar(clientId));
     }
 }

@@ -34,6 +34,7 @@
             //Paginación
             this.itemsPerPage = $params.limit;
             this.currentPage = $params.page;
+            this.clientId = $params.clientId;
             this.totalItems = shopping.totalRecords;
 
             this.pageChanged = function () {

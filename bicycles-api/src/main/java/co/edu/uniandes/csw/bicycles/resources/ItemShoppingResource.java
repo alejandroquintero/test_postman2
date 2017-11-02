@@ -85,7 +85,7 @@ public class ItemShoppingResource {
      */
     @GET
     @Path("{itemShoppingId: \\d+}")
-    public ItemShoppingDetailDTO getShopping(@PathParam("itemShoppingId") Long itemShoppingId) {
+    public ItemShoppingDetailDTO getItemShopping(@PathParam("itemShoppingId") Long itemShoppingId) {
         ItemShoppingEntity entity = itemShoppingLogic.getItemShopping(itemShoppingId);
         if (entity.getShopping() != null && !bicycleId.equals(entity.getBicycle().getId())) {
             throw new WebApplicationException(404);
@@ -118,6 +118,4 @@ public class ItemShoppingResource {
     public void deleteCategory(@PathParam("itemShoppingId") Long itemShoppingId) {
         itemShoppingLogic.deleteItemShopping(itemShoppingId);
     }
-    
-    
 }
