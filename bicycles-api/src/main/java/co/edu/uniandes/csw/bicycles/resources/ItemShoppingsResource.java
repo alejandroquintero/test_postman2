@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -26,24 +28,33 @@ import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.POST;
 import javax.ws.rs.WebApplicationException;
 
+
 /**
  *
  * @author r.calero
  */
+@Path("/itemShoppings")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class ItemShoppingResource {
+@RequestScoped
+public class ItemShoppingsResource {
     
     @Inject 
     private IItemShoppingLogic itemShoppingLogic;
     @Context 
     private HttpServletResponse response;
-    @QueryParam("page") private Integer page;
-    @QueryParam("limit") private Integer maxRecords;
-    @PathParam("clientId") private Long clientId;
-    @PathParam("shoppingId") private Long shoppingId;
-    @PathParam("quantity") private Long quantity;
-    @PathParam("bicycleId") private Long bicycleId;
+    @QueryParam("page") 
+    private Integer page;
+    @QueryParam("limit") 
+    private Integer maxRecords;
+    @PathParam("clientId") 
+    private Long clientId;
+    @PathParam("shoppingId") 
+    private Long shoppingId;
+    @PathParam("quantity") 
+    private Long quantity;
+    @PathParam("bicycleId") 
+    private Long bicycleId;
     
     /**
      * Convierte una lista de ItemShoppingEntity a una lista de ItemShoppingDetailDTO.
@@ -69,10 +80,10 @@ public class ItemShoppingResource {
     @GET
     public List<ItemShoppingDetailDTO> getItemShopping() {
         if (page != null && maxRecords != null) {
-            this.response.setIntHeader("X-Total-Count", itemShoppingLogic.countItemShopping(shoppingId));
-            return listEntity2DTO(itemShoppingLogic.getItemShopping(page, maxRecords, shoppingId));
+            this.response.setIntHeader("X-Total-Count", itemShoppingLogic.countItemShopping());
+            return listEntity2DTO(itemShoppingLogic.getItemShopping(page, maxRecords));
         }
-        return listEntity2DTO(itemShoppingLogic.getItemShoppingList(shoppingId));
+        return listEntity2DTO(itemShoppingLogic.getItemShoppingList());
     }
     
     
@@ -85,39 +96,27 @@ public class ItemShoppingResource {
      */
     @GET
     @Path("{itemShoppingId: \\d+}")
-    public ItemShoppingDetailDTO getShopping(@PathParam("itemShoppingId") Long itemShoppingId) {
-        ItemShoppingEntity entity = itemShoppingLogic.getItemShopping(itemShoppingId);
-        if (entity.getShopping() != null && !bicycleId.equals(entity.getBicycle().getId())) {
-            throw new WebApplicationException(404);
-        }
-        return new ItemShoppingDetailDTO(entity);
+    public ItemShoppingDetailDTO getItemShopping(@PathParam("itemShoppingId") Long itemShoppingId) {
+        return new ItemShoppingDetailDTO(itemShoppingLogic.getItemShopping(itemShoppingId));
     }
-    
-    /**
-     * Asocia un Cliente existente a un ItemShopping
-     *
-     * @param clientId Identificador de la instancia de Cliente
-     * @param bicycleId Identificador de la instancia de Bicycle
-     * @return Instancia de ItemShoppingDetailDTO que fue asociada a Category
-     * @generated
-     */
+
     @POST
-    @Path("{clientId: \\d+}")
-    public ItemShoppingDetailDTO addItemShopping(@PathParam("clientId") Long clientId, @PathParam("bicycleId") Long bicycleId) {
-        return new ItemShoppingDetailDTO(itemShoppingLogic.addItemShopping(clientId, quantity,bicycleId ));
+    @StatusCreated
+    public ItemShoppingDetailDTO createItemShopping(ItemShoppingDetailDTO dto) {
+        return new ItemShoppingDetailDTO(itemShoppingLogic.createItemShopping(dto.toEntity()));
+    }    
+    
+    @PUT
+    @Path("{itemShoppingId: \\d+}")
+    public ItemShoppingDetailDTO updateItemShopping(@PathParam("id") Long id, ItemShoppingDetailDTO dto) {
+        ItemShoppingEntity entity = dto.toEntity();
+        entity.setId(id);
+        return new ItemShoppingDetailDTO(itemShoppingLogic.updateItemShopping(entity));
     }
     
-    /**
-     * Elimina una instancia de ItemShopping de la base de datos
-     *
-     * @param itemShoppingId Identificador de la instancia a eliminar
-     * @generated
-     */
     @DELETE
     @Path("{itemShoppingId: \\d+}")
-    public void deleteCategory(@PathParam("itemShoppingId") Long itemShoppingId) {
-        itemShoppingLogic.deleteItemShopping(itemShoppingId);
+    public void deleteItemShopping(@PathParam("id") Long id) {
+        itemShoppingLogic.deleteItemShopping(id);
     }
-    
-    
 }

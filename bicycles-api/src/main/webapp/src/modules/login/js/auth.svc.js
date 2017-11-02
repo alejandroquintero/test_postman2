@@ -20,7 +20,8 @@
             forgotPassURL: 'forgot',
             meURL: 'me',
             clientUrl: 'api/clients/',
-            shoppingtUrl: 'api/shopping/'
+            shoppingUrl: 'api/shopping/',
+            itemShopping: 'api/itemShopping'
         };
 
         //Default Roles
