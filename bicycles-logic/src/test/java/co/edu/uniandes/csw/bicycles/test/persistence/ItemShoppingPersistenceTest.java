@@ -23,9 +23,8 @@ SOFTWARE.
  */
 package co.edu.uniandes.csw.bicycles.test.persistence;
 
-import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
-import co.edu.uniandes.csw.bicycles.entities.PhotoAlbumEntity;
-import co.edu.uniandes.csw.bicycles.persistence.BicyclePersistence;
+import co.edu.uniandes.csw.bicycles.entities.ItemShoppingEntity;
+import co.edu.uniandes.csw.bicycles.persistence.ItemShoppingPersistence;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,16 +47,17 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @generated
  */
 @RunWith(Arquillian.class)
-public class BicyclePersistenceTest {
+public class ItemShoppingPersistenceTest {
 
     /**
+     * @return 
      * @generated
      */
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(BicycleEntity.class.getPackage())
-                .addPackage(BicyclePersistence.class.getPackage())
+                .addPackage(ItemShoppingEntity.class.getPackage())
+                .addPackage(ItemShoppingPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -69,7 +69,7 @@ public class BicyclePersistenceTest {
      * @generated
      */
     @Inject
-    private BicyclePersistence bicyclePersistence;
+    private ItemShoppingPersistence itemPersistence;
 
     /**
      * @generated
@@ -112,14 +112,14 @@ public class BicyclePersistenceTest {
      * @generated
      */
     private void clearData() {
-        em.createQuery("delete from PhotoAlbumEntity").executeUpdate();
+        em.createQuery("delete from ItemShoppingEntity").executeUpdate();
         em.createQuery("delete from BicycleEntity").executeUpdate();
     }
 
     /**
      * @generated
      */
-    private List<BicycleEntity> data = new ArrayList<BicycleEntity>();
+    private List<ItemShoppingEntity> data = new ArrayList<ItemShoppingEntity>();
 
     /**
      * Inserta los datos iniciales para el correcto funcionamiento de las
@@ -130,7 +130,7 @@ public class BicyclePersistenceTest {
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
-            BicycleEntity entity = factory.manufacturePojo(BicycleEntity.class);
+            ItemShoppingEntity entity = factory.manufacturePojo(ItemShoppingEntity.class);
 
             em.persist(entity);
             data.add(entity);
@@ -138,21 +138,20 @@ public class BicyclePersistenceTest {
     }
 
     /**
-     * Prueba para crear un Bicycle.
+     * Prueba para crear un ItemShopping.
      *
      * @generated
      */
     @Test
-    public void createBicycleTest() {
+    public void createItemTest() {
         PodamFactory factory = new PodamFactoryImpl();
-        BicycleEntity newEntity = factory.manufacturePojo(BicycleEntity.class);
-        BicycleEntity result = bicyclePersistence.create(newEntity);
+        ItemShoppingEntity newEntity = factory.manufacturePojo(ItemShoppingEntity.class);
+        ItemShoppingEntity result = itemPersistence.create(newEntity);
 
         Assert.assertNotNull(result);
 
-        BicycleEntity entity = em.find(BicycleEntity.class, result.getId());
+        ItemShoppingEntity entity = em.find(ItemShoppingEntity.class, result.getId());
 
-        Assert.assertEquals(newEntity.getDescription(), entity.getDescription());
         Assert.assertEquals(newEntity.getName(), entity.getName());
     }
 
@@ -162,12 +161,12 @@ public class BicyclePersistenceTest {
      * @generated
      */
     @Test
-    public void getBicyclesTest() {
-        List<BicycleEntity> list = bicyclePersistence.findAll();
+    public void getItemTest() {
+        List<ItemShoppingEntity> list = itemPersistence.findAll();
         Assert.assertEquals(data.size(), list.size());
-        for (BicycleEntity ent : list) {
+        for (ItemShoppingEntity ent : list) {
             boolean found = false;
-            for (BicycleEntity entity : data) {
+            for (ItemShoppingEntity entity : data) {
                 if (ent.getId().equals(entity.getId())) {
                     found = true;
                 }
@@ -177,121 +176,50 @@ public class BicyclePersistenceTest {
     }
 
     /**
-     * Prueba para consultar un Bicycle.
+     * Prueba para consultar un ItemShopping.
      *
      * @generated
      */
     @Test
-    public void getBicycleTest() {
-        BicycleEntity entity = data.get(0);
-        BicycleEntity newEntity = bicyclePersistence.find(entity.getId());
+    public void getItemsTest() {
+        ItemShoppingEntity entity = data.get(0);
+        ItemShoppingEntity newEntity = itemPersistence.find(entity.getId());
         Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getDescription(), newEntity.getDescription());
+        
         Assert.assertEquals(entity.getName(), newEntity.getName());
     }
 
     /**
-     * Prueba para eliminar un Bicycle.
+     * Prueba para eliminar un ItemShopping.
      *
      * @generated
      */
     @Test
-    public void deleteBicycleTest() {
-        BicycleEntity entity = data.get(0);
-        bicyclePersistence.delete(entity.getId());
-        BicycleEntity deleted = em.find(BicycleEntity.class, entity.getId());
+    public void deleteItemTest() {
+        ItemShoppingEntity entity = data.get(0);
+        itemPersistence.delete(entity.getId());
+        ItemShoppingEntity deleted = em.find(ItemShoppingEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
 
     /**
-     * Prueba para actualizar un Bicycle.
+     * Prueba para actualizar un ItemShopping.
      *
      * @generated
      */
     @Test
-    public void updateBicycleTest() {
-        BicycleEntity entity = data.get(0);
+    public void updateItemTest() {
+        ItemShoppingEntity entity = data.get(0);
         PodamFactory factory = new PodamFactoryImpl();
-        BicycleEntity newEntity = factory.manufacturePojo(BicycleEntity.class);
+        ItemShoppingEntity newEntity = factory.manufacturePojo(ItemShoppingEntity.class);
 
         newEntity.setId(entity.getId());
 
-        bicyclePersistence.update(newEntity);
+        itemPersistence.update(newEntity);
 
-        BicycleEntity resp = em.find(BicycleEntity.class, entity.getId());
+        ItemShoppingEntity resp = em.find(ItemShoppingEntity.class, entity.getId());
 
-        Assert.assertEquals(newEntity.getDescription(), resp.getDescription());
-        Assert.assertEquals(newEntity.getName(), resp.getName());
-    }
-
-    /**
-     * Prueba para consultar la lista de Bicycles.
-     */
-    @Test
-    public void getBicyclesValidarVigenciaTest() {
-        //Arrange
-        int pagina = 1;
-        int maximo = 5;
-        int vigenciaMeses = 3;
-
-        //Act
-        List<BicycleEntity> list = bicyclePersistence.findAll(pagina, maximo, vigenciaMeses);
-
-        //Assert
-        Assert.assertEquals(data.size(), list.size());
-        for (BicycleEntity ent : list) {
-            boolean found = false;
-            for (BicycleEntity entity : data) {
-                if (ent.getId().equals(entity.getId())) {
-                    found = true;
-                }
-            }
-            Assert.assertTrue(found);
-        }
-    }
-
-    /**
-     * Prueba para consultar el filtro de búsqueda avanzada por descripcion
-     */
-    @Test
-    public void getFilteredByDescriptionBicyclesTest() {
-        //Cargar bicicletas por descripcion
-        List<BicycleEntity> listaFiltrada = bicyclePersistence.getByDescription("Rin 29");
-
-        // Cargar todas las bicicletas
-        List<BicycleEntity> listaCompleta = bicyclePersistence.findAll();
-
-        // Fallar si no se puede ejecutar la prueba por datos
-        if (listaCompleta.isEmpty()) {
-            Assert.assertFalse("No hay datos para ejecutar la prueba", true);
-        }
-
-        if (listaFiltrada.size() != listaCompleta.size()) {
-            Assert.assertTrue("Prueba exitosa", true);
-        }
-
-    }
-
-    /**
-     * Prueba para consultar el filtro de búsqueda avanzada por estado
-     */
-    @Test
-    public void getFilteredByStatusBicyclesTest() {
-        //Cargar bicicletas por estado (Nuevo o Usado)
-        List<BicycleEntity> listaFiltrada = bicyclePersistence.getByStatus("Nuevo");
-
-        // Cargar todas las bicicletas
-        List<BicycleEntity> listaCompleta = bicyclePersistence.findAll();
-
-        // Fallar si no se puede ejecutar la prueba por datos
-        if (listaCompleta.isEmpty()) {
-            Assert.assertFalse("No hay datos para ejecutar la prueba", true);
-        }
         
-        // Si hay resultados filtrados, prueba correcta
-        if (!listaFiltrada.isEmpty()) {
-            Assert.assertTrue("Prueba exitosa", true);
-        }
-
+        Assert.assertEquals(newEntity.getName(), resp.getName());
     }
 }

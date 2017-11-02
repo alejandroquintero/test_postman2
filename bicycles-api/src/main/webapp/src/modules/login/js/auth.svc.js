@@ -13,13 +13,15 @@
             forgotPassState: 'forgot',
             successState: 'home',
             forbiddenState: 'forbidden',
+            perfilState: 'clientEditUser',
             loginURL: 'login',
             registerURL: 'register',
             logoutURL: 'logout',
             forgotPassURL: 'forgot',
             meURL: 'me',
             clientUrl: 'api/clients/',
-            shoppingtUrl: 'api/shopping/'
+            shoppingUrl: 'api/shopping/',
+            itemShopping: 'api/itemShopping'
         };
 
         //Default Roles
@@ -113,6 +115,9 @@
                 },
                 goToForbidden: function(){
                     $state.go(values.forbiddenState);
+                },
+                goToPerfil: function(username){
+                    $state.go(values.perfilState, {clientUser:username});
                 },
                 userAuthenticated: function(){
                     $http.get(values.apiUrl + values.meURL).then(function(response){

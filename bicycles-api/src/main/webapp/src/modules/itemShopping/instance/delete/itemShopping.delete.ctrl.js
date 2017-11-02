@@ -21,19 +21,16 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package co.edu.uniandes.csw.bicycles.api;
+(function (ng) {
 
-import co.edu.uniandes.csw.bicycles.entities.ItemShoppingEntity;
-import java.util.List;
+    var mod = ng.module("itemShoppingModule");
 
-public interface IItemShoppingLogic {
-    public List<ItemShoppingEntity> getItemShopping(Integer page, Integer maxRecords);
-    public List<ItemShoppingEntity> getItemShoppingList();
-    public ItemShoppingEntity getItemShopping(Long itemShoppingId);
-    public void deleteItemShopping(Long itemShoppingId);
-    public int countItemShopping(); 
-    //public ItemShoppingEntity addItemShopping(Long clientId, Long quantity, Long bicycleId);
-
-    public ItemShoppingEntity createItemShopping(ItemShoppingEntity toEntity);
-    public ItemShoppingEntity updateItemShopping(ItemShoppingEntity entity);
-}
+    mod.controller("itemShoppingDeleteCtrl", ["$state", "itemShopping","model","$scope", function ($state, itemShopping,model,$scope) {
+           $scope.model = model;
+             this.confirmDelete = function () {
+                itemShopping.remove().then(function () {
+                    $state.go('itemShoppingList', null, {reload: true});
+                });
+            };
+        }]);
+})(window.angular);

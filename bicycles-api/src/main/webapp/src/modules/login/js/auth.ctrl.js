@@ -147,6 +147,10 @@
             $scope.goToSuccess = function () {
                 authSvc.goToSuccess();
             };
+            
+            $scope.goToPerfil = function () {
+                authSvc.goToPerfil($scope.currentUser.userName);
+            };
         }]);
 
 })(window.angular);

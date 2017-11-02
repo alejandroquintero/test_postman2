@@ -10,34 +10,39 @@ import javax.persistence.Query;
 /**
  * Provides generic methods to execute CRUD operations.
  *
- * This class should be inherited from in order to get all CRUD operations
- * and basic name search for a single entity.
+ * This class should be inherited from in order to get all CRUD operations and
+ * basic name search for a single entity.
  *
- * Only allows CRUD operations for a single entity. Should one need CRUD operations
- * for another entity, a new sub-class should be created.
+ * Only allows CRUD operations for a single entity. Should one need CRUD
+ * operations for another entity, a new sub-class should be created.
  *
- * This class assumes the use of JTA and delegates transaction management to container.
+ * This class assumes the use of JTA and delegates transaction management to
+ * container.
  *
  * @author kaosterra
  *
- * @param <T> Type of the entity class. It is expected to inherit from BaseEntity
+ * @param <T> Type of the entity class. It is expected to inherit from
+ * BaseEntity
  */
 public abstract class CrudPersistence<T> {
 
     /**
      * Returns the EntityManager used for all operations
+     *
      * @return EntityManager
      */
     protected abstract EntityManager getEntityManager();
 
     /**
      * Gets the Class Type of the entity expected to use in CRUD operations
+     *
      * @return Class Type of handled entity
      */
     protected abstract Class<T> getEntityClass();
 
     /**
      * Retrieves the ammount of records in the database for the handled entity
+     *
      * @return Number of records of handled entity
      */
     public int count() {
@@ -47,6 +52,7 @@ public abstract class CrudPersistence<T> {
 
     /**
      * Creates a new record in database for the handled instance
+     *
      * @param entity Record information
      * @return New instance of handled entity with it's ID
      */
@@ -67,6 +73,7 @@ public abstract class CrudPersistence<T> {
 
     /**
      * Deletes a record of handled entity from database.
+     *
      * @param id ID of the record to delete
      */
     public void delete(Long id) {
@@ -76,6 +83,7 @@ public abstract class CrudPersistence<T> {
 
     /**
      * Retrieves an instance of handled entity by ID.
+     *
      * @param id ID of the instance to retrieve
      * @return Instance of handled entity
      */
@@ -85,6 +93,7 @@ public abstract class CrudPersistence<T> {
 
     /**
      * Retrieves a collection of all instances of handled entity
+     *
      * @return Colecction of instances of handled entity
      */
     public List<T> findAll() {
@@ -93,7 +102,9 @@ public abstract class CrudPersistence<T> {
     }
 
     /**
-     * Retrieves a collection of all instances of handled entity allowing pagination.
+     * Retrieves a collection of all instances of handled entity allowing
+     * pagination.
+     *
      * @param page Number of page to retrieve
      * @param maxRecords Number of records per page
      * @return Colecction of instances of handled entity
@@ -109,6 +120,7 @@ public abstract class CrudPersistence<T> {
 
     /**
      * Allows to execute a namedQuery that returns a collection.
+     *
      * @param <V> Type of each element of the collection
      * @param name Name of the namedQuery
      * @return Collection of instances of V
@@ -122,7 +134,8 @@ public abstract class CrudPersistence<T> {
      *
      * @param <V> Type of each element of the collection
      * @param name Name of the namedQuery
-     * @param params Map of parameters for the query, where the key is the name of the parameter
+     * @param params Map of parameters for the query, where the key is the name
+     * of the parameter
      * @return Collection of instances of V
      */
     public <V> List<V> executeListNamedQuery(String name, Map<String, Object> params) {
@@ -135,6 +148,7 @@ public abstract class CrudPersistence<T> {
 
     /**
      * Allows to execute a namedQuery that returns a single instance.
+     *
      * @param <V> Type of the instance to retrieve
      * @param name Name of the namedQuery
      * @return Instance of V
@@ -144,11 +158,13 @@ public abstract class CrudPersistence<T> {
     }
 
     /**
-     * Allows to execute a namedQuery that returns a single instance with pagination.
+     * Allows to execute a namedQuery that returns a single instance with
+     * pagination.
      *
      * @param <V> Type of the instance to retrieve
      * @param name Name of the namedQuery
-     * @param params Map of parameters for the query, where the key is the name of the parameter
+     * @param params Map of parameters for the query, where the key is the name
+     * of the parameter
      * @return Instance of V
      */
     public <V> V executeSingleNamedQuery(String name, Map<String, Object> params) {
@@ -160,7 +176,9 @@ public abstract class CrudPersistence<T> {
     }
 
     /**
-     * Allows to search for all records of handled entity by a string contained in name.
+     * Allows to search for all records of handled entity by a string contained
+     * in name.
+     *
      * @param text String to search within names
      * @return Collection of records with text contained in name
      */
@@ -171,7 +189,8 @@ public abstract class CrudPersistence<T> {
     }
 
     /**
-     * Allows to search for all records of handled entity by a string contained in name with pagination.
+     * Allows to search for all records of handled entity by a string contained
+     * in name with pagination.
      *
      * @param text String to search within names
      * @param page page to retrieve
@@ -187,9 +206,10 @@ public abstract class CrudPersistence<T> {
         }
         return q.getResultList();
     }
-    
+
     /**
      * Metodo que filtran de acuerdo a una vigencia.
+     *
      * @param page Number of page to retrieve.
      * @param maxRecords Number of records per page.
      * @param vigencia Fecha de vigencia.
@@ -199,52 +219,14 @@ public abstract class CrudPersistence<T> {
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(new java.util.Date());
         calendar.add(Calendar.MONTH, -vigencia);
-        
+
         Query q = getEntityManager().createQuery("select b from " + getEntityClass().getSimpleName() + " b where b.creationDate >= " + calendar.getTimeInMillis());
-             
+
         if (page != null && maxRecords != null) {
             q.setFirstResult((page - 1) * maxRecords);
             q.setMaxResults(maxRecords);
         }
         return q.getResultList();
     }
-    
-    /**
-     * Returns a list of bicycles that match the given criteria
-     * @param criteria Id of the attributte used as search criteria
-     * @param searchString keyword to find the Bicycles
-     * @return a list of BicycleEntity
-     */
-    public List<T> findByCriteria(Integer criteria, String searchString){
-        StringBuilder sb = new StringBuilder();
-        String parametro = null;
-        sb.append("select b from ");
-        sb.append(getEntityClass().getSimpleName());
 
-        switch(criteria){
-            case 1: //NAME
-                sb.append(" b where b.name LIKE :");
-                parametro = "NAME";
-                sb.append(parametro);
-                break;
-            case 2: //DESCRIPTION
-                sb.append(" b where b.description LIKE :");
-                parametro = "DESCRIPTION";
-                sb.append(parametro);
-                break;
-            default: //By default, select all
-                break;
-        }
-        
-        System.out.println("QUERY= " + sb.toString());
-        
-        Query q = getEntityManager().createQuery(sb.toString());
-        
-        if(parametro != null){
-            q.setParameter(parametro, "%"+searchString+"%");
-        }
-       
-        return q.getResultList();
-    }
 }
-

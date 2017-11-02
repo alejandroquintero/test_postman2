@@ -25,11 +25,10 @@ package co.edu.uniandes.csw.bicycles.test.logic;
 
 import co.edu.uniandes.csw.bicycles.ejbs.BicycleLogic;
 import co.edu.uniandes.csw.bicycles.api.IBicycleLogic;
+import co.edu.uniandes.csw.bicycles.api.IItemShoppingLogic;
 import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
 import co.edu.uniandes.csw.bicycles.persistence.BicyclePersistence;
-import co.edu.uniandes.csw.bicycles.entities.BrandEntity;
-import co.edu.uniandes.csw.bicycles.entities.CategoryEntity;
-import co.edu.uniandes.csw.bicycles.entities.PhotoAlbumEntity;
+import co.edu.uniandes.csw.bicycles.entities.ItemShoppingEntity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +51,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @generated
  */
 @RunWith(Arquillian.class)
-public class BicycleLogicTest {
+public class ItemShoppingLogicTest {
 
     /**
      * @generated
@@ -66,7 +65,10 @@ public class BicycleLogicTest {
      * @generated
      */
     @Inject
-    private IBicycleLogic bicycleLogic;
+    private IItemShoppingLogic itemShoppingLogic;
+    
+    @Inject
+    private IItemShoppingLogic bicycleLogic;
 
     /**
      * @generated
@@ -83,15 +85,9 @@ public class BicycleLogicTest {
     /**
      * @generated
      */
-    private List<BicycleEntity> data = new ArrayList<BicycleEntity>();
-    /**
-     * @generated
-     */
-    private List<BrandEntity> brandData = new ArrayList<>();
-    /**
-     * @generated
-     */
-    private List<CategoryEntity> categoryData = new ArrayList<>();
+    private List<ItemShoppingEntity> data = new ArrayList<ItemShoppingEntity>();
+    
+    private List<BicycleEntity> dataBicycle = new ArrayList<BicycleEntity>();
 
     /**
      * @generated
@@ -135,10 +131,8 @@ public class BicycleLogicTest {
      * @generated
      */
     private void clearData() {
-        em.createQuery("delete from PhotoAlbumEntity").executeUpdate();
+        em.createQuery("delete from ItemShoppingEntity").executeUpdate();
         em.createQuery("delete from BicycleEntity").executeUpdate();
-        em.createQuery("delete from BrandEntity").executeUpdate();
-        em.createQuery("delete from CategoryEntity").executeUpdate();
     }
 
     /**
@@ -149,22 +143,15 @@ public class BicycleLogicTest {
      */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
-            BrandEntity brand = factory.manufacturePojo(BrandEntity.class);
+            ItemShoppingEntity brand = factory.manufacturePojo(ItemShoppingEntity.class);
             em.persist(brand);
-            brandData.add(brand);
+            data.add(brand);
         }
-        for (int i = 0; i < 3; i++) {
-            CategoryEntity category = factory.manufacturePojo(CategoryEntity.class);
-            em.persist(category);
-            categoryData.add(category);
-        }
+
         for (int i = 0; i < 3; i++) {
             BicycleEntity entity = factory.manufacturePojo(BicycleEntity.class);
-            entity.setBrand(brandData.get(0));
-            entity.setCategory(categoryData.get(0));
-
             em.persist(entity);
-            data.add(entity);
+            data.get(i).setBicycle(entity);  
         }
     }
 
@@ -174,12 +161,11 @@ public class BicycleLogicTest {
      * @generated
      */
     @Test
-    public void createBicycleTest() {
-        BicycleEntity newEntity = factory.manufacturePojo(BicycleEntity.class);
-        BicycleEntity result = bicycleLogic.createBicycle(newEntity);
+    public void createItemTest() {
+        ItemShoppingEntity newEntity = factory.manufacturePojo(ItemShoppingEntity.class);
+        ItemShoppingEntity result = itemShoppingLogic.createItemShopping(newEntity);
         Assert.assertNotNull(result);
-        BicycleEntity entity = em.find(BicycleEntity.class, result.getId());
-        Assert.assertEquals(newEntity.getDescription(), entity.getDescription());
+        ItemShoppingEntity entity = em.find(ItemShoppingEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getName(), entity.getName());
     }
@@ -190,12 +176,12 @@ public class BicycleLogicTest {
      * @generated
      */
     @Test
-    public void getBicyclesTest() {
-        List<BicycleEntity> list = bicycleLogic.getBicycles();
+    public void getItemTest() {
+        List<ItemShoppingEntity> list = itemShoppingLogic.getItemShoppingList();
         Assert.assertEquals(data.size(), list.size());
-        for (BicycleEntity entity : list) {
+        for (ItemShoppingEntity entity : list) {
             boolean found = false;
-            for (BicycleEntity storedEntity : data) {
+            for (ItemShoppingEntity storedEntity : data) {
                 if (entity.getId().equals(storedEntity.getId())) {
                     found = true;
                 }
@@ -210,11 +196,10 @@ public class BicycleLogicTest {
      * @generated
      */
     @Test
-    public void getBicycleTest() {
-        BicycleEntity entity = data.get(0);
-        BicycleEntity resultEntity = bicycleLogic.getBicycle(entity.getId());
+    public void getItemsTest() {
+        ItemShoppingEntity entity = data.get(0);
+        ItemShoppingEntity resultEntity = itemShoppingLogic.getItemShopping(entity.getId());
         Assert.assertNotNull(resultEntity);
-        Assert.assertEquals(entity.getDescription(), resultEntity.getDescription());
         Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(entity.getName(), resultEntity.getName());
     }
@@ -225,10 +210,10 @@ public class BicycleLogicTest {
      * @generated
      */
     @Test
-    public void deleteBicycleTest() {
-        BicycleEntity entity = data.get(0);
-        bicycleLogic.deleteBicycle(entity.getId());
-        BicycleEntity deleted = em.find(BicycleEntity.class, entity.getId());
+    public void deleteItemTest() {
+        ItemShoppingEntity entity = data.get(0);
+        itemShoppingLogic.deleteItemShopping(entity.getId());
+        ItemShoppingEntity deleted = em.find(ItemShoppingEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
 
@@ -239,88 +224,17 @@ public class BicycleLogicTest {
      */
     @Test
     public void updateBicycleTest() {
-        BicycleEntity entity = data.get(0);
-        BicycleEntity pojoEntity = factory.manufacturePojo(BicycleEntity.class);
+        ItemShoppingEntity entity = data.get(0);
+        ItemShoppingEntity pojoEntity = factory.manufacturePojo(ItemShoppingEntity.class);
 
         pojoEntity.setId(entity.getId());
 
-        bicycleLogic.updateBicycle(pojoEntity);
+        itemShoppingLogic.updateItemShopping(pojoEntity);
 
-        BicycleEntity resp = em.find(BicycleEntity.class, entity.getId());
+        ItemShoppingEntity resp = em.find(ItemShoppingEntity.class, entity.getId());
 
-        Assert.assertEquals(pojoEntity.getDescription(), resp.getDescription());
+        
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getName(), resp.getName());
-    }
-
-    /**
-     * Prueba para consultar la lista de Bicycles.
-     */
-    @Test
-    public void getValidarVigenciaTest() {
-        //Arrange
-        int pagina = 1;
-        int maximo = 5;
-
-        //Act
-        List<BicycleEntity> list = bicycleLogic.validarVigencia(pagina, maximo);
-
-        //Assert
-        Assert.assertEquals(data.size(), list.size());
-        for (BicycleEntity entity : list) {
-            boolean found = false;
-            for (BicycleEntity storedEntity : data) {
-                if (entity.getId().equals(storedEntity.getId())) {
-                    found = true;
-                }
-            }
-            Assert.assertTrue(found);
-        }
-    }
-
-    /**
-     * Prueba para la consulta avanzada de bicicletas por descripcion
-     */
-    @Test
-    public void getFilteredByDescriptionBicycles() {
-        // Lista sin filtrar
-        List<BicycleEntity> listaCompleta = bicycleLogic.getBicycles();
-
-        // Lista filtrada
-        List<BicycleEntity> listaFiltrada = bicycleLogic.getByDescription("Rin 29");
-
-        // Fallar si no se puede ejecutar la prueba por datos
-        if (listaCompleta.isEmpty()) {
-            Assert.assertFalse("No hay datos para ejecutar la prueba", true);
-        }
-
-        // Si hay resultados filtrados, prueba correcta
-        if (!listaFiltrada.isEmpty()) {
-            Assert.assertTrue("Prueba exitosa", true);
-        }
-
-    }
-
-    /**
-     * Prueba para la consulta avanzada de bicicletas por estado
-     */
-    @Test
-    public void getFilteredByStatusBicycles() {
-        // Lista sin filtrar
-        List<BicycleEntity> listaCompleta = bicycleLogic.getBicycles();
-
-        // Lista filtrada
-        List<BicycleEntity> listaFiltrada = bicycleLogic.getByStatus("Nuevo");
-
-        // Fallar si no se puede ejecutar la prueba por datos
-        if (listaCompleta.isEmpty()) {
-            Assert.assertFalse("No hay datos para ejecutar la prueba", true);
-        }
-
-        // Si hay resultados filtrados, prueba correcta
-        if (!listaFiltrada.isEmpty()) {
-            Assert.assertTrue("Prueba exitosa", true);
-        }
-
     }
 }

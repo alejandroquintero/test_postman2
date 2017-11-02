@@ -21,19 +21,34 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package co.edu.uniandes.csw.bicycles.api;
 
-import co.edu.uniandes.csw.bicycles.entities.ItemShoppingEntity;
-import java.util.List;
+(function (ng) {
 
-public interface IItemShoppingLogic {
-    public List<ItemShoppingEntity> getItemShopping(Integer page, Integer maxRecords);
-    public List<ItemShoppingEntity> getItemShoppingList();
-    public ItemShoppingEntity getItemShopping(Long itemShoppingId);
-    public void deleteItemShopping(Long itemShoppingId);
-    public int countItemShopping(); 
-    //public ItemShoppingEntity addItemShopping(Long clientId, Long quantity, Long bicycleId);
+    var mod = ng.module("itemShoppingModule");
 
-    public ItemShoppingEntity createItemShopping(ItemShoppingEntity toEntity);
-    public ItemShoppingEntity updateItemShopping(ItemShoppingEntity entity);
-}
+    mod.controller("itemShoppingNewCtrl", ["$scope", "$state", "itemShoppings","model",
+        function ($scope, $state, itemShoppings, model) {
+            $scope.model = model;
+            $scope.currentRecord = {};
+            $scope.actions = {
+                save: {
+                    displayName: 'Save',
+                    icon: 'save',
+                    fn: function () {
+                        if ($scope.itemShoppingForm.$valid) {
+                            itemShoppings.post($scope.currentRecord).then(function (rc) {
+                                $state.go('itemShoppingDetail', {itemShoppingId: rc.id}, {reload: true});
+                            });
+                        }
+                    }
+                },
+                cancel: {
+                    displayName: 'Cancel',
+                    icon: 'remove',
+                    fn: function () {
+                        $state.go('itemShoppingList');
+                    }
+                }
+            };
+        }]);
+})(window.angular);
