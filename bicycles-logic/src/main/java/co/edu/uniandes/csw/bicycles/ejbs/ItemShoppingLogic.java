@@ -116,4 +116,9 @@ public class ItemShoppingLogic implements IItemShoppingLogic {
         
         return persistence.create(itemShoppingEntity);
     }
+
+    @Override
+    public ItemShoppingEntity createItemShopping(ItemShoppingEntity toEntity) {
+        return persistence.create(toEntity);
+    }
 }

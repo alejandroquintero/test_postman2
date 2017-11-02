@@ -21,18 +21,33 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package co.edu.uniandes.csw.bicycles.api;
+(function (ng) {
 
-import co.edu.uniandes.csw.bicycles.entities.ItemShoppingEntity;
-import java.util.List;
+    var mod = ng.module("bicycleModule");
 
-public interface IItemShoppingLogic {
-    public List<ItemShoppingEntity> getItemShopping(Integer page, Integer maxRecords, Long shoppingId);
-    public List<ItemShoppingEntity> getItemShoppingList(Long shoppingId);
-    public ItemShoppingEntity getItemShopping(Long itemShoppingId);
-    public void deleteItemShopping(Long itemShoppingId);
-    public int countItemShopping(Long shoppingId); 
-    public ItemShoppingEntity addItemShopping(Long clientId, Long quantity, Long bicycleId);
-
-    public ItemShoppingEntity createItemShopping(ItemShoppingEntity toEntity);
-}
+    mod.controller("bicycleEditCtrl", ["$scope", "$state", "bicycle","model",
+        function ($scope, $state, bicycle,model) {
+            $scope.model = model;
+            $scope.currentRecord = bicycle;
+            $scope.actions = {
+                save: {
+                    displayName: 'Save',
+                    icon: 'save',
+                    fn: function () {
+                        if ($scope.bicycleForm.$valid) {
+                            $scope.currentRecord.put().then(function (rc) {
+                                $state.go('bicycleDetail', {bicycleId: rc.id}, {reload: true});
+                            });
+                        }
+                    }
+                },
+                cancel: {
+                    displayName: 'Cancel',
+                    icon: 'remove',
+                    fn: function () {
+                        $state.go('bicycleDetail');
+                    }
+                }
+            };
+        }]);
+})(window.angular);
