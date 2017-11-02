@@ -1,4 +1,4 @@
-/*
+<!--
 The MIT License (MIT)
 
 Copyright (c) 2015 Los Andes University
@@ -20,20 +20,27 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-*/
-package co.edu.uniandes.csw.bicycles.api;
+-->
+<header>
+    <div ncy-breadcrumb></div>
+    <toolbar name="model.name" display-name="model.displayName" actions='actions'></toolbar>
+</header>
+<div  class="container-fluid well">
+    <div class="col-md-12">
+        <p>
+            <label><strong>quantity: </strong></label>
+            <span id="quantity-detail">{{currentRecord.quantity}}</span>
+        </p>
 
-import co.edu.uniandes.csw.bicycles.entities.ItemShoppingEntity;
-import java.util.List;
+        <p>
+            <label><strong>bicycle: </strong></label>
+            <span id="bicycle">
+                {{currentRecord.bicycle.name}}
+            </span>
+        </p>
+        
+    </div>
+</div>
 
-public interface IItemShoppingLogic {
-    public List<ItemShoppingEntity> getItemShopping(Integer page, Integer maxRecords);
-    public List<ItemShoppingEntity> getItemShoppingList();
-    public ItemShoppingEntity getItemShopping(Long itemShoppingId);
-    public void deleteItemShopping(Long itemShoppingId);
-    public int countItemShopping(); 
-    public ItemShoppingEntity addItemShopping(Long clientId, Long quantity, Long bicycleId);
-
-    public ItemShoppingEntity createItemShopping(ItemShoppingEntity toEntity);
-    public ItemShoppingEntity updateItemShopping(ItemShoppingEntity entity);
-}
+<div ui-view="itemShoppingChieldView"></div>
+<!-- TODO -->

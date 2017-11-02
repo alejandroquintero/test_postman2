@@ -54,8 +54,8 @@ public class ItemShoppingLogic implements IItemShoppingLogic {
      * @return 
      */    
     @Override
-    public List<ItemShoppingEntity> getItemShopping(Integer page, Integer maxRecords, Long shoppingId) {
-        return persistence.findAll(page, maxRecords, shoppingId);
+    public List<ItemShoppingEntity> getItemShopping(Integer page, Integer maxRecords) {
+        return persistence.findAll(page, maxRecords);
     }
 
     /**
@@ -64,8 +64,8 @@ public class ItemShoppingLogic implements IItemShoppingLogic {
      * @return 
      */    
     @Override
-    public List<ItemShoppingEntity> getItemShoppingList(Long shoppingId) {
-        return persistence.findAll(shoppingId);
+    public List<ItemShoppingEntity> getItemShoppingList() {
+        return persistence.findAll();
     }
     
     /**
@@ -84,8 +84,8 @@ public class ItemShoppingLogic implements IItemShoppingLogic {
      * @return numero de compras.
      */
     @Override
-    public int countItemShopping(Long shoppingId) {
-        return persistence.findAll(shoppingId).size();
+    public int countItemShopping() {
+        return persistence.findAll().size();
     }
 
     /**
@@ -115,5 +115,15 @@ public class ItemShoppingLogic implements IItemShoppingLogic {
         itemShoppingEntity.setShopping(shopping);
         
         return persistence.create(itemShoppingEntity);
+    }
+
+    @Override
+    public ItemShoppingEntity createItemShopping(ItemShoppingEntity toEntity) {
+        return persistence.create(toEntity);
+    }
+    
+    @Override
+    public ItemShoppingEntity updateItemShopping(ItemShoppingEntity entity) {
+        return persistence.update(entity);
     }
 }

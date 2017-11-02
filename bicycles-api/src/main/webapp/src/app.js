@@ -35,7 +35,8 @@ SOFTWARE.
         'clientModule',
         'authModule',
         'ncy-angular-breadcrumb',
-        'shoppingModule'
+        'shoppingModule',
+        'itemShoppingModule'
     ]);
 
     mod.constant('baseUrl', 'api');
