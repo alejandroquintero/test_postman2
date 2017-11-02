@@ -138,4 +138,23 @@ public class ShoppingLogic implements IShoppingLogic {
         ShoppingEntity shopping = persistence.getShoppingCar(clientID);
         persistence.checkoutShopping(shopping.getId());        
     }
+
+    /**
+     * Regla de negocio que si no encuentra una orden en proceso
+     * crea una nueva.
+     * @param clientLogin
+     * @return 
+     */
+    @Override
+    public ShoppingEntity getShoppingCar(String clientLogin) {
+        ClientEntity client = clientLogic.getClient(clientLogin);
+        List<ShoppingEntity> shoppings = getShoppingList(client.getId());
+        for (int i = 0; i < shoppings.size(); i++) {
+            if(shoppings.get(i).getStatus().equals("PROCESO"))
+            {
+                return shoppings.get(i);
+            }
+        }
+        return createShopping(shoppings.get(0).getClient().getId(), new ShoppingEntity());
+    }
 }

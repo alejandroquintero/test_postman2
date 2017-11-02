@@ -46,6 +46,8 @@ public class ItemShoppingEntity extends BaseEntity implements Serializable {
     private BicycleEntity bicycle;
         
     private Long quantity;
+    
+    private String tempUser;
 
     /**
      * Obtener orden de compra
@@ -93,5 +95,15 @@ public class ItemShoppingEntity extends BaseEntity implements Serializable {
      */
     public void setQuantity(Long quantity) {
         this.quantity = quantity;
-    }    
+    }   
+
+    public String getTempUser() {
+        return tempUser;
+    }
+
+    public void setTempUser(String tempUser) {
+        this.tempUser = tempUser;
+    }
+    
+    
 }

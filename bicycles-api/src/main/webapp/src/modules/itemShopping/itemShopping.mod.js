@@ -34,11 +34,14 @@
                 type: 'Long',
                 required: true
             },
-            bicycle: {
-                displayName: 'bicycle',
-                type: 'Reference',
-                model: 'bicycleModel',
-                options: [],
+            bicycleId: {
+                displayName: 'bicycleId',
+                type: 'Long',
+                required: true
+            },
+            clientId: {
+                displayName: 'clientId',
+                type: 'String',
                 required: true
             }
         }
