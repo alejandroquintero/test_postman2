@@ -16,7 +16,12 @@
                 $scope.currentUser = data.data;
                 if ($scope.currentUser !== "" && !$scope.menuitems) {
                     $scope.setMenu($scope.currentUser);
+                    
+                    authSvc.getCarShopping($scope.currentUser.userName).then(function (dataCar) {
+                        $scope.shoppingCar = dataCar.data;
+                    });
                 }
+                
             });
             $scope.loading = false;
             $scope.$on('logged-in', function (events, user) {
@@ -75,7 +80,6 @@
             this.showSuccess = function (msg) {
                 showMessage(msg, "success");
             };
-
 
             this.login = function (user) {
                 var self = this;
@@ -151,6 +155,18 @@
             $scope.goToPerfil = function () {
                 authSvc.goToPerfil($scope.currentUser.userName);
             };
+            
+            $scope.goToShoppingList = function () {
+                authSvc.goToShoppingList($scope.currentUser.userName);
+            };
+            
+            $scope.checkout = function () {
+                authSvc.checkout($scope.currentUser.userName);
+            };
+            
+            $scope.loadShoppingCar = function () {
+                $scope.itemsShopping = load;
+            }
         }]);
 
 })(window.angular);

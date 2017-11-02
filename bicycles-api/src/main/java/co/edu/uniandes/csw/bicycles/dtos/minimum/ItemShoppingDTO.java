@@ -22,7 +22,7 @@ public class ItemShoppingDTO implements Serializable{
     
     
     private Long quantity;
-    
+    private String name;    
     
     /**
      * @generated
@@ -41,7 +41,7 @@ public class ItemShoppingDTO implements Serializable{
         if (entity!=null)
         {
             this.quantity = entity.getQuantity();
-            
+            this.name = entity.getName();
         }
     }
 
@@ -66,6 +66,12 @@ public class ItemShoppingDTO implements Serializable{
         this.quantity = quantity;
     }
 
-   
-    
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }
