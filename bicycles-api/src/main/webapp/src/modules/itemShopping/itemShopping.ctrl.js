@@ -22,9 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 (function (ng) {
-    var mod = ng.module('bicycleModule');
+    var mod = ng.module('itemShoppingModule');
 
-    mod.controller('bicycleCtrl', ['$scope', 'model','Restangular', 'references',
+    mod.controller('itemShoppingCtrl', ['$scope', 'model','Restangular', 'references',
         function ($scope, model,Restangular, references) {
             $scope.references = references;
             $scope.model = model;

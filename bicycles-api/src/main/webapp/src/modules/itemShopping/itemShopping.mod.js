@@ -155,7 +155,7 @@
                 }
             });
             $sp.state('itemShoppingList', {
-                url: '/list/:description',
+                url: '/list',
                 views: {
                     mainView: {
                         templateUrl: basePath + 'list/itemShopping.list.tpl.html',

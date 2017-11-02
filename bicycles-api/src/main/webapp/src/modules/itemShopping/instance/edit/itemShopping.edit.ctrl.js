@@ -23,20 +23,20 @@ SOFTWARE.
 */
 (function (ng) {
 
-    var mod = ng.module("bicycleModule");
+    var mod = ng.module("itemShoppingModule");
 
-    mod.controller("bicycleEditCtrl", ["$scope", "$state", "bicycle","model",
-        function ($scope, $state, bicycle,model) {
+    mod.controller("itemShoppingEditCtrl", ["$scope", "$state", "itemShopping","model",
+        function ($scope, $state, itemShopping,model) {
             $scope.model = model;
-            $scope.currentRecord = bicycle;
+            $scope.currentRecord = itemShopping;
             $scope.actions = {
                 save: {
                     displayName: 'Save',
                     icon: 'save',
                     fn: function () {
-                        if ($scope.bicycleForm.$valid) {
+                        if ($scope.itemShoppingForm.$valid) {
                             $scope.currentRecord.put().then(function (rc) {
-                                $state.go('bicycleDetail', {bicycleId: rc.id}, {reload: true});
+                                $state.go('itemShoppingDetail', {itemShoppingId: rc.id}, {reload: true});
                             });
                         }
                     }
@@ -45,7 +45,7 @@ SOFTWARE.
                     displayName: 'Cancel',
                     icon: 'remove',
                     fn: function () {
-                        $state.go('bicycleDetail');
+                        $state.go('itemShoppingDetail');
                     }
                 }
             };

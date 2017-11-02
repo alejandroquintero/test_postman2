@@ -85,7 +85,7 @@
                     displayName: 'Delete',
                     icon: 'minus',
                     fn: function (rc) {
-                        $state.go('bicycleDelete', {itemShoppingId: rc.id});
+                        $state.go('itemShoppingDelete', {itemShoppingId: rc.id});
                     },
                     show: function () {
                         return true;

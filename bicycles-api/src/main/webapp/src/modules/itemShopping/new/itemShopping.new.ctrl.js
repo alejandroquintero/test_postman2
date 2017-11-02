@@ -35,9 +35,9 @@ SOFTWARE.
                     displayName: 'Save',
                     icon: 'save',
                     fn: function () {
-                        if ($scope.bicycleForm.$valid) {
+                        if ($scope.itemShoppingForm.$valid) {
                             itemShoppings.post($scope.currentRecord).then(function (rc) {
-                                $state.go('itemShoppingDetail', {bicycleId: rc.id}, {reload: true});
+                                $state.go('itemShoppingDetail', {itemShoppingId: rc.id}, {reload: true});
                             });
                         }
                     }
