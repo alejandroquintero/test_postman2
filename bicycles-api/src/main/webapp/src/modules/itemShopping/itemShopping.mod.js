@@ -34,11 +34,22 @@
                 type: 'Long',
                 required: true
             },
+<<<<<<< HEAD
             bicycle: {
                 displayName: 'bicycle',
                 type: 'Reference',
                 model: 'bicycleModel',
                 options: [],
+=======
+            bicycleId: {
+                displayName: 'bicycleId',
+                type: 'Long',
+                required: true
+            },
+            clientId: {
+                displayName: 'clientId',
+                type: 'String',
+>>>>>>> 64e91547ebb942e28806759b5dfb9c7ea6300d44
                 required: true
             }
         }

@@ -21,6 +21,26 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 -->
+<<<<<<< HEAD
+=======
+<script>
+    $("#quantity").bind("change", function(e){
+        $("#clientId").val(readCookie('username'));
+    });
+    function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) 
+                return c.substring(nameEQ.length,c.length).replace("%40", "@");;
+        }
+        return null;
+    }
+</script>
+
+>>>>>>> 64e91547ebb942e28806759b5dfb9c7ea6300d44
 <div ng-messages="itemShoppingForm.$error" multiple>
     <ng-message when="required">
         <alert type="warning">Please, Fill the required fields!</alert>
@@ -40,14 +60,22 @@ SOFTWARE.
 <form novalidate name="itemShoppingForm" role="form">
     <fieldset>
         <input id="id" class="form-control" type="hidden" ng-model="currentRecord.id"/>
+<<<<<<< HEAD
 
         <div class="form-group col-md-12" ng-class="{'has-success': itemShoppingForm.quantity.$valid && itemShoppingForm.quantity.$dirty, 'has-error': itemShoppingForm.quantity.$invalid && itemShoppingForm.quantity.$dirty}" >
             <label for="quantity" class="col-md-2 control-label">quantity</label>
+=======
+        <!--<input id="clientId" class="form-control" type="hidden" ng-model="currentRecord.clientId" value="readCookie('username');" />-->
+
+        <div class="form-group col-md-12" ng-class="{'has-success': itemShoppingForm.quantity.$valid && itemShoppingForm.quantity.$dirty, 'has-error': itemShoppingForm.quantity.$invalid && itemShoppingForm.quantity.$dirty}" >
+            <label for="quantity" class="col-md-2 control-label">Quantity:</label>
+>>>>>>> 64e91547ebb942e28806759b5dfb9c7ea6300d44
             <div class="col-md-10">
                 <input id="quantity" name="quantity" class="form-control" type="number" ng-model="currentRecord.quantity" ng-required="true" />
             </div>
         </div>
 
+<<<<<<< HEAD
         <div class="form-group col-md-12" ng-class="{'has-success': itemShoppingForm.bicycle.$valid && itemShoppingForm.bicycle.$dirty, 'has-error': itemShoppingForm.bicycle.$invalid && itemShoppingForm.bicycle.$dirty}" >
             <label for="bicycle" class="col-md-2 control-label">bicycle</label>
             <div class="col-md-10">
@@ -55,5 +83,20 @@ SOFTWARE.
             </div>
         </div>
         
+=======
+        <div class="form-group col-md-12" ng-class="{'has-success': itemShoppingForm.bicycleId.$valid && itemShoppingForm.bicycleId.$dirty, 'has-error': itemShoppingForm.bicycleId.$invalid && itemShoppingForm.bicycleId.$dirty}" >
+            <label for="bicycleId" class="col-md-2 control-label">Bicycle Id:</label>
+            <div class="col-md-10">
+                <input id="bicycleId" name="bicycleId" class="form-control" type="number" ng-model="currentRecord.bicycleId" ng-required="true" />
+            </div>
+        </div>
+        
+        <div class="form-group col-md-12"  >
+            <label for="clientId" class="col-md-2 control-label">Client Id:</label>
+            <div class="col-md-10">
+                <input id="clientId" name="clientId" class="form-control" type="text" ng-model="currentRecord.clientId" disabled />
+            </div>
+        </div>
+>>>>>>> 64e91547ebb942e28806759b5dfb9c7ea6300d44
     </fieldset>
 </form>

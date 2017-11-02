@@ -24,11 +24,8 @@ SOFTWARE.
 package co.edu.uniandes.csw.bicycles.ejbs;
 
 import co.edu.uniandes.csw.bicycles.api.IBicycleLogic;
-import co.edu.uniandes.csw.bicycles.api.IClientLogic;
 import co.edu.uniandes.csw.bicycles.api.IItemShoppingLogic;
 import co.edu.uniandes.csw.bicycles.api.IShoppingLogic;
-import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
-import co.edu.uniandes.csw.bicycles.entities.ClientEntity;
 import co.edu.uniandes.csw.bicycles.entities.ItemShoppingEntity;
 import co.edu.uniandes.csw.bicycles.entities.ShoppingEntity;
 import co.edu.uniandes.csw.bicycles.persistence.ItemShoppingPersistence;
@@ -97,6 +94,7 @@ public class ItemShoppingLogic implements IItemShoppingLogic {
         persistence.delete(itemShoppingId);
     }
 
+<<<<<<< HEAD
     /*@Override
     public ItemShoppingEntity addItemShopping(Long clientId, Long quantity, Long bicycleId) {
         ItemShoppingEntity itemShoppingEntity = new ItemShoppingEntity();
@@ -119,6 +117,12 @@ public class ItemShoppingLogic implements IItemShoppingLogic {
 
     @Override
     public ItemShoppingEntity createItemShopping(ItemShoppingEntity toEntity) {
+=======
+    @Override
+    public ItemShoppingEntity createItemShopping(ItemShoppingEntity toEntity) {
+        ShoppingEntity compra = shoppingLogic.getShoppingCar(toEntity.getTempUser());
+        toEntity.setShopping(compra);
+>>>>>>> 64e91547ebb942e28806759b5dfb9c7ea6300d44
         return persistence.create(toEntity);
     }
     

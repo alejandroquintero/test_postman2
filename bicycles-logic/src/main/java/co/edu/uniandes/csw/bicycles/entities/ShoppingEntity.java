@@ -32,6 +32,8 @@ import uk.co.jemos.podam.common.PodamExclude;
 import javax.persistence.ManyToOne;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
@@ -39,6 +41,9 @@ import javax.persistence.OneToMany;
  * @author cc.huertas
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Shopping.getShoppingCar", query = "select p from ShoppingEntity p where (p.client.id = :clientId) and (p.status = 'PROCESO')")
+})
 public class ShoppingEntity extends BaseEntity implements Serializable {
 
     @PodamExclude

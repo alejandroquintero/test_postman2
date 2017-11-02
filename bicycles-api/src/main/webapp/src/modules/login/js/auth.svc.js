@@ -14,6 +14,10 @@
             successState: 'home',
             forbiddenState: 'forbidden',
             perfilState: 'clientEditUser',
+<<<<<<< HEAD
+=======
+            shoppingList:'shoppingListTo',
+>>>>>>> 64e91547ebb942e28806759b5dfb9c7ea6300d44
             loginURL: 'login',
             registerURL: 'register',
             logoutURL: 'logout',
@@ -119,6 +123,32 @@
                 goToPerfil: function(username){
                     $state.go(values.perfilState, {clientUser:username});
                 },
+<<<<<<< HEAD
+=======
+                goToShoppingList: function (username) {
+                    $http.get(values.clientUrl + username).then(function (data) {
+                        $state.go(values.shoppingList, {clientId: data.data.id});
+                    });
+                },
+                getCarShopping: function (username) {
+                    var request = new XMLHttpRequest();
+                    request.open('GET', values.clientUrl + username, false);  // `false` makes the request synchronous
+                    request.send(null);
+
+                    if (request.status === 200) {
+                        return $http.get(values.shoppingUrl + 'count?clientId=' + JSON.parse(request.responseText).id);
+                    }
+                },
+                checkout: function (username) {
+                    var request = new XMLHttpRequest();
+                    request.open('GET', values.clientUrl + username, false);  // `false` makes the request synchronous
+                    request.send(null);
+
+                    if (request.status === 200) {
+                        return $http.get(values.shoppingUrl + 'checkout?clientId=' + JSON.parse(request.responseText).id);
+                    }
+                },
+>>>>>>> 64e91547ebb942e28806759b5dfb9c7ea6300d44
                 userAuthenticated: function(){
                     $http.get(values.apiUrl + values.meURL).then(function(response){
                        var permissions = JSON.stringify(response.data.permissions);

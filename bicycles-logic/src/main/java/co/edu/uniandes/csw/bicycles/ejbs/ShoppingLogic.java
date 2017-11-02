@@ -126,7 +126,16 @@ public class ShoppingLogic implements IShoppingLogic {
      */
     @Override
     public ShoppingEntity getShoppingCar(Long clientID) {
-        return persistence.getShoppingCar(clientID);
+        ShoppingEntity entity = persistence.getShoppingCar(clientID);
+        if (entity == null) {
+            entity = new ShoppingEntity();
+            entity.setClient(clientLogic.getClient(clientID));
+            entity.setStatus("PROCESO");
+            entity.setTotalPrice(new Double(0));
+            entity = persistence.create(entity);   
+        }
+        
+        return entity;
     }
     
     /**
@@ -136,6 +145,26 @@ public class ShoppingLogic implements IShoppingLogic {
     @Override
     public void checkoutShoppingCar(Long clientID) {
         ShoppingEntity shopping = persistence.getShoppingCar(clientID);
-        persistence.checkoutShopping(shopping.getId());        
+        shopping.setStatus("PAGADO");
+        persistence.update(shopping);      
+    }
+
+    /**
+     * Regla de negocio que si no encuentra una orden en proceso
+     * crea una nueva.
+     * @param clientLogin
+     * @return 
+     */
+    @Override
+    public ShoppingEntity getShoppingCar(String clientLogin) {
+        ClientEntity client = clientLogic.getClient(clientLogin);
+        List<ShoppingEntity> shoppings = getShoppingList(client.getId());
+        for (int i = 0; i < shoppings.size(); i++) {
+            if(shoppings.get(i).getStatus().equals("PROCESO"))
+            {
+                return shoppings.get(i);
+            }
+        }
+        return createShopping(shoppings.get(0).getClient().getId(), new ShoppingEntity());
     }
 }

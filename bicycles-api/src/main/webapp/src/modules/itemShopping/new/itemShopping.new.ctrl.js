@@ -36,7 +36,13 @@ SOFTWARE.
                     icon: 'save',
                     fn: function () {
                         if ($scope.itemShoppingForm.$valid) {
+<<<<<<< HEAD
                             itemShoppings.post($scope.currentRecord).then(function (rc) {
+=======
+                            var datos = $scope.currentRecord;
+                            datos.clientId = readCookie('username')
+                            itemShoppings.post(datos).then(function (rc) {
+>>>>>>> 64e91547ebb942e28806759b5dfb9c7ea6300d44
                                 $state.go('itemShoppingDetail', {itemShoppingId: rc.id}, {reload: true});
                             });
                         }

@@ -37,7 +37,7 @@ import java.util.Locale;
 @XmlRootElement
 public class ShoppingDTO implements Serializable {
 
-    private String paymentStatus;
+    private String status;
     private Long id;
     private Timestamp dateOfPurchase;
     private Double totalPrice;
@@ -58,7 +58,7 @@ public class ShoppingDTO implements Serializable {
     public ShoppingDTO(ShoppingEntity entity) {
         if (entity!=null)
         {
-            this.paymentStatus = entity.getStatus().toString();
+            this.status = entity.getStatus();
             this.id = entity.getId();
             this.dateOfPurchase = entity.getDateOfPurchase();
             this.totalPrice = entity.getTotalPrice();
@@ -74,17 +74,17 @@ public class ShoppingDTO implements Serializable {
     public ShoppingEntity toEntity() {
         ShoppingEntity entity = new ShoppingEntity();
         entity.setId(this.getId());
-        entity.setStatus(PaymentStatus.valueOf(this.getPaymentStatus()).toString());
+        entity.setStatus(this.getStatus());
         entity.setDateOfPurchase(this.getDateOfPurchase());
         return entity;
     }
 
-    public String getPaymentStatus() {
-        return paymentStatus;
+    public String getStatus() {
+        return status;
     }
 
-    public void setPaymentStatus(String paymentStatus) {
-        this.paymentStatus = paymentStatus;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Long getId() {

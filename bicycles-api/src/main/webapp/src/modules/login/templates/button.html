@@ -3,6 +3,52 @@
 </button>
 
 <div ng-show="isAuthenticated()" class="btn-group">
+    <button id="car-btn" type="button" class="btn btn-success dropdown-toggle navbar-btn" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false" if-permission name='shopping'>
+        <span class="badge">{{shoppingCar.itemShopping.length}}</span> <span class="glyphicon glyphicon-shopping-cart"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li ng-repeat="item in shoppingCar.itemShopping">
+            <span class="badge">{{item.quantity}}</span> {{item.name}}
+        </li>
+
+        <li ng-show="shoppingCar.itemShopping.length > 0">
+        <center>
+            <a type="button" data-toggle="modal" data-target="#myModal">
+                <span class="badge">Pagar</span>                  
+            </a>
+        </center>
+        </li>
+
+        <li ng-show="shoppingCar.itemShopping.length == 0" >
+        <center>Carro Sin Elementos</center>
+        </li>
+    </ul>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" data-backdrop="false">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Pagar Compra</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Esta seguro que desea realizar la compra de {{shoppingCar.itemShopping.length}} producto(s), por un total de {{shoppingCar.totalPrice}} de pesos</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-lg btn-success btn-block" ng-click="checkout()" data-dismiss="modal">Aceptar</button>
+                    <button type="button" class="btn btn-lg btn-danger btn-block" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div ng-show="isAuthenticated()" class="btn-group">
     <button id="menu-btn" type="button" class="btn btn-success dropdown-toggle navbar-btn" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
         {{currentUser.userName}} <span class="caret"></span>
@@ -12,11 +58,15 @@
             <a ui-sref='{{menuitem.state}}'><span class='glyphicon glyphicon-{{menuitem.icon}}' aria-hidden='true'></span> {{menuitem.label}}</a>
         </li>
         <li if-permission name='shopping'>
-            <a ui-sref="shoppingList({page: 1, limit: 15})">
+            <a href ng-click="goToShoppingList()">
                 <span class="fa fa-shopping-cart" style="color:green"></span>Historial de compras
             </a>
         </li>
+<<<<<<< HEAD
         <li if-permission name='shopping'>
+=======
+        <li>
+>>>>>>> 64e91547ebb942e28806759b5dfb9c7ea6300d44
             <a href ng-click="goToPerfil()">
                 <span class="glyphicon glyphicon-user"></span>Perfil
             </a>
@@ -28,4 +78,3 @@
         </li>
     </ul>
 </div>
-

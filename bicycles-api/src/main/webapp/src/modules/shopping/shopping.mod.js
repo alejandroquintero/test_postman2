@@ -6,30 +6,20 @@
         displayName: 'Compras',
         url: 'shopping',
         fields: {
-            paymentStatus: {
+            status: {
                 displayName: 'Estado',
                 type: 'String',
                 required: true
             },
-            client: {
-                displayName: 'Marca',
-                type: 'Reference',
-                model: 'clientModel',
-                options: [],
-                required: true
-            },
-            /*bicycle: {
-                displayName: 'Categoria',
-                type: 'Reference',
-                model: 'bicycleModel',
-                options: [],
-                required:  true 
-            },*/
             dateOfPurchase: {
                 displayName:  'Fecha de Compra',
                 type: 'Date',
-                options: [],
-                required:  false 
+                required:  true 
+            },
+            totalPrice: {
+                displayName:  'Total Compra',
+                type: 'Double',
+                required:  true 
             }
         }
     });
@@ -40,37 +30,31 @@
             var baseInstancePath = basePath + 'instance/';
 
             $sp.state('shopping', {
-                url: '/shopping?page&limit',
+                url: '/shopping?clientId&page&limit',
                 abstract: true,
-                parent: 'clientDetail',
                 views: {
-                    clientChieldView: {
+                     mainView: {
                         templateUrl: basePath + 'shopping.tpl.html',
                         controller: 'shoppingCtrl'
                     }
                 },
                 resolve: {
                     model: 'shoppingModel',
-                    shopping: ['client', '$stateParams', 'model', function (client, $params, model) {
-                            return client.getList(model.url, $params);
-                        }]                }
+                    clients: ['Restangular', 'model', '$stateParams', function (r, model, $params) {
+                            return r.all(model.url).getList($params);
+                        }]
+                }
             });
-            $sp.state('shoppingList', {
+            $sp.state('shoppingListTo', {
                 url: '/list',
                 parent: 'shopping',
                 views: {
-                     'clientInstanceView@clientInstance': {
+                    shoppingView: {
                         templateUrl: basePath + 'list/shopping.list.tpl.html',
                         controller: 'shoppingListCtrl',
                         controllerAs: 'ctrl'
                     }
-                },
-                 resolve:{
-				   model: 'shoppingModel'
-					},
-                 ncyBreadcrumb: {
-                   label: 'shopping'
-                    }
+                }
             });
             $sp.state('shoppingNew', {
                 url: '/new',
