@@ -13,15 +13,17 @@
         </li>
 
         <li ng-show="shoppingCar.itemShopping.length > 0">
-        <center>
+        <span class="center">
             <a type="button" data-toggle="modal" data-target="#myModal">
                 <span class="badge">Pagar</span>                  
             </a>
-        </center>
+        </span>
         </li>
 
         <li ng-show="shoppingCar.itemShopping.length == 0" >
-        <center>Carro Sin Elementos</center>
+            <span class="center">
+                Carro Sin Elementos
+            </span>
         </li>
     </ul>
 
