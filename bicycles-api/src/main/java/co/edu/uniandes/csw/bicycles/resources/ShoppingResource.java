@@ -100,8 +100,7 @@ public class ShoppingResource {
     public ShoppingDetailDTO getShopping(@PathParam("shoppingId") Long shoppingId) {
         ShoppingEntity entity = shoppingLogic.getShopping(shoppingId);
         if (entity.getClient() != null) {
-            if (clientId.equals(clientId)) {
-            } else {
+            if (!clientId.equals(entity.getClient().getId())) {
                 throw new WebApplicationException(404);
             }
         }
