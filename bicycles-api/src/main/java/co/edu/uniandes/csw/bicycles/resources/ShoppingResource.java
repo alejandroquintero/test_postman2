@@ -39,7 +39,6 @@ import co.edu.uniandes.csw.bicycles.api.IShoppingLogic;
 import co.edu.uniandes.csw.bicycles.dtos.detail.ShoppingDetailDTO;
 import co.edu.uniandes.csw.bicycles.entities.ShoppingEntity;
 import java.util.ArrayList;
-import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.POST;
 import javax.ws.rs.WebApplicationException;
 
@@ -92,7 +91,7 @@ public class ShoppingResource {
     /**
      * Obtiene los datos de una instancia de Shopping a partir de su ID
      *
-     * @param id Identificador de la instancia a consultar
+     * @param shoppingId
      * @return Instancia de ShoppingDetailDTO con los datos del Shopping consultado
      * @generated
      */
@@ -100,8 +99,10 @@ public class ShoppingResource {
     @Path("{shoppingId: \\d+}")
     public ShoppingDetailDTO getShopping(@PathParam("shoppingId") Long shoppingId) {
         ShoppingEntity entity = shoppingLogic.getShopping(shoppingId);
-        if (entity.getClient() != null && !clientId.equals(clientId)) {
-            throw new WebApplicationException(404);
+        if (entity.getClient() != null) {
+            if (!clientId.equals(entity.getClient().getId())) {
+                throw new WebApplicationException(404);
+            }
         }
         return new ShoppingDetailDTO(entity);
     }
@@ -123,7 +124,6 @@ public class ShoppingResource {
     /**
      * Devuelve la cantidad de productos en el carro
      *
-     * @param clientId
      * @return 
      * @generated
      */
@@ -135,9 +135,7 @@ public class ShoppingResource {
     
     /**
      * realiza la compra del shopping car
-     *
-     * @param clientId
-     * @return 
+     * 
      * @generated
      */
     @GET
