@@ -246,3 +246,13 @@ footer a:hover {
     font-size: 5rem;
 }
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+.center{
+    text-align: center;
+    display: inherit;
+}
+
+.center > div { /* It is the fix if there are any div tag inside center tag */
+    margin-left: auto;
+    margin-right: auto;
+}
