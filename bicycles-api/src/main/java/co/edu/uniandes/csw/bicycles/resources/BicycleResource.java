@@ -198,4 +198,11 @@ public class BicycleResource {
 
         return PhotoAlbumResource.class;
     }
+    
+    @Path("{bicyclesId: \\d+}/review")
+    public Class<ReviewResource> getReviewResource(@PathParam("bicyclesId") Long bicyclesId) {
+        existsBicycle(bicyclesId);
+
+        return ReviewResource.class;
+    }
 }
