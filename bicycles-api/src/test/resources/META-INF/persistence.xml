@@ -9,6 +9,7 @@
         <class>co.edu.uniandes.csw.bicycles.entities.ClientEntity</class>
         <class>co.edu.uniandes.csw.bicycles.entities.ShoppingEntity</class>
         <class>co.edu.uniandes.csw.bicycles.entities.ItemShoppingEntity</class>
+        <class>co.edu.uniandes.csw.bicycles.entities.ReviewEntity</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <shared-cache-mode>NONE</shared-cache-mode>
         <properties>
