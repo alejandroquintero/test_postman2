@@ -10,31 +10,31 @@
     mod.controller('authController', ['$scope', 'authService', '$cookies', function ($scope, authSvc, $cookies) {
             $scope.alerts = [];
             $scope.roles = authSvc.getRoles();
-            
-            authSvc.userAuthenticated().then(function (data) {             
+
+            authSvc.userAuthenticated().then(function (data) {
                 $scope.permissions = data.data.permissions;
                 $scope.currentUser = data.data;
                 if ($scope.currentUser !== "" && !$scope.menuitems) {
                     $scope.setMenu($scope.currentUser);
-                    
+
                     authSvc.getCarShopping($scope.currentUser.userName).then(function (dataCar) {
                         $scope.shoppingCar = dataCar.data;
                     });
                 }
-                
+
             });
             $scope.loading = false;
             $scope.$on('logged-in', function (events, user) {
-                $scope.currentUser = user;     
+                $scope.currentUser = user;
                 $scope.setMenu($scope.currentUser);
             });
             $scope.setMenu = function (user) {
-                $scope.menuitems = [];      
+                $scope.menuitems = [];
                 for (var rol in $scope.roles) {
                     if (user.roles.indexOf(rol) !== -1) {
-                        for (var menu in $scope.roles[rol]) {                       
-                            if ($scope.menuitems.indexOf($scope.roles[rol][menu]) === -1) {                          
-                                $scope.menuitems.push($scope.roles[rol][menu]);                                
+                        for (var menu in $scope.roles[rol]) {
+                            if ($scope.menuitems.indexOf($scope.roles[rol][menu]) === -1) {
+                                $scope.menuitems.push($scope.roles[rol][menu]);
                             }
                         }
                     }
@@ -44,18 +44,16 @@
             $scope.isAuthenticated = function () {
                 return !!$scope.currentUser;
             };
-            
+
             $scope.isCliente = function () {
                 if ($cookies.get("roles") != null)
                 {
                     var roles = $cookies.get("roles").replace(/[["']+/g, "").replace(/]+/g, "").split(",");
-                    if (roles[0]=== "cliente") {
-                            return true;
-                    }
-                    else
+                    if (roles[0] === "cliente") {
+                        return true;
+                    } else
                         return false;
-                }
-                else
+                } else
                     return false;
             };
 
@@ -87,7 +85,11 @@
                     $scope.loading = true;
                     authSvc.login(user).then(function (data) {
                     }, function (data) {
-                        self.showError(data.data);
+                        if (user) {
+                            self.showError("El nombre de usuario o contraseña no coinciden");
+                        } else {
+                            self.showError(data.data);
+                        }
                     }).finally(function () {
                         $scope.loading = false;
                     });
@@ -151,19 +153,19 @@
             $scope.goToSuccess = function () {
                 authSvc.goToSuccess();
             };
-            
+
             $scope.goToPerfil = function () {
                 authSvc.goToPerfil($scope.currentUser.userName);
             };
-            
+
             $scope.goToShoppingList = function () {
                 authSvc.goToShoppingList($scope.currentUser.userName);
             };
-            
+
             $scope.checkout = function () {
                 authSvc.checkout($scope.currentUser.userName);
             };
-            
+
             $scope.loadShoppingCar = function () {
                 $scope.itemsShopping = load;
             }

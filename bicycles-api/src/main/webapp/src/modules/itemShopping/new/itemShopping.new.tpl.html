@@ -56,8 +56,8 @@ SOFTWARE.
 </header>
 <form novalidate name="itemShoppingForm" role="form">
     <fieldset>
+        <legend>Item Shopping</legend>
         <input id="id" class="form-control" type="hidden" ng-model="currentRecord.id"/>
-        <!--<input id="clientId" class="form-control" type="hidden" ng-model="currentRecord.clientId" value="readCookie('username');" />-->
 
         <div class="form-group col-md-12" ng-class="{'has-success': itemShoppingForm.quantity.$valid && itemShoppingForm.quantity.$dirty, 'has-error': itemShoppingForm.quantity.$invalid && itemShoppingForm.quantity.$dirty}" >
             <label for="quantity" class="col-md-2 control-label">Quantity:</label>

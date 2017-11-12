@@ -1,46 +1,52 @@
 /*
-The MIT License (MIT)
-
-Copyright (c) 2015 Los Andes University
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
+ The MIT License (MIT)
+ 
+ Copyright (c) 2015 Los Andes University
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ 
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+ */
 (function (ng) {
     var mod = ng.module('mainApp');
 
-    mod.controller('menuCtrl', ['$scope', 'Restangular',
-        function ($scope, Restangular) {
+
+    mod.controller('menuCtrl', ['$scope', 'Restangular', '$cookies',
+        function ($scope, Restangular, $cookies) {
             var vm = $scope;
+
             vm.loadCategories = loadCategories;
             vm.loadBrands = loadBrands;
             function loadCategories() {
-              Restangular.all('categorys').getList()
-                      .then(function(categories){
-                        vm.categories = categories.plain();
-                      });
+                Restangular.all('categorys').getList()
+                        .then(function (categories) {
+                            vm.categories = categories.plain();
+                        });
             }
             function loadBrands() {
-              Restangular.all('brands').getList()
-                      .then(function(brands){
-                        vm.brands = brands.plain();
-                      });
+                Restangular.all('brands').getList()
+                        .then(function (brands) {
+                            vm.brands = brands.plain();
+                        });
             }
+
+            $scope.isAuth = function () {
+                return $cookies.get("roles")!=null;
+            };
             vm.loadCategories();
             vm.loadBrands();
         }]);
