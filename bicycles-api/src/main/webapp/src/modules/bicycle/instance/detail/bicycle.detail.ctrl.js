@@ -25,13 +25,15 @@
 
   var mod = ng.module("bicycleModule");
 
-  mod.controller("bicycleDetailCtrl", ['$scope', "$state", "bicycle", "model","photoAlbumModel",
-    function ($scope, $state, bicycle, model, photoAlbumModel) {
+  mod.controller("bicycleDetailCtrl", ['$scope', "$state", "bicycle", "model","photoAlbumModel","reviewModel",
+    function ($scope, $state, bicycle, model, photoAlbumModel, reviewModel) {
       $scope.currentRecord = bicycle;
       $scope.model = model;
       $scope.buttons = ['none'];
       $scope.photos = bicycle.getList(photoAlbumModel.url).$object;
       $scope.photoModel = photoAlbumModel;
+      $scope.reviews = bicycle.getList(reviewModel.url).$object;
+      $scope.reviewModel = reviewModel;
       
       $scope.actions = {
         create: {
@@ -74,6 +76,13 @@
           icon: 'link',
           fn: function () {
             $state.go('photoAlbumList');
+          }
+        },
+        review: {
+          displayName: 'Review',
+          icon: 'thumbs-up',
+          fn: function () {
+            $state.go('reviewList');
           }
         }
       };

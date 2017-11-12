@@ -287,7 +287,7 @@
 
                             for (var key in permissions) {
 
-                                if (permissions[key].includes(name) | permissions[key].includes("photoAlbum")
+                                if (permissions[key].includes(name) | permissions[key].includes("photoAlbum") | permissions[key].includes("review")
                                         | permissions[key].includes("shopping") | permissions[key].includes("itemShoppings")) {
                                     if ("read" === permissions[key].split(":")[0])
                                         allowedButtons.push("list", "detail", "refresh");
@@ -345,7 +345,7 @@
                                         && "categorys" !== action && "bicycles" !== action
                                         && "brands" !== action && "photoAlbum" !== action
                                         && "refresh" !== action && "shopping" !== action
-                                        && "itemShoppings" !== action) {
+                                        && "itemShoppings" !== action && "review" !== action) {
                                     delete actions[action];
                                 }
                             }
@@ -359,10 +359,10 @@
 
                             for (var key in permissions) {
 
-                                if (permissions[key].includes(name) | permissions[key].includes("photoAlbum")
+                                if (permissions[key].includes(name) | permissions[key].includes("photoAlbum") | permissions[key].includes("review")
                                         | permissions[key].includes("shopping")| permissions[key].includes("itemShoppings")) {
                                     if ("read" === permissions[key].split(":")[0])
-                                        allowedButtons.push("list", "categorys", "bicycles", "brands", "photoAlbum", "refresh", "shopping", "itemShoppings");
+                                        allowedButtons.push("list", "categorys", "bicycles", "brands", "photoAlbum", "review", "refresh", "shopping", "itemShoppings");
                                     if ("update" === permissions[key].split(":")[0])
                                         allowedButtons.push("edit", "save", "cancel");
                                     if ("create" === permissions[key].split(":")[0])

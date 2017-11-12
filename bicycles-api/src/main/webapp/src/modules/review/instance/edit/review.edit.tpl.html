@@ -1,0 +1,23 @@
+<header>
+    <div ncy-breadcrumb></div>
+    <toolbar name="model.name" display-name="model.displayName" actions='actions'></toolbar>
+</header>
+<form novalidate commentary="reviewForm" role="form">
+    <fieldset>
+        <legend>Review:</legend>
+        <input id="id" class="form-control" type="hidden" ng-model="currentRecord.id"/>
+        <div class="form-group col-md-12" ng-class="{'has-success': reviewForm.star.$valid && reviewForm.star.$dirty, 'has-error': reviewForm.star.$invalid && reviewForm.star.$dirty}" >
+            <label for="star" class="col-md-2 control-label">Star</label>
+            <div class="col-md-10">
+                <input id="star" commentary="star" class="form-control" type="text" ng-model="currentRecord.star" ng-required="true" />
+            </div>
+        </div>
+        <div class="form-group col-md-12" ng-class="{'has-success': reviewForm.commentary.$valid && reviewForm.commentary.$dirty, 'has-error': reviewForm.commentary.$invalid && reviewForm.commentary.$dirty}" >
+            <label for="commentary" class="col-md-2 control-label">Commentary</label>
+            <div class="col-md-10">
+                <input id="commentary" commentary="commentary" class="form-control" type="text" ng-model="currentRecord.commentary" ng-required="true" />
+            </div>
+        </div>
+    </fieldset>
+</form>
+
