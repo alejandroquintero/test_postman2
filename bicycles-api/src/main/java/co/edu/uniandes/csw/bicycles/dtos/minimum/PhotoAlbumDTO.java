@@ -20,7 +20,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-*/
+ */
 package co.edu.uniandes.csw.bicycles.dtos.minimum;
 
 import co.edu.uniandes.csw.bicycles.entities.PhotoAlbumEntity;
@@ -31,12 +31,11 @@ import java.io.Serializable;
  * @generated
  */
 @XmlRootElement
-public class PhotoAlbumDTO  implements Serializable{
+public class PhotoAlbumDTO implements Serializable {
 
     private String image;
     private Long id;
     private String name;
-
 
     /**
      * @generated
@@ -47,15 +46,16 @@ public class PhotoAlbumDTO  implements Serializable{
     /**
      * Crea un objeto PhotoAlbumDTO a partir de un objeto PhotoAlbumEntity.
      *
-     * @param entity Entidad PhotoAlbumEntity desde la cual se va a crear el nuevo objeto.
+     * @param entity Entidad PhotoAlbumEntity desde la cual se va a crear el
+     * nuevo objeto.
      * @generated
      */
     public PhotoAlbumDTO(PhotoAlbumEntity entity) {
-	   if (entity!=null){
-        this.image=entity.getImage();
-        this.id=entity.getId();
-        this.name=entity.getName();
-       }
+        if (entity != null) {
+            this.image = entity.getImage();
+            this.id = entity.getId();
+            this.name = entity.getName();
+        }
     }
 
     /**
@@ -69,7 +69,7 @@ public class PhotoAlbumDTO  implements Serializable{
         entity.setImage(this.getImage());
         entity.setId(this.getId());
         entity.setName(this.getName());
-    return entity;
+        return entity;
     }
 
     /**
@@ -131,6 +131,5 @@ public class PhotoAlbumDTO  implements Serializable{
     public void setName(String name) {
         this.name = name;
     }
-
 
 }

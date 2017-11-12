@@ -68,6 +68,10 @@ public class BicycleEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @OneToMany(mappedBy = "bicycle", cascade = CascadeType.REMOVE)
     private List<PhotoAlbumEntity> photoAlbum = new ArrayList<>();
+    
+    @PodamExclude
+    @OneToMany(mappedBy = "bicycle", cascade = CascadeType.REMOVE)
+    private List<ReviewEntity> review = new ArrayList<>();
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creationDate")
@@ -177,8 +181,7 @@ public class BicycleEntity extends BaseEntity implements Serializable {
 
     /**
      * Establece el valor de la colección de photoAlbum.
-     *
-     * @param photoAlbum nuevo valor de la colección.
+     * @param photoalbum nuevo valor de la colección.
      * @generated
      */
     public void setPhotoAlbum(List<PhotoAlbumEntity> photoalbum) {
@@ -234,5 +237,21 @@ public class BicycleEntity extends BaseEntity implements Serializable {
      */
     public void setColor(String color) {
         this.color = color;
+    }
+
+    /**
+     * Review.
+     * @return 
+     */
+    public List<ReviewEntity> getReview() {
+        return review;
+    }
+
+    /**
+     * Review.
+     * @param review 
+     */
+    public void setReview(List<ReviewEntity> review) {
+        this.review = review;
     }
 }
