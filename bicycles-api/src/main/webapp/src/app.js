@@ -23,7 +23,6 @@ SOFTWARE.
 */
 (function (ng) {
     var mod = ng.module('mainApp', [
-        //'ngCrudMock',
         'ngCrud',
         'ui.router',
         'ui.grid',
@@ -36,7 +35,8 @@ SOFTWARE.
         'authModule',
         'ncy-angular-breadcrumb',
         'shoppingModule',
-        'itemShoppingModule'
+        'itemShoppingModule',
+        'reviewModule'
     ]);
 
     mod.constant('baseUrl', 'api');
