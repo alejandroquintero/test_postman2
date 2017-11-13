@@ -1,18 +1,14 @@
 /*
 The MIT License (MIT)
-
 Copyright (c) 2015 Los Andes University
-
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
-
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
-
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -94,35 +90,10 @@ public class ItemShoppingLogic implements IItemShoppingLogic {
         persistence.delete(itemShoppingId);
     }
 
-<<<<<<< HEAD
-    /*@Override
-    public ItemShoppingEntity addItemShopping(Long clientId, Long quantity, Long bicycleId) {
-        ItemShoppingEntity itemShoppingEntity = new ItemShoppingEntity();
-        
-        ShoppingEntity shopping = shoppingLogic.getShoppingCar(clientId);
-        BicycleEntity bicycle = bicycleLogic.getBicycle(bicycleId);
-        
-        if(shopping == null){
-            shopping = new ShoppingEntity();
-            shopping.setTotalPrice(new Double(0));
-            shopping = shoppingLogic.createShopping(clientId, shopping);
-        }
-        
-        itemShoppingEntity.setBicycle(bicycle);
-        itemShoppingEntity.setQuantity(quantity);
-        itemShoppingEntity.setShopping(shopping);
-        
-        return persistence.create(itemShoppingEntity);
-    }*/
-
-    @Override
-    public ItemShoppingEntity createItemShopping(ItemShoppingEntity toEntity) {
-=======
     @Override
     public ItemShoppingEntity createItemShopping(ItemShoppingEntity toEntity) {
         ShoppingEntity compra = shoppingLogic.getShoppingCar(toEntity.getTempUser());
         toEntity.setShopping(compra);
->>>>>>> 64e91547ebb942e28806759b5dfb9c7ea6300d44
         return persistence.create(toEntity);
     }
     

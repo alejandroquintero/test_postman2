@@ -23,12 +23,11 @@ SOFTWARE.
  */
 package co.edu.uniandes.csw.bicycles.test.logic;
 
-import co.edu.uniandes.csw.bicycles.ejbs.BicycleLogic;
-import co.edu.uniandes.csw.bicycles.api.IBicycleLogic;
-import co.edu.uniandes.csw.bicycles.api.IItemShoppingLogic;
+import co.edu.uniandes.csw.bicycles.ejbs.ReviewLogic;
+import co.edu.uniandes.csw.bicycles.api.IReviewLogic;
+import co.edu.uniandes.csw.bicycles.entities.ReviewEntity;
+import co.edu.uniandes.csw.bicycles.persistence.ReviewPersistence;
 import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
-import co.edu.uniandes.csw.bicycles.persistence.BicyclePersistence;
-import co.edu.uniandes.csw.bicycles.entities.ItemShoppingEntity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,11 +50,13 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @generated
  */
 @RunWith(Arquillian.class)
-public class ItemShoppingLogicTest {
+public class ReviewLogicTest {
 
     /**
      * @generated
      */
+    BicycleEntity fatherEntity;
+
     /**
      * @generated
      */
@@ -65,10 +66,7 @@ public class ItemShoppingLogicTest {
      * @generated
      */
     @Inject
-    private IItemShoppingLogic itemShoppingLogic;
-    
-    @Inject
-    private IItemShoppingLogic bicycleLogic;
+    private IReviewLogic reviewLogic;
 
     /**
      * @generated
@@ -85,20 +83,23 @@ public class ItemShoppingLogicTest {
     /**
      * @generated
      */
-    private List<ItemShoppingEntity> data = new ArrayList<ItemShoppingEntity>();
-    
-    private List<BicycleEntity> dataBicycle = new ArrayList<BicycleEntity>();
+    private List<ReviewEntity> data = new ArrayList<ReviewEntity>();
+    /**
+     * @generated
+     */
+    private List<BicycleEntity> bicycleData = new ArrayList<>();
 
     /**
+     * @return 
      * @generated
      */
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(BicycleEntity.class.getPackage())
-                .addPackage(BicycleLogic.class.getPackage())
-                .addPackage(IBicycleLogic.class.getPackage())
-                .addPackage(BicyclePersistence.class.getPackage())
+                .addPackage(ReviewEntity.class.getPackage())
+                .addPackage(ReviewLogic.class.getPackage())
+                .addPackage(IReviewLogic.class.getPackage())
+                .addPackage(ReviewPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -131,7 +132,7 @@ public class ItemShoppingLogicTest {
      * @generated
      */
     private void clearData() {
-        em.createQuery("delete from ItemShoppingEntity").executeUpdate();
+        em.createQuery("delete from ReviewEntity").executeUpdate();
         em.createQuery("delete from BicycleEntity").executeUpdate();
     }
 
@@ -142,46 +143,47 @@ public class ItemShoppingLogicTest {
      * @generated
      */
     private void insertData() {
-        for (int i = 0; i < 3; i++) {
-            ItemShoppingEntity brand = factory.manufacturePojo(ItemShoppingEntity.class);
-            em.persist(brand);
-            data.add(brand);
-        }
 
+        fatherEntity = factory.manufacturePojo(BicycleEntity.class);
+        fatherEntity.setId(1L);
+        em.persist(fatherEntity);
         for (int i = 0; i < 3; i++) {
-            BicycleEntity entity = factory.manufacturePojo(BicycleEntity.class);
+            ReviewEntity entity = factory.manufacturePojo(ReviewEntity.class);
+            entity.setBicycle(fatherEntity);
+
             em.persist(entity);
-            data.get(i).setBicycle(entity);  
+            data.add(entity);
         }
     }
 
     /**
-     * Prueba para crear un Bicycle
-     *
-     * @generated
-     */
-    /*@Test
-    public void createItemTest() {
-        ItemShoppingEntity newEntity = factory.manufacturePojo(ItemShoppingEntity.class);
-        ItemShoppingEntity result = itemShoppingLogic.createItemShopping(newEntity);
-        Assert.assertNotNull(result);
-        ItemShoppingEntity entity = em.find(ItemShoppingEntity.class, result.getId());
-        Assert.assertEquals(newEntity.getId(), entity.getId());
-        Assert.assertEquals(newEntity.getName(), entity.getName());
-    }*/
-
-    /**
-     * Prueba para consultar la lista de Bicycles
+     * Prueba para crear un Review
      *
      * @generated
      */
     @Test
-    public void getItemTest() {
-        List<ItemShoppingEntity> list = itemShoppingLogic.getItemShoppingList();
+    public void createReviewTest() {
+        ReviewEntity newEntity = factory.manufacturePojo(ReviewEntity.class);
+        ReviewEntity result = reviewLogic.createReview(fatherEntity.getId(), newEntity);
+        Assert.assertNotNull(result);
+        ReviewEntity entity = em.find(ReviewEntity.class, result.getId());
+        Assert.assertEquals(newEntity.getStar(), entity.getStar());
+        Assert.assertEquals(newEntity.getId(), entity.getId());
+        Assert.assertEquals(newEntity.getName(), entity.getName());
+    }
+
+    /**
+     * Prueba para consultar la lista de Reviews
+     *
+     * @generated
+     */
+    @Test
+    public void getReviewsTest() {
+        List<ReviewEntity> list = reviewLogic.getReviews(fatherEntity.getId());
         Assert.assertEquals(data.size(), list.size());
-        for (ItemShoppingEntity entity : list) {
+        for (ReviewEntity entity : list) {
             boolean found = false;
-            for (ItemShoppingEntity storedEntity : data) {
+            for (ReviewEntity storedEntity : data) {
                 if (entity.getId().equals(storedEntity.getId())) {
                     found = true;
                 }
@@ -191,49 +193,87 @@ public class ItemShoppingLogicTest {
     }
 
     /**
-     * Prueba para consultar un Bicycle
+     * Prueba para consultar la lista de Reviews
      *
      * @generated
      */
     @Test
-    public void getItemsTest() {
-        ItemShoppingEntity entity = data.get(0);
-        ItemShoppingEntity resultEntity = itemShoppingLogic.getItemShopping(entity.getId());
+    public void getReviewsListTest() {
+        List<ReviewEntity> list = reviewLogic.getReviews(1, 10, fatherEntity.getId());
+        Assert.assertEquals(data.size(), list.size());
+        for (ReviewEntity entity : list) {
+            boolean found = false;
+            for (ReviewEntity storedEntity : data) {
+                if (entity.getId().equals(storedEntity.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
+    }
+
+    /**
+     * Prueba para contar la lista de Reviews
+     *
+     * @generated
+     */
+    @Test
+    public void getCountTest() {
+        int list = reviewLogic.countReviews();
+        boolean found = false;
+
+        if (list >= 0) {
+            found = true;
+        }
+        
+        Assert.assertTrue(found);
+    }
+
+    /**
+     * Prueba para consultar un Review
+     *
+     * @generated
+     */
+    @Test
+    public void getReviewTest() {
+        ReviewEntity entity = data.get(0);
+        ReviewEntity resultEntity = reviewLogic.getReview(entity.getId());
         Assert.assertNotNull(resultEntity);
+        Assert.assertEquals(entity.getStar(), resultEntity.getStar());
         Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(entity.getName(), resultEntity.getName());
     }
 
     /**
-     * Prueba para eliminar un Bicycle
+     * Prueba para eliminar un Review
      *
      * @generated
      */
     @Test
-    public void deleteItemTest() {
-        ItemShoppingEntity entity = data.get(0);
-        itemShoppingLogic.deleteItemShopping(entity.getId());
-        ItemShoppingEntity deleted = em.find(ItemShoppingEntity.class, entity.getId());
+    public void deleteReviewTest() {
+        ReviewEntity entity = data.get(0);
+        reviewLogic.deleteReview(entity.getId());
+        ReviewEntity deleted = em.find(ReviewEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
 
     /**
-     * Prueba para actualizar un Bicycle
+     * Prueba para actualizar un Review
      *
      * @generated
      */
     @Test
-    public void updateBicycleTest() {
-        ItemShoppingEntity entity = data.get(0);
-        ItemShoppingEntity pojoEntity = factory.manufacturePojo(ItemShoppingEntity.class);
+    public void updateReviewTest() {
+        ReviewEntity entity = data.get(0);
+        ReviewEntity pojoEntity = factory.manufacturePojo(ReviewEntity.class);
 
         pojoEntity.setId(entity.getId());
 
-        itemShoppingLogic.updateItemShopping(pojoEntity);
+        reviewLogic.updateReview(fatherEntity.getId(), pojoEntity);
 
-        ItemShoppingEntity resp = em.find(ItemShoppingEntity.class, entity.getId());
+        ReviewEntity resp = em.find(ReviewEntity.class, entity.getId());
 
-        
+        Assert.assertEquals(pojoEntity.getStar(), resp.getStar());
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getName(), resp.getName());
     }

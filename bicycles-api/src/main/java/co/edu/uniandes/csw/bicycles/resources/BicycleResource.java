@@ -99,14 +99,14 @@ public class BicycleResource {
         List<BicycleDetailDTO> ListByDescription = null;
         List<BicycleDetailDTO> ListByStatus = null;
         List<BicycleDetailDTO> ListToReturn = null;
-        Set<BicycleDetailDTO> newSet = null;
+        Set<BicycleDetailDTO> newSet = new HashSet<>();
 
         if (bicycleDescription != null) {
             // Get results from logic
             ListByDescription = listEntity2DTO(bicycleLogic.getByDescription(bicycleDescription));
             // Store the first result set
-            newSet = new HashSet<BicycleDetailDTO>(ListByDescription);
-            ListToReturn = new ArrayList<BicycleDetailDTO>(newSet);
+            newSet = new HashSet<>(ListByDescription);
+            ListToReturn = new ArrayList<>(newSet);
         }
 
         if (bicycleStatus != null) {
@@ -114,10 +114,10 @@ public class BicycleResource {
             ListByStatus = listEntity2DTO(bicycleLogic.getByStatus(bicycleStatus));
             // Merge the second result set
             newSet.addAll(ListByStatus);
-            ListToReturn = new ArrayList<BicycleDetailDTO>(newSet);
+            ListToReturn = new ArrayList<>(newSet);
         }
 
-        if (bicycleStatus == null & bicycleDescription == null) {
+        if (bicycleStatus == null && bicycleDescription == null) {
             ListToReturn = listEntity2DTO(bicycleLogic.getBicycles());
         }
 
@@ -197,5 +197,12 @@ public class BicycleResource {
         existsBicycle(bicyclesId);
 
         return PhotoAlbumResource.class;
+    }
+    
+    @Path("{bicyclesId: \\d+}/review")
+    public Class<ReviewResource> getReviewResource(@PathParam("bicyclesId") Long bicyclesId) {
+        existsBicycle(bicyclesId);
+
+        return ReviewResource.class;
     }
 }

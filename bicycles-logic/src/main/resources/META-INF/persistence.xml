@@ -10,6 +10,7 @@
         <class>co.edu.uniandes.csw.bicycles.entities.ClientEntity</class>
         <class>co.edu.uniandes.csw.bicycles.entities.ShoppingEntity</class>
         <class>co.edu.uniandes.csw.bicycles.entities.ItemShoppingEntity</class>
+        <class>co.edu.uniandes.csw.bicycles.entities.ReviewEntity</class>
         <properties>
             <property name="eclipselink.logging.level" value="FINE"/>
             <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
