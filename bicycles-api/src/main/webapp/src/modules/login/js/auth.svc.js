@@ -14,10 +14,7 @@
             successState: 'home',
             forbiddenState: 'forbidden',
             perfilState: 'clientEditUser',
-<<<<<<< HEAD
-=======
             shoppingList:'shoppingListTo',
->>>>>>> 64e91547ebb942e28806759b5dfb9c7ea6300d44
             loginURL: 'login',
             registerURL: 'register',
             logoutURL: 'logout',
@@ -123,8 +120,6 @@
                 goToPerfil: function(username){
                     $state.go(values.perfilState, {clientUser:username});
                 },
-<<<<<<< HEAD
-=======
                 goToShoppingList: function (username) {
                     $http.get(values.clientUrl + username).then(function (data) {
                         $state.go(values.shoppingList, {clientId: data.data.id});
@@ -148,7 +143,6 @@
                         return $http.get(values.shoppingUrl + 'checkout?clientId=' + JSON.parse(request.responseText).id);
                     }
                 },
->>>>>>> 64e91547ebb942e28806759b5dfb9c7ea6300d44
                 userAuthenticated: function(){
                     $http.get(values.apiUrl + values.meURL).then(function(response){
                        var permissions = JSON.stringify(response.data.permissions);
@@ -167,4 +161,3 @@
         }];
     });
 })(window.angular);
-

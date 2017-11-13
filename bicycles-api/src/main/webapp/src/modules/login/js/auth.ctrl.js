@@ -153,12 +153,6 @@
             $scope.goToSuccess = function () {
                 authSvc.goToSuccess();
             };
-<<<<<<< HEAD
-            
-            $scope.goToPerfil = function () {
-                authSvc.goToPerfil($scope.currentUser.userName);
-            };
-=======
 
             $scope.goToPerfil = function () {
                 authSvc.goToPerfil($scope.currentUser.userName);
@@ -175,9 +169,6 @@
             $scope.loadShoppingCar = function () {
                 $scope.itemsShopping = load;
             }
->>>>>>> 64e91547ebb942e28806759b5dfb9c7ea6300d44
         }]);
 
 })(window.angular);
-
-

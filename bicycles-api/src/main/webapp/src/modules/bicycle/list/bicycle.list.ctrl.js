@@ -106,11 +106,7 @@
                     displayName: 'Buy',
                     icon: 'usd',
                     fn: function (rc) {
-<<<<<<< HEAD
-                        $state.go('itemShoppingList', {clientId: 1, bicycleId: rc.id});
-=======
                         $state.go('itemShoppingNew', {clientId: 1, bicycleId: rc.id});
->>>>>>> 64e91547ebb942e28806759b5dfb9c7ea6300d44
                     },
                     show: function () {
                         return true;
