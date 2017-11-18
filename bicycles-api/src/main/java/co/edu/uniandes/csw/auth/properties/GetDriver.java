@@ -15,6 +15,7 @@ import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.file.Files;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -73,13 +74,13 @@ public class GetDriver {
         Files.delete(zip.toPath());
     }
 
-    private static void unzip(String zipFilePath, String destDir) throws Exception {
+    private static void unzip(String zipFilePath, String destDir) {
         File dir = new File(destDir);
         // create output directory if it doesn't exist
         if (!dir.exists()) {
             dir.mkdirs();
         } else {
-            throw new Exception("Error: directorio existe");
+            Logger.getAnonymousLogger().info("Error: directorio existe");
         }
         FileInputStream fis;
         //buffer for read and write data to file
