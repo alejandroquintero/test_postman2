@@ -193,6 +193,25 @@ public class ClientPersistenceTest {
         Assert.assertEquals(entity.getAddress(), newEntity.getAddress());
         Assert.assertEquals(entity.getEmail(), newEntity.getEmail());
    }
+    
+    @Test
+    public void getClientByLoginTest() {
+        ClientEntity entity = data.get(0);
+        ClientEntity newEntity = clientPersistence.getByLogin(entity.getLogin());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(entity.getLastName(), newEntity.getLastName());
+        Assert.assertEquals(entity.getFirstName(), newEntity.getFirstName());
+        Assert.assertEquals(entity.getLogin(), newEntity.getLogin());
+        Assert.assertEquals(entity.getPhone() , newEntity.getPhone() );
+        Assert.assertEquals(entity.getAddress(), newEntity.getAddress());
+        Assert.assertEquals(entity.getEmail(), newEntity.getEmail());
+   }
+    
+    @Test
+    public void getClientByLoginNonExistTest() {
+        ClientEntity newEntity = clientPersistence.getByLogin("XXX");
+        Assert.assertNull(newEntity);
+   }
 
     /**
      * Prueba para eliminar un Client.

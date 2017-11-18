@@ -201,7 +201,19 @@ public class ClientLogicTest {
         Assert.assertEquals(entity.getAddress(), resultEntity.getAddress());
         Assert.assertEquals(entity.getEmail(), resultEntity.getEmail());
     }
-
+    
+    @Test
+    public void getClientGetTest() {
+        ClientEntity entity = clientData.get(0);
+        ClientEntity resultEntity = clientLogic.getClient(entity.getLogin());
+        Assert.assertNotNull(resultEntity);        
+        Assert.assertEquals(entity.getLastName(), resultEntity.getLastName());
+        Assert.assertEquals(entity.getFirstName(), resultEntity.getFirstName());
+        Assert.assertEquals(entity.getLogin(), resultEntity.getLogin());
+        Assert.assertEquals(entity.getPhone() , resultEntity.getPhone() );
+        Assert.assertEquals(entity.getAddress(), resultEntity.getAddress());
+        Assert.assertEquals(entity.getEmail(), resultEntity.getEmail());
+    }
     /**
      * Prueba para eliminar un Client
      *
