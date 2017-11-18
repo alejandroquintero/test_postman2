@@ -42,6 +42,7 @@ public class BicyclePersistence extends CrudPersistence<BicycleEntity> {
     protected EntityManager em;
 
     /**
+     * @return 
      * @generated
      */
     @Override
@@ -50,6 +51,7 @@ public class BicyclePersistence extends CrudPersistence<BicycleEntity> {
     }
 
     /**
+     * @return 
      * @generated
      */
     @Override
