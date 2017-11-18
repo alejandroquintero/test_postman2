@@ -31,8 +31,6 @@ import co.edu.uniandes.csw.crud.spi.persistence.CrudPersistence;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -45,6 +43,7 @@ public class ShoppingPersistence extends CrudPersistence<ShoppingEntity> {
     protected EntityManager em;
 
     /**
+     * @return 
      * @generated
      */
     @Override
@@ -53,6 +52,7 @@ public class ShoppingPersistence extends CrudPersistence<ShoppingEntity> {
     }
 
     /**
+     * @return 
      * @generated
      */
     @Override
