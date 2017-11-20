@@ -50,3 +50,55 @@ SOFTWARE.
             rotate="false">
 
 </pagination>
+
+<!-- Modal -->
+<div class="modal fade" id="compra" data-backdrop="false">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Adicionar Producto</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-4 col-sm-offset-1">
+                        <img width="auto" height="100" ng-src="{{productoCompra.photoAlbum[0].image}}" src="{{productoCompra.photoAlbum[0].image}}">       
+                    </div>
+                    <div class="col-sm-5">
+                        <table>
+                            <tr>
+                                <td><b>Nombre:</b></td>
+                                <td>{{productoCompra.name}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Estado:</b></td>
+                                <td>{{productoCompra.status}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Cantidad Disponible:</b></td>
+                                <td>{{productoCompra.stock}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Precio Unitario:</b></td>
+                                <td>{{productoCompra.price | number}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <center>
+                    <b>Cantidad Productos:</b> 
+                    <input id="quantity" name="quantity" class="form-control" type="number" ng-model="cantidad" ng-required="true" min="1" max="{{productoCompra.stock}}"/>
+                    <alert type="danger" close="" ng-show="errorCompra">
+                            La cantidad de productos no esta disponible
+                    </alert>
+                </center>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-lg btn-success btn-block" ng-click="buyBicycle()" data-dismiss="modal">Aceptar</button>
+                <button type="button" class="btn btn-lg btn-danger btn-block" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -14,15 +14,15 @@
             successState: 'home',
             forbiddenState: 'forbidden',
             perfilState: 'clientEditUser',
-            shoppingList:'shoppingListTo',
+            shoppingList:'shoppingList',
             loginURL: 'login',
             registerURL: 'register',
             logoutURL: 'logout',
             forgotPassURL: 'forgot',
             meURL: 'me',
             clientUrl: 'api/clients/',
-            shoppingUrl: 'api/shopping/',
-            itemShopping: 'api/itemShopping'
+            shoppingUrl: 'api/shoppings/',
+            itemShopping: 'api/itemShoppings'
         };
 
         //Default Roles
@@ -142,6 +142,9 @@
                     if (request.status === 200) {
                         return $http.get(values.shoppingUrl + 'checkout?clientId=' + JSON.parse(request.responseText).id);
                     }
+                },
+                deleteItemShopping: function (itemShoppingId) {
+                    $state.go('itemShoppingDelete', {itemShoppingId: itemShoppingId});
                 },
                 userAuthenticated: function(){
                     $http.get(values.apiUrl + values.meURL).then(function(response){

@@ -47,10 +47,11 @@ public class ItemShoppingsResource {
     private Integer page;
     @QueryParam("limit") 
     private Integer maxRecords;
+    @QueryParam("shoppingId") 
+    private Integer shoppingId;
+    
     @PathParam("clientId") 
     private Long clientId;
-    @PathParam("shoppingId") 
-    private Long shoppingId;
     @PathParam("quantity") 
     private Long quantity;
     @PathParam("bicycleId") 
@@ -79,11 +80,15 @@ public class ItemShoppingsResource {
      */
     @GET
     public List<ItemShoppingDetailDTO> getItemShopping() {
-        if (page != null && maxRecords != null) {
-            this.response.setIntHeader("X-Total-Count", itemShoppingLogic.countItemShopping());
-            return listEntity2DTO(itemShoppingLogic.getItemShopping(page, maxRecords));
+        if (shoppingId != null) {
+            if (page != null && maxRecords != null) {
+                this.response.setIntHeader("X-Total-Count", itemShoppingLogic.countItemShopping());
+                return listEntity2DTO(itemShoppingLogic.getItemShopping(new Long(shoppingId), page, maxRecords));
+            }
+            return listEntity2DTO(itemShoppingLogic.getItemShoppingList(new Long(shoppingId)));
         }
-        return listEntity2DTO(itemShoppingLogic.getItemShoppingList());
+        List<ItemShoppingDetailDTO> list = new ArrayList<>();
+        return list;
     }
     
     

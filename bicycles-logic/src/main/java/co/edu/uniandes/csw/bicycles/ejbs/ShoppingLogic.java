@@ -31,6 +31,7 @@ import co.edu.uniandes.csw.bicycles.persistence.ShoppingPersistence;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import java.sql.Timestamp;
 
 /**
  * @generated
@@ -100,17 +101,6 @@ public class ShoppingLogic implements IShoppingLogic {
     }
 
     /**
-     * Actualizar.
-     * @param shoppingId
-     * @param entity
-     * @return 
-     */
-    @Override
-    public ShoppingEntity updateShopping(Long shoppingId, ShoppingEntity entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /**
      * Borrar compra.
      * @param id ID compra.
      */
@@ -146,6 +136,7 @@ public class ShoppingLogic implements IShoppingLogic {
     public void checkoutShoppingCar(Long clientID) {
         ShoppingEntity shopping = persistence.getShoppingCar(clientID);
         shopping.setStatus("PAGADO");
+        shopping.setDateOfPurchase(new Timestamp(System.currentTimeMillis()));
         persistence.update(shopping);      
     }
 
@@ -166,5 +157,17 @@ public class ShoppingLogic implements IShoppingLogic {
             }
         }
         return createShopping(shoppings.get(0).getClient().getId(), new ShoppingEntity());
+    }
+    
+        /**
+     * Actualiza la información de una instancia de Shopping.
+     *
+     * @param entity Instancia de ShoppingEntity con los nuevos datos.
+     * @return Instancia de ShoppingEntity con los datos actualizados.
+     * @generated
+     */
+    @Override
+    public ShoppingEntity updateShopping(ShoppingEntity entity) {
+        return persistence.update(entity);
     }
 }
