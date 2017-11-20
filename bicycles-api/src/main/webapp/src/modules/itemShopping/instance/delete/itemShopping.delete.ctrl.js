@@ -25,12 +25,11 @@ SOFTWARE.
 
     var mod = ng.module("itemShoppingModule");
 
-    mod.controller("itemShoppingDeleteCtrl", ["$state", "itemShopping","model","$scope", function ($state, itemShopping,model,$scope) {
-           $scope.model = model;
-             this.confirmDelete = function () {
-                itemShopping.remove().then(function () {
-                    $state.go('itemShoppingList', null, {reload: true});
-                });
-            };
+    mod.controller("itemShoppingDeleteCtrl", ["$state", "itemShopping",
+        function ($state, itemShopping) {
+            itemShopping.remove().then(function () {
+                $state.go('bicycleList', {}, {reload: true});
+            });
+
         }]);
 })(window.angular);

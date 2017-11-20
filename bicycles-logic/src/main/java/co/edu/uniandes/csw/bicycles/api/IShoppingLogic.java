@@ -32,7 +32,7 @@ public interface IShoppingLogic {
     public List<ShoppingEntity> getShopping(Integer page, Integer maxRecords, Long clientId);
     public List<ShoppingEntity> getShoppingList(Long shoppingId);
     public ShoppingEntity getShopping(Long shoppingId);
-    public ShoppingEntity updateShopping(Long shoppingId, ShoppingEntity entity);
+    public ShoppingEntity updateShopping(ShoppingEntity entity);
     public void deleteShopping(Long id);
     public ShoppingEntity getShoppingCar(Long clientId);
     public ShoppingEntity getShoppingCar(String clientLogin);

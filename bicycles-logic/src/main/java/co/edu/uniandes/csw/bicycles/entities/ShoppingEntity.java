@@ -26,7 +26,7 @@ package co.edu.uniandes.csw.bicycles.entities;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import uk.co.jemos.podam.common.PodamExclude;
 import javax.persistence.ManyToOne;

@@ -24,9 +24,8 @@ SOFTWARE.
 (function (ng) {
     var mod = ng.module('itemShoppingModule');
 
-    mod.controller('itemShoppingCtrl', ['$scope', 'model','Restangular', 'references',
-        function ($scope, model,Restangular, references) {
-            $scope.references = references;
+    mod.controller('itemShoppingCtrl', ['$scope', 'model',
+        function ($scope, model) {
             $scope.model = model;
             //Alertas
             $scope.alerts = [];

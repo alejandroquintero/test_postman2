@@ -25,8 +25,8 @@
 
     var mod = ng.module("bicycleModule");
 
-    mod.controller("bicycleListCtrl", ["$scope", '$state', 'bicycles', '$stateParams', 'model', '$controller',
-        function ($scope, $state, bicycles, $params, model, $controller) {
+    mod.controller("bicycleListCtrl", ["$scope", '$state', 'bicycles', '$stateParams', 'model', '$controller','$cookies',
+        function ($scope, $state, bicycles, $params, model, $controller, $cookies) {
             $controller("authController", {$scope: $scope});
             $scope.model = model;
             $scope.records = bicycles;
@@ -106,12 +106,27 @@
                     displayName: 'Buy',
                     icon: 'usd',
                     fn: function (rc) {
-                        $state.go('itemShoppingNew', {clientId: 1, bicycleId: rc.id});
+                        $scope.productoCompra = rc;
+                        $scope.cantidad = 1;
+                        $scope.errorCompra = false;
+                        $("#compra").modal();
                     },
                     show: function () {
                         return true;
                     }
                 }
             };
+            
+            $scope.buyBicycle = function () {
+                if($scope.cantidad == undefined || $scope.cantidad > $scope.productoCompra.stock){
+                    $scope.errorCompra = true;
+                }else{
+                    $cookies.put("bicycleIdShopping",$scope.productoCompra.id);
+                    $cookies.put("quantityShopping",$scope.cantidad);
+                    $state.go('itemShoppingNew', {clientId: 1, bicycleId: $scope.productoCompra.id});
+                    $("#compra").modal();
+                }
+            };
+            
         }]);
 })(window.angular);

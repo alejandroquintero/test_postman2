@@ -17,7 +17,7 @@ import java.io.Serializable;
  */
 public class ItemShoppingDTO implements Serializable{
     
-    
+    private Long id;
     private Long quantity;
     private String name;    
     private Long bicycleId;
@@ -41,6 +41,7 @@ public class ItemShoppingDTO implements Serializable{
         {
             this.quantity = entity.getQuantity();
             this.name = entity.getName();
+            this.id = entity.getId();
         }
     }
 
@@ -53,14 +54,23 @@ public class ItemShoppingDTO implements Serializable{
     public ItemShoppingEntity toEntity() {
         ItemShoppingEntity entity = new ItemShoppingEntity();
         BicycleEntity bici = new BicycleEntity();
-        bici.setId(getBicycleId());
+        bici.setId(this.bicycleId);
         
         entity.setQuantity(this.getQuantity());
+        entity.setName(this.getName());
+        entity.setId(this.getId());
         entity.setBicycle(bici);
-        entity.setTempUser(getClientId());
+        entity.setTempUser(this.clientId);
         return entity;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
   
     public Long getQuantity() {
         return quantity;

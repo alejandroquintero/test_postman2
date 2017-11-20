@@ -177,7 +177,7 @@ public class ItemShoppingLogicTest {
      */
     @Test
     public void getItemTest() {
-        List<ItemShoppingEntity> list = itemShoppingLogic.getItemShoppingList();
+        List<ItemShoppingEntity> list = itemShoppingLogic.getItemShoppingList(new Long(1));
         Assert.assertEquals(data.size(), list.size());
         for (ItemShoppingEntity entity : list) {
             boolean found = false;

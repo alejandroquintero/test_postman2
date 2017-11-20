@@ -8,14 +8,21 @@
         <span class="badge">{{shoppingCar.itemShopping.length}}</span> <span class="glyphicon glyphicon-shopping-cart"></span>
     </button>
     <ul class="dropdown-menu">
-        <li ng-repeat="item in shoppingCar.itemShopping">
-            <span class="badge">{{item.quantity}}</span> {{item.name}}
-        </li>
+        <div class="row">
+            <li ng-repeat="item in shoppingCar.itemShopping">
+                <div class="col-sm-8 col-sm-offset-1">
+                    <span class="label label-info">{{item.quantity}}</span> {{item.name}} 
+                </div>
+                <div class="col-sm-1">
+                    <a href="#" class="glyphicon glyphicon-remove" style="color:red" ng-click="deleteItemShopping(item.id)"/>
+                </div>
+            </li>
+        </div>
 
         <li ng-show="shoppingCar.itemShopping.length > 0">
         <span class="center">
             <a type="button" data-toggle="modal" data-target="#myModal">
-                <span class="badge">Pagar</span>                  
+                <span class="label label-success">Pagar</span>                  
             </a>
         </span>
         </li>
@@ -26,28 +33,6 @@
             </span>
         </li>
     </ul>
-
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" data-backdrop="false">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Pagar Compra</h4>
-                </div>
-                <div class="modal-body">
-                    <p>Esta seguro que desea realizar la compra de {{shoppingCar.itemShopping.length}} producto(s), por un total de {{shoppingCar.totalPrice}} de pesos</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-lg btn-success btn-block" ng-click="checkout()" data-dismiss="modal">Aceptar</button>
-                    <button type="button" class="btn btn-lg btn-danger btn-block" data-dismiss="modal">Cancelar</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
 </div>
 
 <div ng-show="isAuthenticated()" class="btn-group">
@@ -75,4 +60,34 @@
             </a>
         </li>
     </ul>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" data-backdrop="false">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Pagar Compra</h4>
+            </div>
+            <div class="modal-body">
+                <p>Esta seguro que desea realizar la compra de {{shoppingCar.itemShopping.length  | number:0}} 
+                    producto(s), por un total de ${{shoppingCar.totalPrice | number}} de pesos</p>
+                <div class="row">
+                    <div class="col-sm-11 col-sm-offset-1">
+                        <li ng-repeat="item in shoppingCar.itemShopping">
+                            <span class="badge">{{item.quantity}}</span> {{item.name}}
+                        </li>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-lg btn-success btn-block" ng-click="checkout()" data-dismiss="modal">Aceptar</button>
+                <button type="button" class="btn btn-lg btn-danger btn-block" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+
+    </div>
 </div>

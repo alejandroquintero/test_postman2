@@ -27,9 +27,10 @@ import co.edu.uniandes.csw.bicycles.entities.ItemShoppingEntity;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import co.edu.uniandes.csw.bicycles.entities.ShoppingEntity;
 import co.edu.uniandes.csw.crud.spi.persistence.CrudPersistence;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.TypedQuery;
 
 /**
@@ -65,7 +66,7 @@ public class ItemShoppingPersistence extends CrudPersistence<ItemShoppingEntity>
      * @return 
      */
     public List<ItemShoppingEntity> findAll(Integer page, Integer maxRecords, Long shoppingId) {
-        TypedQuery<ItemShoppingEntity> q = em.createQuery("select p from ItemShoppingEntity p where (p.shopping.id = :shoppingId)", ItemShoppingEntity.class);
+        TypedQuery<ItemShoppingEntity> q = em.createQuery("select * from ItemShoppingEntity where (p.shopping.id = :shoppingId)", ItemShoppingEntity.class);
         q.setParameter("shoppingId", shoppingId);
         if (page != null && maxRecords != null) {
             q.setFirstResult((page - 1) * maxRecords);
@@ -80,8 +81,8 @@ public class ItemShoppingPersistence extends CrudPersistence<ItemShoppingEntity>
      * @return 
      */
     public List<ItemShoppingEntity> findAll( Long shoppingId) {
-        TypedQuery<ItemShoppingEntity> q = em.createQuery("select p from ItemShoppingEntity p where (p.shopping.id = :shoppingId)", ItemShoppingEntity.class);
-        q.setParameter("shoppingId", shoppingId);
-        return q.getResultList();
+        Map<String, Object> params = new HashMap<>();
+        params.put("shoppingId", shoppingId);
+        return executeListNamedQuery("itemShopping.getByIdShopping", params);
     }
 }

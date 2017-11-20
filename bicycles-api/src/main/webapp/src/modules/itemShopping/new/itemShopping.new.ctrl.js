@@ -26,31 +26,19 @@ SOFTWARE.
 
     var mod = ng.module("itemShoppingModule");
 
-    mod.controller("itemShoppingNewCtrl", ["$scope", "$state", "itemShoppings","model",
-        function ($scope, $state, itemShoppings, model) {
-            $scope.model = model;
-            $scope.currentRecord = {};
-            $scope.actions = {
-                save: {
-                    displayName: 'Save',
-                    icon: 'save',
-                    fn: function () {
-                        if ($scope.itemShoppingForm.$valid) {
-                            var datos = $scope.currentRecord;
-                            datos.clientId = readCookie('username')
-                            itemShoppings.post(datos).then(function (rc) {
-                                $state.go('itemShoppingDetail', {itemShoppingId: rc.id}, {reload: true});
-                            });
-                        }
-                    }
-                },
-                cancel: {
-                    displayName: 'Cancel',
-                    icon: 'remove',
-                    fn: function () {
-                        $state.go('itemShoppingList');
-                    }
-                }
-            };
+    mod.controller("itemShoppingNewCtrl", ["$scope", "$state", "itemShoppings","model", "$cookies",
+        function ($scope, $state, itemShoppings, model, $cookies) {
+            
+            datos = {};
+            datos.clientId = $cookies.get("username");
+            datos.bicycleId = $cookies.get("bicycleIdShopping");
+            datos.quantity = $cookies.get("quantityShopping");
+            
+            $cookies.remove("bicycleIdShopping");
+            $cookies.remove("quantityShopping");
+
+            itemShoppings.post(datos).then(function (rc) {
+                $state.go('bicycleList', {itemShoppingId: rc.id}, {reload: true});
+            });
         }]);
 })(window.angular);
