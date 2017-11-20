@@ -166,9 +166,9 @@
                 authSvc.checkout($scope.currentUser.userName);
             };
 
-            $scope.loadShoppingCar = function () {
-                $scope.itemsShopping = load;
-            }
+            $scope.deleteItemShopping = function (itemShoppingId) {
+                authSvc.deleteItemShopping(itemShoppingId);
+            };
         }]);
 
 })(window.angular);

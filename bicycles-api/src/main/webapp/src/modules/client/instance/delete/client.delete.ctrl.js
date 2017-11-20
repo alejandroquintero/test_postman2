@@ -8,7 +8,8 @@
 
     var mod = ng.module("clientModule");
 
-    mod.controller("clientDeleteCtrl", ["$state", "client", 'authService', function ($state, client, authSvc) {
+    mod.controller("clientDeleteCtrl", ["$state", "client", 'authService', 
+        function ($state, client, authSvc) {
             this.confirmDelete = function () {
                 authSvc.delete(client.idAuth0).then(function (data) {
                     client.remove().then(function () {

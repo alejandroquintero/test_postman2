@@ -25,41 +25,27 @@
 
     var mod = ng.module("itemShoppingModule");
 
-    mod.controller("itemShoppingListCtrl", ["$scope", '$state', 'itemShoppings', '$stateParams', 'model', '$controller',
-        function ($scope, $state, itemShoppings, $params, model, $controller) {
-            $controller("authController", {$scope: $scope});
-            $scope.model = model;
+    mod.controller("itemShoppingListCtrl", ["$scope", '$state', 'itemShoppings', '$stateParams',
+        function ($scope, $state, itemShoppings, $params) {
             $scope.records = itemShoppings;
-            $scope.buttons = ['none'];
-            
 
             //Paginación
             this.itemsPerPage = $params.limit;
             this.currentPage = $params.page;
             this.totalItems = itemShoppings.totalRecords;
-
             
-            
-
             this.pageChanged = function () {
                 $state.go('itemShoppingList', {page: this.currentPage});
             };
 
             $scope.actions = {
-                create: {
-                    displayName: 'Create',
-                    icon: 'plus',
-                    fn: function () {
-                        $state.go('itemShoppingNew');
-                    }
-                },
                 refresh: {
                     displayName: 'Refresh',
                     icon: 'refresh',
                     fn: function () {
                         $state.reload();
                     }
-                }};
+                },};
             $scope.recordActions = {
                 detail: {
                     displayName: 'Detail',

@@ -27,13 +27,11 @@ import co.edu.uniandes.csw.bicycles.entities.ItemShoppingEntity;
 import java.util.List;
 
 public interface IItemShoppingLogic {
-    public List<ItemShoppingEntity> getItemShopping(Integer page, Integer maxRecords);
-    public List<ItemShoppingEntity> getItemShoppingList();
+    public List<ItemShoppingEntity> getItemShopping(Long shoppingId, Integer page, Integer maxRecords);
+    public List<ItemShoppingEntity> getItemShoppingList(Long shoppingId);
     public ItemShoppingEntity getItemShopping(Long itemShoppingId);
     public void deleteItemShopping(Long itemShoppingId);
     public int countItemShopping(); 
-    //public ItemShoppingEntity addItemShopping(Long clientId, Long quantity, Long bicycleId);
-
     public ItemShoppingEntity createItemShopping(ItemShoppingEntity toEntity);
     public ItemShoppingEntity updateItemShopping(ItemShoppingEntity entity);
 }
