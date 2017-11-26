@@ -22,6 +22,7 @@ package co.edu.uniandes.csw.bicycles.ejbs;
 import co.edu.uniandes.csw.bicycles.api.IBicycleLogic;
 import co.edu.uniandes.csw.bicycles.api.IItemShoppingLogic;
 import co.edu.uniandes.csw.bicycles.api.IShoppingLogic;
+import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
 import co.edu.uniandes.csw.bicycles.entities.ItemShoppingEntity;
 import co.edu.uniandes.csw.bicycles.entities.ShoppingEntity;
 import co.edu.uniandes.csw.bicycles.persistence.ItemShoppingPersistence;
@@ -47,8 +48,8 @@ public class ItemShoppingLogic implements IItemShoppingLogic {
      * @return 
      */    
     @Override
-    public List<ItemShoppingEntity> getItemShopping(Integer page, Integer maxRecords) {
-        return persistence.findAll(page, maxRecords);
+    public List<ItemShoppingEntity> getItemShopping(Long shoppingId, Integer page, Integer maxRecords) {
+        return persistence.findAll(page, maxRecords, shoppingId);
     }
 
     /**
@@ -57,8 +58,8 @@ public class ItemShoppingLogic implements IItemShoppingLogic {
      * @return 
      */    
     @Override
-    public List<ItemShoppingEntity> getItemShoppingList() {
-        return persistence.findAll();
+    public List<ItemShoppingEntity> getItemShoppingList(Long shoppingId) {
+        return persistence.findAll(shoppingId);
     }
     
     /**
@@ -94,7 +95,21 @@ public class ItemShoppingLogic implements IItemShoppingLogic {
     public ItemShoppingEntity createItemShopping(ItemShoppingEntity toEntity) {
         ShoppingEntity compra = shoppingLogic.getShoppingCar(toEntity.getTempUser());
         toEntity.setShopping(compra);
-        return persistence.create(toEntity);
+        ItemShoppingEntity item = persistence.create(toEntity);
+        compra = shoppingLogic.getShoppingCar(toEntity.getTempUser());
+        item = compra.getItemShopping().get(compra.getItemShopping().size()-1);
+        //Long idBicycle = item.getBicycle().getId();
+        
+        //actualizar el nombre dl item
+        BicycleEntity bicycle = bicycleLogic.getBicycle(item.getBicycle().getId());
+        item.setName(bicycle.getName());
+        persistence.update(item);
+        
+        //actualizar el valor de la compra
+        compra.setTotalPrice(compra.getTotalPrice()+(item.getQuantity()*bicycle.getPrice()));
+        shoppingLogic.updateShopping(compra);
+        
+        return item;
     }
     
     @Override

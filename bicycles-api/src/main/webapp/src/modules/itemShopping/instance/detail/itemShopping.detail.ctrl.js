@@ -69,38 +69,5 @@
           }
         }
       };
-
-      /*$scope.recordActions = {
-        detail: {
-          displayName: 'Detail',
-          icon: 'eye-open',
-          fn: function (rc) {
-            $state.go('photoAlbumDetail', {photoAlbumId: rc.id});
-          },
-          show: function () {
-            return true;
-          }
-        },
-        edit: {
-          displayName: 'Edit',
-          icon: 'edit',
-          fn: function (rc) {
-            $state.go('photoAlbumEdit', {photoAlbumId: rc.id});
-          },
-          show: function () {
-            return true;
-          }
-        },
-        delete: {
-          displayName: 'Delete',
-          icon: 'minus',
-          fn: function (rc) {
-            $state.go('photoAlbumDelete', {photoAlbumId: rc.id});
-          },
-          show: function () {
-            return true;
-          }
-        }
-      };*/
     }]);
 })(window.angular);

@@ -28,6 +28,8 @@ import javax.persistence.Entity;
 import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import uk.co.jemos.podam.common.PodamExclude;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 /**
@@ -35,6 +37,9 @@ import javax.persistence.OneToOne;
  * @author cc.huerats
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "itemShopping.getByIdShopping", query = "select u from ItemShoppingEntity u Where u.shopping.id = :shoppingId")
+})
 public class ItemShoppingEntity extends BaseEntity implements Serializable {
 
     @PodamExclude

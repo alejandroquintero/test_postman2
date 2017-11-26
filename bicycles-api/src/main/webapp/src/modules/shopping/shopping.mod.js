@@ -4,7 +4,7 @@
     mod.constant('shoppingModel', {
         name: 'shopping',
         displayName: 'Compras',
-        url: 'shopping',
+        url: 'shoppings',
         fields: {
             status: {
                 displayName: 'Estado',
@@ -30,7 +30,7 @@
             var baseInstancePath = basePath + 'instance/';
 
             $sp.state('shopping', {
-                url: '/shopping?clientId&page&limit',
+                url: '/shoppings?clientId&page&limit',
                 abstract: true,
                 views: {
                      mainView: {
@@ -40,13 +40,13 @@
                 },
                 resolve: {
                     model: 'shoppingModel',
-                    clients: ['Restangular', 'model', '$stateParams', function (r, model, $params) {
+                    shoppings: ['Restangular', 'model', '$stateParams', function (r, model, $params) {
                             return r.all(model.url).getList($params);
                         }]
                 }
             });
-            $sp.state('shoppingListTo', {
-                url: '/list',
+            $sp.state('shoppingList', {
+                url: '/list:clientId',
                 parent: 'shopping',
                 views: {
                     shoppingView: {
@@ -54,6 +54,15 @@
                         controller: 'shoppingListCtrl',
                         controllerAs: 'ctrl'
                     }
+                },
+                resolve: {
+                    references: ['$q', 'Restangular', function ($q, r) {
+                            return $q.all();
+                        }],
+                    model: 'shoppingModel',
+                    bicycles: ['Restangular', 'model', '$stateParams', function (r, model, $params) {
+                            return r.all(model.url).getList($params);
+                        }]
                 }
             });
             $sp.state('shoppingNew', {
@@ -84,8 +93,8 @@
                     }
                 },
                 resolve: {
-                    shopping: ['shopping', '$stateParams', function (shopping, $params) {
-                            return shopping.get($params.shoppingId);
+                    shopping: ['shoppings', '$stateParams', function (shoppings, $params) {
+                            return shoppings.get($params.shoppingId);
                         }]
                 }
             });

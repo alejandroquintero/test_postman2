@@ -27,7 +27,7 @@ import co.edu.uniandes.csw.bicycles.entities.ShoppingEntity;
 import co.edu.uniandes.csw.crud.spi.entity.PaymentStatus;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Locale;
 

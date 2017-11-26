@@ -25,42 +25,28 @@
 
     var mod = ng.module("shoppingModule");
 
-    mod.controller("shoppingListCtrl", ["$scope", '$state', 'shopping', '$stateParams', 'model',
-        function ($scope, $state, shopping, $params, model) {
+    mod.controller("shoppingListCtrl", ["$scope", '$state', 'shoppings', '$stateParams', 'model', 
+        function ($scope, $state, shoppings, $params, model) {
             $scope.model = model;
-            $scope.records = shopping;
+            $scope.records = shoppings;
             $scope.buttons = ['none'];
 
             //Paginación
             this.itemsPerPage = $params.limit;
             this.currentPage = $params.page;
             this.clientId = $params.clientId;
-            this.totalItems = shopping.totalRecords;
+            this.totalItems = shoppings.totalRecords;
 
             this.pageChanged = function () {
                 $state.go('shoppingList', {page: this.currentPage});
             };
 
             $scope.actions = {
-                create: {
-                    displayName: 'Create',
-                    icon: 'plus',
-                    fn: function () {
-                        $state.go('shoppingNew');
-                    }
-                },
                 refresh: {
                     displayName: 'Refresh',
                     icon: 'refresh',
                     fn: function () {
                         $state.reload();
-                    }
-                },
-                cancel: {
-                    displayName: 'Go back',
-                    icon: 'arrow-left',
-                    fn: function () {
-                        $state.go('shoppingDetail');
                     }
                 }
             };
@@ -69,7 +55,7 @@
                     displayName: 'Detail',
                     icon: 'eye-open',
                     fn: function (rc) {
-                        $state.go('shoppingDetail', {shoppingId: rc.id});
+                        $state.go('itemShoppingList', {shoppingId: rc.id});
                     },
                     show: function () {
                         return true;

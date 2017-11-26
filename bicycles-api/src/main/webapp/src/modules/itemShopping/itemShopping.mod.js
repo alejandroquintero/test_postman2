@@ -34,6 +34,11 @@
                 type: 'Long',
                 required: true
             },
+            name: {
+                displayName: 'Name',
+                type: 'String',
+                required: true
+            },
             bicycleId: {
                 displayName: 'bicycleId',
                 type: 'Long',
@@ -48,26 +53,37 @@
     });
 
     mod.config(['$stateProvider',
-        function ($sp) {
+        function($sp){
             var basePath = 'src/modules/itemShopping/';
             var baseInstancePath = basePath + 'instance/';
 
             $sp.state('itemShopping', {
                 url: '/itemShoppings?page&limit',
                 abstract: true,
-
+                
                 views: {
-                    mainView: {
+                     mainView: {
                         templateUrl: basePath + 'itemShopping.tpl.html',
                         controller: 'itemShoppingCtrl'
                     }
                 },
                 resolve: {
-                    references: ['$q', 'Restangular', function ($q, r) {
-                            return $q.all({
-                                brand: r.all('bicycles').getList()
-                            });
-                        }],
+                    model: 'itemShoppingModel',
+                    itemShoppings: ['Restangular', 'model', '$stateParams', function (r, model, $params) {
+                            return r.all(model.url).getList($params);
+                        }]
+                }
+            });
+            $sp.state('itemShoppingList', {
+                url: '/list/:shoppingId',
+                parent: 'itemShopping',
+                views: {
+                    itemShoppingView: {
+                        templateUrl: basePath + 'list/itemShopping.list.tpl.html',
+                        controller: 'itemShoppingListCtrl',
+                        controllerAs: 'ctrl'
+                    }
+                },resolve: {
                     model: 'itemShoppingModel',
                     itemShoppings: ['Restangular', 'model', '$stateParams', function (r, model, $params) {
                             return r.all(model.url).getList($params);
@@ -79,17 +95,9 @@
                 parent: 'itemShopping',
                 views: {
                     itemShoppingView: {
-                        templateUrl: basePath + 'new/itemShopping.new.tpl.html',
                         controller: 'itemShoppingNewCtrl',
                         controllerAs: 'ctrl'
                     }
-                },
-                resolve: {
-                    model: 'itemShoppingModel'
-                },
-                ncyBreadcrumb: {
-                    parent: 'itemShoppingList',
-                    label: 'new'
                 }
             });
             $sp.state('itemShoppingInstance', {
@@ -97,7 +105,7 @@
                 abstract: true,
                 parent: 'itemShopping',
                 views: {
-                    itemShoppingView: {
+                    itemShoppingclientView: {
                         template: '<div ui-view="itemShoppingInstanceView"></div>'
                     }
                 },
@@ -108,39 +116,25 @@
                 }
             });
             $sp.state('itemShoppingDetail', {
-                url: '/itemShoppings',
+                url: '/details',
                 parent: 'itemShoppingInstance',
                 views: {
                     itemShoppingInstanceView: {
                         templateUrl: baseInstancePath + 'detail/itemShopping.detail.tpl.html',
                         controller: 'itemShoppingDetailCtrl'
                     }
-                },
-                resolve: {
-                    model: 'itemShoppingModel'
-                },
-                ncyBreadcrumb: {
-                    parent: 'itemShoppingList',
-                    label: 'details'
                 }
             });
             $sp.state('itemShoppingEdit', {
                 url: '/edit',
                 sticky: true,
-                parent: 'itemShoppingInstance',
+                parent: 'itemShoppingnstance',
                 views: {
                     itemShoppingInstanceView: {
                         templateUrl: baseInstancePath + 'edit/itemShopping.edit.tpl.html',
                         controller: 'itemShoppingEditCtrl',
                         controllerAs: 'ctrl'
                     }
-                },
-                resolve: {
-                    model: 'itemShoppingModel'
-                },
-                ncyBreadcrumb: {
-                    parent: 'itemShoppingDetail',
-                    label: 'edit'
                 }
             });
             $sp.state('itemShoppingDelete', {
@@ -152,31 +146,12 @@
                         controller: 'itemShoppingDeleteCtrl',
                         controllerAs: 'ctrl'
                     }
-                },
-                resolve: {
-                    model: 'itemShoppingModel'
                 }
             });
-            $sp.state('itemShoppingList', {
-                url: '/list',
-                views: {
-                    mainView: {
-                        templateUrl: basePath + 'list/itemShopping.list.tpl.html',
-                        controller: 'itemShoppingListCtrl',
-                        controllerAs: 'ctrl'
-                    }
-                },
-                resolve: {
-                    references: ['$q', 'Restangular', function ($q, r) {
-                            return $q.all({
-                                bicycle: r.all('bicycles').getList()
-                            });
-                        }],
-                    model: 'itemShoppingModel',
-                    itemShoppings: ['Restangular', 'model', '$stateParams', function (r, model, $params) {
-                            return r.all(model.url).getList($params);
-                        }]
-                }
-            });
+<<<<<<< HEAD
         }]);
 })(window.angular);
+=======
+	}]);
+})(window.angular);
+>>>>>>> 3e24e52a574193635ca8d4140ea877478126cc4d

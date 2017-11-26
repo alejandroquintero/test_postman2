@@ -46,7 +46,7 @@ import javax.ws.rs.WebApplicationException;
  * URI: clients/{clientId: \\d+}/shopping
  * @generated
  */
-@Path("/shopping")
+@Path("/shoppings")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ShoppingResource {
@@ -85,7 +85,7 @@ public class ShoppingResource {
             this.response.setIntHeader("X-Total-Count", shoppingLogic.countShopping());
             return listEntity2DTO(shoppingLogic.getShopping(page, maxRecords, clientId));
         }
-        return listEntity2DTO(shoppingLogic.getShoppingList(new Long(1)));
+        return listEntity2DTO(shoppingLogic.getShoppingList(clientId));
     }
 
     /**
