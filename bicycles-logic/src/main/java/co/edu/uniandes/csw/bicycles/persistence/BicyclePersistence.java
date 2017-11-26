@@ -82,5 +82,17 @@ public class BicyclePersistence extends CrudPersistence<BicycleEntity> {
         params.put("status", "%" + status.toUpperCase() + "%");
         return executeListNamedQuery("Bicycle.getByStatus", params);
     }
+    
+    /**
+     * Obtener últimas bicicletas
+     *
+     * 
+     * @return Lista de bicicletas
+     */
+    public List<BicycleEntity> getLastBikes() {
+        //Map<String, Object> params = new HashMap<>();
+        //params.put("status", "%" + status.toUpperCase() + "%");
+        return executeSingleNamedQuery("Bicycle.getLastBikes");
+    }
 
 }

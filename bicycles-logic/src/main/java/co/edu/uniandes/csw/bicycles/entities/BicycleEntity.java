@@ -46,7 +46,8 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "Bicycle.getByDescription", query = "select u from BicycleEntity u Where UPPER(u.description) like :description")
     ,
-    @NamedQuery(name = "Bicycle.getByStatus", query = "select u from BicycleEntity u Where UPPER(u.status) like :status")
+    @NamedQuery(name = "Bicycle.getByStatus", query = "select u from BicycleEntity u Where UPPER(u.status) like :status"),
+    @NamedQuery(name = "Bicycle.getLastBikes", query = "select u from BicycleEntity u ORDER BY u.creationDate FETCH 10 ROWS ONLY")
 })
 
 public class BicycleEntity extends BaseEntity implements Serializable {
