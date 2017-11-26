@@ -70,6 +70,8 @@ public class BicycleResource {
     private String bicycleDescription;
     @QueryParam("status")
     private String bicycleStatus;
+    @QueryParam("creationDate")
+    private String bicycleCreationDate;
 
     /**
      * Convierte una lista de BicycleEntity a una lista de BicycleDetailDTO.
@@ -103,10 +105,12 @@ public class BicycleResource {
         Set<BicycleDetailDTO> newSet = new HashSet<>();
 
         //ultimas bicicletas
+        if (bicycleCreationDate != null) {
         ListLastBikes = listEntity2DTO(bicycleLogic.getLastBikes());
         // Store the first result set
         newSet = new HashSet<>(ListLastBikes);
         ListToReturn = new ArrayList<>(newSet);
+        }
         
         if (bicycleDescription != null) {
             // Get results from logic

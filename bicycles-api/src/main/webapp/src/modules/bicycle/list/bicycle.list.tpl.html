@@ -28,6 +28,9 @@ SOFTWARE.
 
 <div>
     <a>Últimas bicicletas</a>
+    <input type="hidden" value="prueba" class="form-control" placeholder="traer_lista" ng-model="bicycleCreationDate" required>
+    <button type="submit" class="btn btn default" ui-sref="bicycleList({creationDate: bicycleCreationDate})">Ver</button>
+    
 </div>
 
 <form novalidate class="navbar-form navbar-left" role="search" >
