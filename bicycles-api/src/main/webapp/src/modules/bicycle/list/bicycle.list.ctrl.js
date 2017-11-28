@@ -33,14 +33,6 @@
             $scope.buttons = ['none'];
             $scope.photos = [];
 
-            $scope.availableSearchParams = [
-                {key: "name", name: "Name", placeholder: "Name..."},
-                {key: "city", name: "City", placeholder: "City..."},
-                {key: "country", name: "Country", placeholder: "Country..."},
-                {key: "emailAddress", name: "E-Mail", placeholder: "E-Mail...", allowMultiple: true},
-                {key: "job", name: "Job", placeholder: "Job..."}
-            ];
-
             //Paginación
             this.itemsPerPage = $params.limit;
             this.currentPage = $params.page;
