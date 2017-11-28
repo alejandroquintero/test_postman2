@@ -172,5 +172,3 @@
         }]);
 
 })(window.angular);
-
-
