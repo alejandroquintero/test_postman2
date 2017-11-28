@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 (function (ng) {
-    var mod = ng.module('bicycleModule', ['ngCrud', 'ui.router','angular-advanced-searchbox']);
+    var mod = ng.module('bicycleModule', ['ngCrud', 'ui.router']);
 
     mod.constant('bicycleModel', {
         name: 'bicycle',

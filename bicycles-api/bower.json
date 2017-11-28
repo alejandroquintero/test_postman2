@@ -17,8 +17,7 @@
         "angular-cookies": "~1.4.8",
         "angular": "~1.4.8",
         "angular-ui-router": "~0.2.15",
-        "angular-breadcrumb":"0.5.0",
-        "angular-advanced-searchbox":"~3.0.0"
+        "angular-breadcrumb":"0.5.0"
     },
     "overrides": {
         "bootstrap": {

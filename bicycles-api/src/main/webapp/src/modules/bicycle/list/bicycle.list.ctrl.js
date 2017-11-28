@@ -32,6 +32,10 @@
             $scope.records = bicycles;
             $scope.buttons = ['none'];
             $scope.photos = [];
+            
+            $scope.flagBusqueda = function(){
+                return true;
+            };
 
             //Paginación
             this.itemsPerPage = $params.limit;

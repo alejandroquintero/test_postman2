@@ -1,7 +1,7 @@
 <div>
 
     <form>
-        <div class="form-group" id="busquedaGeneral">
+        <div class="form-group" id="busquedaGeneral" ng-show="!busquedaGeneralVisible">
             <div class="input-group">
                 <div class="input-group-addon"><em class="fa fa-search"></em></div>
                 <input type="text" class="form-control" placeholder="Busqueda General" ng-model="searchGen">
@@ -10,7 +10,7 @@
 
         <!--panel-->
         <div class="panel panel-default">
-            <div class="panel-heading" data-toggle="collapse" data-target="#collapse1">
+            <div class="panel-heading" data-toggle="collapse" data-target="#collapse1" ng-click="busquedaGeneralVisible = !busquedaGeneralVisible">
                 <h3 class="panel-title">
                     Búsqueda avanzada:
                 </h3>
