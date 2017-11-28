@@ -32,8 +32,6 @@
             $scope.records = bicycles;
             $scope.buttons = ['none'];
             $scope.photos = [];
-
-
             //Paginación
             this.itemsPerPage = $params.limit;
             this.currentPage = $params.page;
@@ -49,13 +47,13 @@
                     });
                 }
             };
-
+          
             this.loadPhotos();
 
             this.pageChanged = function () {
                 $state.go('bicycleList', {page: this.currentPage});
             };
-
+            
             $scope.actions = {
                 create: {
                     displayName: 'Create',
@@ -116,7 +114,7 @@
                     }
                 }
             };
-            
+            $scope
             $scope.buyBicycle = function () {
                 if($scope.cantidad == undefined || $scope.cantidad > $scope.productoCompra.stock){
                     $scope.errorCompra = true;

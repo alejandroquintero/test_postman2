@@ -221,5 +221,24 @@
                         }]
                 }
             });
+            
+            //lastbikes
+            $sp.state('bicycleList', {
+                url: '/list/:creationDate',
+                views: {
+                    mainView: {
+                        templateUrl: basePath + 'list/bicycle.list.tpl.html',
+                        controller: 'bicycleListCtrl',
+                        controllerAs: 'ctrl'
+                    }
+                },
+                resolve: {
+                   
+                    model: 'bicycleModel',
+                    bicycles: ['Restangular', 'model', '$stateParams', function (r, model, $params) {
+                            return r.all(model.url).getList($params);
+                        }]
+                }
+            });
         }]);
 })(window.angular);
