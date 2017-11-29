@@ -227,7 +227,7 @@
                 }
             });
             //lastbikes
-            $sp.state('bicycleList', {
+            $sp.state('lastbikesList', {
                 url: '/list/:creationDate',
                 views: {
                     mainView: {
