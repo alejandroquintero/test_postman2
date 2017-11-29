@@ -66,6 +66,7 @@
                     <div ng-switch-when="Boolean"><span ng-if="record[fieldName] != undefined" class="glyphicon" ng-class="{'glyphicon-check': record[fieldName], 'glyphicon-unchecked': !record[fieldName]}"></span></div>
                     <div ng-switch-when="Image"><a ng-href="{{record[fieldName]}}">URL</a></div>
                     <div ng-switch-when="String">{{record[fieldName]}}</div>
+                    <div ng-switch-when="Discount"><span ng-if="record[fieldName] != undefined" >{{record[fieldName] * 100| number :1 }}%</span></div>        
                     <div ng-switch-default>{{record[fieldName]}}</div>
                 </td>
                 <td ng-if="actions">

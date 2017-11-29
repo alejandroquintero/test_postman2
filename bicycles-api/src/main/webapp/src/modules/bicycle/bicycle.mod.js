@@ -87,7 +87,7 @@
             },
             discount: {
                 displayName: 'Descuento',
-                type: 'Double',
+                type: 'Discount',
                 required: false
             }
         }
