@@ -32,10 +32,6 @@
             $scope.records = bicycles;
             $scope.buttons = ['none'];
             $scope.photos = [];
-            
-            $scope.flagBusqueda = function(){
-                return true;
-            };
 
             //Paginación
             this.itemsPerPage = $params.limit;
@@ -52,13 +48,13 @@
                     });
                 }
             };
-
+          
             this.loadPhotos();
 
             this.pageChanged = function () {
                 $state.go('bicycleList', {page: this.currentPage});
             };
-
+            
             $scope.actions = {
                 create: {
                     displayName: 'Create',
