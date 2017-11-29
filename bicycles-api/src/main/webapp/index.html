@@ -169,6 +169,13 @@ SOFTWARE.
                                        data-toggle="dropdown"
                                        ui-sref="bicycleList({page: 1, limit: 15})">Bicicletas</a>
                                 </li>
+                                <li if-permission name='promos'>
+                                    <a class="btn btn-group dropdown-toggle" 
+                                       type="button" 
+                                       id="categoryDropdown" 
+                                       data-toggle="dropdown"
+                                       ui-sref="promosList({page: 1, limit: 15})">Promociones</a>
+                                </li>
                                 <li if-permission name='categorys' ng-show="isAuth()">
                                     <a class="btn btn-group dropdown-toggle" 
                                        type="button" 
