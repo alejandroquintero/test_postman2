@@ -223,7 +223,7 @@
             });
             
             //lastbikes
-            $sp.state('bicycleList', {
+            $sp.state('bicycleListLastBikes', {
                 url: '/list/:creationDate',
                 views: {
                     mainView: {
@@ -233,7 +233,12 @@
                     }
                 },
                 resolve: {
-                   
+                    references: ['$q', 'Restangular', function ($q, r) {
+                            return $q.all({
+                                brand: r.all('brands').getList()
+                                , category: r.all('categorys').getList()
+                            });
+                        }],
                     model: 'bicycleModel',
                     bicycles: ['Restangular', 'model', '$stateParams', function (r, model, $params) {
                             return r.all(model.url).getList($params);
