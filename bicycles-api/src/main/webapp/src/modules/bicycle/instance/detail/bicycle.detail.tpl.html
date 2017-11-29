@@ -80,7 +80,7 @@ SOFTWARE.
             <p>
                 <label><strong>Descuento:  </strong></label>
                 <span id="discount">
-                    <span ng-if="currentRecord.discount != undefined" ><font color="red"><b>{{currentRecord.discount * 100| number :1 }}%</font></b></span> 
+                    <span ng-if="currentRecord.discount != undefined" ng-style="{'color':'red'}"><strong>{{currentRecord.discount * 100| number :1 }}%</strong></span> 
                     <span ng-if="currentRecord.discount == undefined" >N/A</span> 
                 </span>
             </p>

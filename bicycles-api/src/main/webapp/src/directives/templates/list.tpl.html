@@ -67,7 +67,7 @@
                     <div ng-switch-when="Image"><a ng-href="{{record[fieldName]}}">URL</a></div>
                     <div ng-switch-when="String">{{record[fieldName]}}</div>
                     <div ng-switch-when="Discount">
-                        <span ng-if="record[fieldName] != undefined" ><font color="red"><b>{{record[fieldName] * 100| number :1 }}%</b></font></span>
+                        <span ng-if="record[fieldName] != undefined" ng-style="{'color':'red'}"><strong>{{record[fieldName] * 100| number :1 }}%</strong></span>
                         <span ng-if="record[fieldName] == undefined" >N/A</span>
                     </div>        
                     <div ng-switch-default>{{record[fieldName]}}</div>
