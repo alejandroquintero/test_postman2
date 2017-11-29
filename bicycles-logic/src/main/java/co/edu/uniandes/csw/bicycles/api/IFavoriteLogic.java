@@ -13,7 +13,6 @@ import java.util.List;
  * @author cc.huertas
  */
 public interface IFavoriteLogic {
-    public int countFavoriteClient(String username);
     public List<FavoriteEntity> getFavoriteClient(String username);
     public FavoriteEntity createFavorite(Long bicycleId, String username);
     public void deleteFavorite(Long bicycleId, String username);
