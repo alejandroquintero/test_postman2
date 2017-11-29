@@ -74,6 +74,9 @@
             this.pageChanged = function () {
                 $state.go('bicycleList', {page: this.currentPage});
             };
+             this.pageChanged = function () {
+                $state.go('bicycleListLastBikes', {page: this.currentPage});
+            };
             
             $scope.actions = {
                 create: {
