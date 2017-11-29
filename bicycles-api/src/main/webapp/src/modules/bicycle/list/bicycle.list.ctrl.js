@@ -25,7 +25,7 @@
 
     var mod = ng.module("bicycleModule");
 
-    mod.controller("bicycleListCtrl", ["$scope", '$state', 'bicycles', '$stateParams', 'model', '$controller', '$cookies',
+    mod.controller("bicycleListCtrl", ["$scope", '$state', 'bicycles', '$stateParams', 'model', '$controller','$cookies',
         function ($scope, $state, bicycles, $params, model, $controller, $cookies) {
             var favoritos = {};
             if($cookies.get("favoritos") === undefined){
@@ -156,17 +156,17 @@
                     }
                 }
             };
-
+            $scope
             $scope.buyBicycle = function () {
-                if ($scope.cantidad == undefined || $scope.cantidad > $scope.productoCompra.stock) {
+                if($scope.cantidad == undefined || $scope.cantidad > $scope.productoCompra.stock){
                     $scope.errorCompra = true;
-                } else {
-                    $cookies.put("bicycleIdShopping", $scope.productoCompra.id);
-                    $cookies.put("quantityShopping", $scope.cantidad);
+                }else{
+                    $cookies.put("bicycleIdShopping",$scope.productoCompra.id);
+                    $cookies.put("quantityShopping",$scope.cantidad);
                     $state.go('itemShoppingNew', {clientId: 1, bicycleId: $scope.productoCompra.id});
                     $("#compra").modal();
                 }
             };
-
+            
         }]);
 })(window.angular);
