@@ -20,7 +20,8 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Favorite.getByUser", query = "select u from FavoriteEntity u Where u.client.id = :idClient"),
-    @NamedQuery(name = "Favorite.countByUser", query = "select count(u) from FavoriteEntity u Where u.client.id = :idClient")
+    @NamedQuery(name = "Favorite.countByUser", query = "select count(u) from FavoriteEntity u Where u.client.id = :idClient"),
+    @NamedQuery(name = "Favorite.findCons", query = "select u from FavoriteEntity u Where u.client.id = :idClient and u.bicycle.id = :idBicycle")
 }) 
 public class FavoriteEntity extends BaseEntity implements Serializable {
     @PodamExclude

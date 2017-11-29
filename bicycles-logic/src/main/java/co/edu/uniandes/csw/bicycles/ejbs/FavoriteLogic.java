@@ -5,12 +5,13 @@
  */
 package co.edu.uniandes.csw.bicycles.ejbs;
 
+import co.edu.uniandes.csw.bicycles.api.IBicycleLogic;
 import co.edu.uniandes.csw.bicycles.api.IClientLogic;
 import co.edu.uniandes.csw.bicycles.api.IFavoriteLogic;
+import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
 import co.edu.uniandes.csw.bicycles.entities.ClientEntity;
 import co.edu.uniandes.csw.bicycles.entities.FavoriteEntity;
 import co.edu.uniandes.csw.bicycles.persistence.FavoritePersistence;
-import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -22,6 +23,7 @@ public class FavoriteLogic implements IFavoriteLogic{
     
     @Inject private FavoritePersistence persistence;
     @Inject private IClientLogic clientLogic;
+    @Inject private IBicycleLogic bicycleLogic;
 
     @Override
     public int countFavoriteClient(String username) {
@@ -30,14 +32,25 @@ public class FavoriteLogic implements IFavoriteLogic{
     }
 
     @Override
-    public FavoriteEntity createFavorite(FavoriteEntity entity) {
+    public FavoriteEntity createFavorite(Long idBicycle, String username) {
+        BicycleEntity bicycleEntity = bicycleLogic.getBicycle(idBicycle);
+        ClientEntity clientEntity = clientLogic.getClient(username);
+        
+        FavoriteEntity entity = new FavoriteEntity();
+        entity.setBicycle(bicycleEntity);
+        entity.setClient(clientEntity);
         persistence.create(entity);
         return entity;
     }
 
     @Override
-    public void deleteFavorite(FavoriteEntity entity) {
-        persistence.delete(new Long(1));
+    public void deleteFavorite(Long idBicycle, String username) {
+        BicycleEntity bicycleEntity = bicycleLogic.getBicycle(idBicycle);
+        ClientEntity clientEntity = clientLogic.getClient(username);
+        
+        FavoriteEntity entity = persistence.find(idBicycle, clientEntity.getId());
+        
+        persistence.delete(entity.getId());
     }
 
     @Override

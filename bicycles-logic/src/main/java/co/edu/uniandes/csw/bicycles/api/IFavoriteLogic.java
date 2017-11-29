@@ -15,6 +15,6 @@ import java.util.List;
 public interface IFavoriteLogic {
     public int countFavoriteClient(String username);
     public List<FavoriteEntity> getFavoriteClient(String username);
-    public FavoriteEntity createFavorite(FavoriteEntity entity);
-    public void deleteFavorite(FavoriteEntity entity);
+    public FavoriteEntity createFavorite(Long bicycleId, String username);
+    public void deleteFavorite(Long bicycleId, String username);
 }

@@ -18,6 +18,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
@@ -33,7 +34,9 @@ import javax.ws.rs.core.MediaType;
 public class FavoriteResource {
     @Inject private IFavoriteLogic favoriteLogic;
     @Context private HttpServletResponse response;
+    @QueryParam("bicycleId") private Long bicycleId;
     @QueryParam("username") private String username;
+    
     
     private List<FavoriteDetailDTO> listEntity2DTO(List<FavoriteEntity> entityList){
         List<FavoriteDetailDTO> list = new ArrayList<>();
@@ -54,12 +57,13 @@ public class FavoriteResource {
     @POST
     @StatusCreated
     public FavoriteDetailDTO createFavorite(FavoriteDetailDTO dto) {
-        return new FavoriteDetailDTO(favoriteLogic.createFavorite(dto.toEntity()));
+        return new FavoriteDetailDTO(favoriteLogic.createFavorite(new Long(dto.getBicycleId()), dto.getUsername()));
     }
     
     @DELETE
-    public void deleteFavorite(FavoriteDetailDTO dto) {
-        favoriteLogic.deleteFavorite(dto.toEntity());
+    @Path("{bicycleId: \\d+}/{username: \\.}")
+    public void deleteFavorite(@PathParam("bicyclesId") Long bicyclesId, @PathParam("username") String username) {
+        favoriteLogic.deleteFavorite(bicyclesId, username);
     }
     
 }

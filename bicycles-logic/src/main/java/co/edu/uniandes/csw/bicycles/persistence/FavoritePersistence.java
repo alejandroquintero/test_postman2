@@ -81,4 +81,17 @@ public class FavoritePersistence extends CrudPersistence<FavoriteEntity> {
         params.put("idClient", client.getId());
         return Integer.parseInt(executeSingleNamedQuery("Favorite.countByUser", params).toString());
     }
+    
+    /**
+     * Retorna los favoritos filtrados por el usuario
+     *
+     * @param client
+     * @return Lista de favoritos
+     */
+    public FavoriteEntity find(Long idBicycle, Long idClient) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("idClient", idClient);
+        params.put("idBicycle", idBicycle);
+        return executeSingleNamedQuery("Favorite.findCons", params);
+    }
 }

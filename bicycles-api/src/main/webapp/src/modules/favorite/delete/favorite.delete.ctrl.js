@@ -7,16 +7,16 @@
 
     var mod = ng.module("favoriteModule");
 
-    mod.controller("favoriteNewCtrl", ["$scope", "$state", "favorites", "$cookies",
+    mod.controller("favoriteDeleteCtrl", ["$scope", "$state", "favorites", "$cookies",
         function ($scope, $state, favorites, $cookies) {
-            bicyCleId = parseInt($cookies.get("bicycleFavorite"));
+            /*bicyCleId = parseInt($cookies.get("bicycleFavorite"));
             $cookies.remove("bicycleFavorite");
             username = $cookies.get("username");
-            
+            username = "test@test.com"
             var favorite = {'bicycleId': bicyCleId,
                              'username': username};
-            
-            favorites.post(favorite).then(function (rc) {
+            */
+            favorites.remove().then(function (rc) {
                 $state.go('bicycleList', {});
             });
         }]);

@@ -8,7 +8,7 @@
 
     mod.constant('favoriteModel', {
         name: 'favorite',
-        displayName: 'WorkShop',
+        displayName: 'favorite',
 		url: 'favorites',
         fields: {
             id: {
@@ -66,36 +66,37 @@
                 parent: 'favorite',
                 views: {
                     favoriteView: {
-                        templateUrl: basePath + 'new/favorite.new.tpl.html',
                         controller: 'favoriteNewCtrl',
                         controllerAs: 'ctrl'
                     }
                 }
             });
-            $sp.state('favoriteInstance', {
-                url: '/{favoriteId:int}',
-                abstract: true,
+            $sp.state('favoriteDelete', {
+                url: '/delete',
                 parent: 'favorite',
                 views: {
                     favoriteView: {
-                        template: '<div ui-view="favoriteInstanceView"></div>'
-                    }
-                },
-                resolve: {
-                    favorite: ['favorites', '$stateParams', function (favorites, $params) {
-                            return favorites.get($params.favoriteId);
-                        }]
-                }
-            });
-            $sp.state('favoriteDelete', {
-                url: '/delete',
-                parent: 'favoriteInstance',
-                views: {
-                    favoriteInstanceView: {
-                        templateUrl: baseInstancePath + 'delete/favorite.delete.tpl.html',
                         controller: 'favoriteDeleteCtrl',
                         controllerAs: 'ctrl'
                     }
+                }
+            });
+            $sp.state('favoriteListUser', {
+                url: '/list/:username',
+                views: {
+                    mainView: {
+                        controller: 'favoriteListCtrl',
+                        controllerAs: 'ctrl'
+                    }
+                },
+                resolve: {
+                    references: ['$q', 'Restangular', function ($q, r) {
+                            return $q.all({});
+                        }],
+                    model: 'favoriteModel',
+                    bicycles: ['Restangular', 'model', '$stateParams', function (r, model, $params) {
+                            return r.all(model.url).getList($params);
+                        }]
                 }
             });
 	}]);
