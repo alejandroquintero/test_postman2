@@ -116,9 +116,9 @@
                             for (var key in permissions) {
                                 if (permissions[key].includes(name)) {
                                     if ("read" === permissions[key].split(":")[0])
-                                        allowedButtons.push("list", "detail", "buy", "refresh");
+                                        allowedButtons.push("list", "detail", "buy", "refresh", "addFavorite", "removeFavorite");
                                     if ("update" === permissions[key].split(":")[0])
-                                        allowedButtons.push("edit", "save", "buy", "cancel");
+                                        allowedButtons.push("edit", "save", "buy", "cancel", "addFavorite", "removeFavorite");
                                     if ("create" === permissions[key].split(":")[0])
                                         allowedButtons.push("create");
                                     if ("delete" === permissions[key].split(":")[0])
@@ -204,9 +204,9 @@
                             for (var key in permissions) {
                                 if (permissions[key].includes(name)) {
                                     if ("read" === permissions[key].split(":")[0])
-                                        allowedButtons.push("list", "detail", "buy", "refresh");
+                                        allowedButtons.push("list", "detail", "buy", "refresh", "addFavorite", "removeFavorite");
                                     if ("update" === permissions[key].split(":")[0])
-                                        allowedButtons.push("edit", "save", "buy", "cancel");
+                                        allowedButtons.push("edit", "save", "buy", "cancel", "addFavorite", "removeFavorite");
                                     if ("create" === permissions[key].split(":")[0])
                                         allowedButtons.push("create");
                                     if ("delete" === permissions[key].split(":")[0])

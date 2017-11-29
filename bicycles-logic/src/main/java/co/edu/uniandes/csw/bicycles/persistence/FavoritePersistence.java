@@ -20,14 +20,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
- */
+*/
 package co.edu.uniandes.csw.bicycles.persistence;
 
+import co.edu.uniandes.csw.bicycles.entities.ClientEntity;
+import co.edu.uniandes.csw.bicycles.entities.FavoriteEntity;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
-import co.edu.uniandes.csw.bicycles.entities.ClientEntity;
 import co.edu.uniandes.csw.crud.spi.persistence.CrudPersistence;
 import java.util.HashMap;
 import java.util.List;
@@ -37,13 +37,13 @@ import java.util.Map;
  * @generated
  */
 @Stateless
-public class BicyclePersistence extends CrudPersistence<BicycleEntity> {
+public class FavoritePersistence extends CrudPersistence<FavoriteEntity> {
 
-    @PersistenceContext(unitName = "BicyclesPU")
+    @PersistenceContext(unitName="BicyclesPU")
     protected EntityManager em;
 
     /**
-     * @return @generated
+     * @generated
      */
     @Override
     protected EntityManager getEntityManager() {
@@ -51,72 +51,47 @@ public class BicyclePersistence extends CrudPersistence<BicycleEntity> {
     }
 
     /**
-     * @return @generated
+     * @generated
      */
     @Override
-    protected Class<BicycleEntity> getEntityClass() {
-        return BicycleEntity.class;
-    }
-
-    /**
-     * Obtener bicicletas por descripcion
-     *
-     * @param description
-     * @return Lista de bicicletas
-     */
-    public List<BicycleEntity> getByDescription(String description) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("description", "%" + description.toUpperCase() + "%");
-        return executeListNamedQuery("Bicycle.getByDescription", params);
-    }
-
-    /**
-     * Obtener bicicletas por estado
-     *
-     * @param status
-     * @return Lista de bicicletas
-     */
-    public List<BicycleEntity> getByStatus(String status) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("status", "%" + status.toUpperCase() + "%");
-        return executeListNamedQuery("Bicycle.getByStatus", params);
+    protected Class<FavoriteEntity> getEntityClass() {
+        return FavoriteEntity.class;
     }
     
     /**
-     * Obtener bicicletas favoritas de un usuario
+     * Retorna los favoritos filtrados por el usuario
      *
      * @param client
-     * @return Lista de bicicletas
+     * @return Lista de favoritos
      */
-    public List<BicycleEntity> getFavorite(ClientEntity client) {
+    public List<FavoriteEntity> getByUser(ClientEntity client) {
         Map<String, Object> params = new HashMap<>();
         params.put("idClient", client.getId());
-        return executeListNamedQuery("Bicycle.getFavorite", params);
+        return executeListNamedQuery("Favorite.getByUser", params);
     }
-
+    
     /**
-     * Obtener últimas bicicletas
+     * Retorna la cantidad de favoritos filtrados por el usuario
      *
-     *
-     * @return Lista de bicicletas
+     * @param client
+     * @return numero favoritos
      */
-    public List<BicycleEntity> getLastBikes() {
-        //Map<String, Object> params = new HashMap<>();
-        //params.put("status", "%" + status.toUpperCase() + "%");
-
-        return executeListNamedQuery2("Bicycle.getLastBikes");
-        //return findLast();
-    }
-
-    /**
-     * Obtener bicicletas con descuento
-     *
-     * @param discount
-     * @return Lista de bicicletas
-     */
-    public List<BicycleEntity> getByDiscount() {
+    public int countByUser(ClientEntity client) {
         Map<String, Object> params = new HashMap<>();
-        return findByNotNull("discount");
+        params.put("idClient", client.getId());
+        return Integer.parseInt(executeSingleNamedQuery("Favorite.countByUser", params).toString());
     }
-
+    
+    /**
+     * Retorna los favoritos filtrados por el usuario
+     *
+     * @param client
+     * @return Lista de favoritos
+     */
+    public FavoriteEntity find(Long idBicycle, Long idClient) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("idClient", idClient);
+        params.put("idBicycle", idBicycle);
+        return executeSingleNamedQuery("Favorite.findCons", params);
+    }
 }

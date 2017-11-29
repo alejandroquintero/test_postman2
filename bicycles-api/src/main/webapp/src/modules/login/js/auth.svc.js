@@ -146,6 +146,9 @@
                 deleteItemShopping: function (itemShoppingId) {
                     $state.go('itemShoppingDelete', {itemShoppingId: itemShoppingId});
                 },
+                goToFavorite: function (username) {
+                    $state.go('bicycleFavorite', {username: username});
+                },
                 userAuthenticated: function(){
                     $http.get(values.apiUrl + values.meURL).then(function(response){
                        var permissions = JSON.stringify(response.data.permissions);

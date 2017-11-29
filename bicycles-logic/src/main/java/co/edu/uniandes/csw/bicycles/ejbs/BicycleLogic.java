@@ -24,7 +24,9 @@ SOFTWARE.
 package co.edu.uniandes.csw.bicycles.ejbs;
 
 import co.edu.uniandes.csw.bicycles.api.IBicycleLogic;
+import co.edu.uniandes.csw.bicycles.api.IClientLogic;
 import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
+import co.edu.uniandes.csw.bicycles.entities.ClientEntity;
 import co.edu.uniandes.csw.bicycles.persistence.BicyclePersistence;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -38,6 +40,8 @@ public class BicycleLogic implements IBicycleLogic {
 
     @Inject
     private BicyclePersistence persistence;
+    
+    @Inject private IClientLogic clientLogic;
 
     /**
      * Obtiene el número de registros de Bicycle.
@@ -158,7 +162,7 @@ public class BicycleLogic implements IBicycleLogic {
     public List<BicycleEntity> getByStatus(String status) {
         return persistence.getByStatus(status);
     }
-    
+
     /**
      * Obtener últimas bicicletas
      *
@@ -167,5 +171,28 @@ public class BicycleLogic implements IBicycleLogic {
     @Override
     public List<BicycleEntity> getLastBikes() {
         return persistence.getLastBikes();
+    }
+
+    /**
+     * Obtener bicicletas por descuento
+     *
+     * @param status
+     * @return Lista de bicicletas
+     */
+    @Override
+    public List<BicycleEntity> getByDiscount() {
+        return persistence.getByDiscount();
+    }
+    
+    /**
+     * Obtener bicicletas favoritas de un cliente
+     *
+     * @param username
+     * @return Lista de bicicletas
+     */
+    @Override
+    public List<BicycleEntity> getFavorite(String username) {
+        ClientEntity client = clientLogic.getClient(username);
+        return persistence.getFavorite(client);
     }
 }
