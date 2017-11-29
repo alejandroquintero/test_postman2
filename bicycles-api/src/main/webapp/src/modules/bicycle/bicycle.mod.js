@@ -250,7 +250,7 @@
                 }
             });
             $sp.state('promosList', {
-                url: '/list/:promo',
+                url: '/list',
                 views: {
                     mainView: {
                         templateUrl: basePath + 'list/bicycle.list.promo.tpl.html',

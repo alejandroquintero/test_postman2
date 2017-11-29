@@ -28,10 +28,10 @@
     mod.controller("bicycleListCtrl", ["$scope", '$state', 'bicycles', '$stateParams', 'model', '$controller','$cookies',
         function ($scope, $state, bicycles, $params, model, $controller, $cookies) {
             var favoritos = {};
-            if($cookies.get("favoritos") === undefined){
+            if($cookies.get("favoritos") === undefined && $state.current.name != "promosList"){
                $cookies.put("parametrosLista",JSON.stringify($params));
                $state.go('favoriteList', {username: $cookies.get("username")}); 
-            }else{
+            }else if($state.current.name != "promosList"){
                 favoritos = JSON.parse($cookies.get("favoritos"));
                 $cookies.remove("favoritos");
             }
