@@ -82,5 +82,16 @@ public class BicyclePersistence extends CrudPersistence<BicycleEntity> {
         params.put("status", "%" + status.toUpperCase() + "%");
         return executeListNamedQuery("Bicycle.getByStatus", params);
     }
+    
+        /**
+     * Obtener bicicletas con descuento
+     *
+     * @param discount
+     * @return Lista de bicicletas
+     */
+    public List<BicycleEntity> getByDiscount() {
+        Map<String, Object> params = new HashMap<>();
+        return findByNotNull("discount");
+    }
 
 }

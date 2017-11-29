@@ -228,5 +228,19 @@ public abstract class CrudPersistence<T> {
         }
         return q.getResultList();
     }
+    
+        /**
+     * Allows to search for all records of handled not null
+     * in disccount.
+     *
+     * @param text String to search within names
+     * @return Collection of records with text contained in name
+     */
+    public List<T> findByNotNull(String param) {
+        String queryDef= "select u from " + getEntityClass().getSimpleName() + " u where u."+param+" IS NOT NULL";
+        Query q = getEntityManager().createQuery(queryDef);
+        return q.getResultList();
+    }
+
 
 }

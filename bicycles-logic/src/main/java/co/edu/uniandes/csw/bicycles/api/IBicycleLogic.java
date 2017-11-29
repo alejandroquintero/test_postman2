@@ -66,4 +66,13 @@ public interface IBicycleLogic {
      * @return Lista de bicicletas
      */
     public List<BicycleEntity> getByStatus(String status);
+    
+    
+       /**
+     * Obtener bicicletas por descuento
+     *
+     * @param status
+     * @return Lista de bicicletas
+     */
+    public List<BicycleEntity> getByDiscount();
 }

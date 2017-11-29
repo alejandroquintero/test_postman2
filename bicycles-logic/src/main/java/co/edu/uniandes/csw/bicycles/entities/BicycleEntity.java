@@ -56,7 +56,8 @@ public class BicycleEntity extends BaseEntity implements Serializable {
     private String color;
     private String status;
     private Double price;
-
+    private Double discount;
+    
     @PodamExclude
     @ManyToOne
     private BrandEntity brand;
@@ -254,4 +255,21 @@ public class BicycleEntity extends BaseEntity implements Serializable {
     public void setReview(List<ReviewEntity> review) {
         this.review = review;
     }
+    /**
+     * Descuento.
+     * @return discount
+     */
+    public Double getDiscount() {
+        return discount;
+    }
+    /**
+     * Cambiar discount
+     * @param discount 
+     */
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+    
+    
+    
 }
