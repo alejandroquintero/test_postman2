@@ -75,4 +75,20 @@ public interface IBicycleLogic {
      * @return Lista de bicicletas
      */
     public List<BicycleEntity> getFavorite(String username);
+
+    /**
+     * Obtener últimas bicicletas
+     *
+     * @return Lista de bicicletas
+     */
+    public List<BicycleEntity> getLastBikes();
+
+    /**
+     * Obtener bicicletas por descuento
+     *
+     * @param status
+     * @return Lista de bicicletas
+     */
+    public List<BicycleEntity> getByDiscount();
+
 }

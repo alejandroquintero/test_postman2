@@ -68,10 +68,14 @@ public class BicycleResource {
     private Integer maxRecords;
     @QueryParam("description")
     private String bicycleDescription;
+    @QueryParam("promo")
+    private String promo;
     @QueryParam("status")
     private String bicycleStatus;
     @QueryParam("username")
     private String username;
+    @QueryParam("creationDate")
+    private String bicycleCreationDate;
 
     /**
      * Convierte una lista de BicycleEntity a una lista de BicycleDetailDTO.
@@ -99,10 +103,19 @@ public class BicycleResource {
 
         // Initialize variables
         List<BicycleDetailDTO> ListByDescription = null;
+        List<BicycleDetailDTO> ListLastBikes = null;
         List<BicycleDetailDTO> ListByStatus = null;
         List<BicycleDetailDTO> ListToReturn = null;
         Set<BicycleDetailDTO> newSet = new HashSet<>();
 
+        //ultimas bicicletas
+        if (bicycleCreationDate != null) {
+        ListLastBikes = listEntity2DTO(bicycleLogic.getLastBikes());
+        // Store the first result set
+        newSet = new HashSet<>(ListLastBikes);
+        ListToReturn = new ArrayList<>(newSet);
+        }
+        
         if (bicycleDescription != null) {
             // Get results from logic
             ListByDescription = listEntity2DTO(bicycleLogic.getByDescription(bicycleDescription));
@@ -127,7 +140,12 @@ public class BicycleResource {
             ListToReturn = new ArrayList<>(newSet);
         }
 
-        if (bicycleStatus == null && bicycleDescription == null && username == null) {
+        if (promo != null) {
+            List<BicycleDetailDTO> ListByDiscount = listEntity2DTO(bicycleLogic.getByDiscount());
+            return ListByDiscount;
+        }
+
+        if (bicycleStatus == null && bicycleDescription == null && username == null && promo == null) {
             ListToReturn = listEntity2DTO(bicycleLogic.getBicycles());
         }
 
@@ -208,7 +226,7 @@ public class BicycleResource {
 
         return PhotoAlbumResource.class;
     }
-    
+
     @Path("{bicyclesId: \\d+}/review")
     public Class<ReviewResource> getReviewResource(@PathParam("bicyclesId") Long bicyclesId) {
         existsBicycle(bicyclesId);

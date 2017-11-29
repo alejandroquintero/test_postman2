@@ -162,6 +162,27 @@ public class BicycleLogic implements IBicycleLogic {
     public List<BicycleEntity> getByStatus(String status) {
         return persistence.getByStatus(status);
     }
+
+    /**
+     * Obtener últimas bicicletas
+     *
+     * @return Lista de bibicletas
+     */
+    @Override
+    public List<BicycleEntity> getLastBikes() {
+        return persistence.getLastBikes();
+    }
+
+    /**
+     * Obtener bicicletas por descuento
+     *
+     * @param status
+     * @return Lista de bicicletas
+     */
+    @Override
+    public List<BicycleEntity> getByDiscount() {
+        return persistence.getByDiscount();
+    }
     
     /**
      * Obtener bicicletas favoritas de un cliente

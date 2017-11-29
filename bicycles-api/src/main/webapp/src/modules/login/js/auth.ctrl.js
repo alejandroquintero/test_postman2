@@ -176,5 +176,3 @@
         }]);
 
 })(window.angular);
-
-

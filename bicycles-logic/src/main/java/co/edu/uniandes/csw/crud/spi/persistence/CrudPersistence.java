@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 /**
  * Provides generic methods to execute CRUD operations.
@@ -117,6 +119,19 @@ public abstract class CrudPersistence<T> {
         }
         return q.getResultList();
     }
+    
+    /**
+     * last bikes.
+     *
+     *
+     * @return Collection of records
+     */
+    public List<T> findLast() {
+        
+        Query q = getEntityManager().createQuery("select u from " + getEntityClass().getSimpleName() + " u order by u.creationDate");
+        //Query q = getEntityManager().createNativeQuery("select * from BICYCLEENTITY order by CREATIONDATE fetch first 10 rows only");
+        return q.setMaxResults(10).getResultList();
+    }
 
     /**
      * Allows to execute a namedQuery that returns a collection.
@@ -127,6 +142,17 @@ public abstract class CrudPersistence<T> {
      */
     public <V> List<V> executeListNamedQuery(String name) {
         return getEntityManager().createNamedQuery(name).getResultList();
+    }
+    
+    /**
+     * Allows to execute a namedQuery that returns a collection.
+     *
+     * @param <V> Type of each element of the collection
+     * @param name Name of the namedQuery
+     * @return Collection of instances of V
+     */
+    public <V> List<V> executeListNamedQuery2(String name) {
+        return getEntityManager().createNamedQuery(name).setMaxResults(10).getResultList();
     }
 
     /**
@@ -228,5 +254,19 @@ public abstract class CrudPersistence<T> {
         }
         return q.getResultList();
     }
+    
+        /**
+     * Allows to search for all records of handled not null
+     * in disccount.
+     *
+     * @param text String to search within names
+     * @return Collection of records with text contained in name
+     */
+    public List<T> findByNotNull(String param) {
+        String queryDef= "select u from " + getEntityClass().getSimpleName() + " u where u."+param+" IS NOT NULL";
+        Query q = getEntityManager().createQuery(queryDef);
+        return q.getResultList();
+    }
+
 
 }

@@ -65,6 +65,10 @@ SOFTWARE.
         <script src="bower_components/angular-ng-table/ng-table.min.js" type="text/javascript" language="javascript" ></script>
         <!-- endbower -->
         <!-- endbuild -->
+        
+         <!-- angular advanced searchbox includes -->
+        <link rel="stylesheet" href="bower_components/angular-advanced-searchbox/dist/angular-advanced-searchbox.min.css">
+        <script src="bower_components/angular-advanced-searchbox/dist/angular-advanced-searchbox-tpls.min.js"></script>
 
         <!-- build:js(<%= meta.src %>) scripts/scripts.js -->
         <!-- include: "type": "js", "files": "<%= meta.includeJsFiles %>" -->
@@ -169,6 +173,13 @@ SOFTWARE.
                                        id="categoryDropdown" 
                                        data-toggle="dropdown"
                                        ui-sref="bicycleList({page: 1, limit: 15})">Bicicletas</a>
+                                </li>
+                                <li if-permission name='promos'>
+                                    <a class="btn btn-group dropdown-toggle" 
+                                       type="button" 
+                                       id="categoryDropdown" 
+                                       data-toggle="dropdown"
+                                       ui-sref="promosList({page: 1, limit: 15})">Promociones</a>
                                 </li>
                                 <li if-permission name='categorys' ng-show="isAuth()">
                                     <a class="btn btn-group dropdown-toggle" 

@@ -1,12 +1,39 @@
 <div>
 
     <form>
-        <div class="form-group">
+        <div class="form-group" id="busquedaGeneral" ng-show="!busquedaGeneralVisible">
             <div class="input-group">
                 <div class="input-group-addon"><em class="fa fa-search"></em></div>
                 <input type="text" class="form-control" placeholder="Busqueda General" ng-model="searchGen">
             </div>      
         </div>
+
+        <!--panel-->
+        <div class="panel panel-default">
+            <div class="panel-heading" data-toggle="collapse" data-target="#collapse1" ng-click="busquedaGeneralVisible = !busquedaGeneralVisible; searchGen = '' ">
+                <h3 class="panel-title">
+                    Búsqueda avanzada:
+                </h3>
+            </div>
+            <div id="collapse1" class="collapse">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-6" >
+                            <p>Estado: <input type="text" class="form-control" ng-model="searchGen.status"></p>
+                            <p>Descripción: <input type="text" class="form-control" ng-model="searchGen.description"></p>
+                            <p>Nombre: <input type="text" class="form-control" ng-model="searchGen.name"></p>
+                            <p>Cantidad: <input type="text" class="form-control" ng-model="searchGen.stock"></p>
+                        </div>
+                        <div class="col-sm-6" >
+                            <p>Color: <input type="text" class="form-control" ng-model="searchGen.color"> </p>
+                            <p>Marca: <input type="text" class="form-control" ng-model="searchGen.brand.name"> </p>
+                            <p>Precio: <input type="text" class="form-control" ng-model="searchGen.price"> </p>
+                            <p>Categoría: <input type="text" class="form-control" ng-model="searchGen.category.description"> </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--/panel-->
     </form>  
 
     <table class="table table-bordered table-striped" id="customers" >
@@ -39,6 +66,10 @@
                     <div ng-switch-when="Boolean"><span ng-if="record[fieldName] != undefined" class="glyphicon" ng-class="{'glyphicon-check': record[fieldName], 'glyphicon-unchecked': !record[fieldName]}"></span></div>
                     <div ng-switch-when="Image"><a ng-href="{{record[fieldName]}}">URL</a></div>
                     <div ng-switch-when="String">{{record[fieldName]}}</div>
+                    <div ng-switch-when="Discount">
+                        <span ng-if="record[fieldName] != undefined" ><font color="red"><b>{{record[fieldName] * 100| number :1 }}%</b></font></span>
+                        <span ng-if="record[fieldName] == undefined" >N/A</span>
+                    </div>        
                     <div ng-switch-default>{{record[fieldName]}}</div>
                 </td>
                 <td ng-if="actions">
@@ -51,4 +82,3 @@
 
 
 
-    

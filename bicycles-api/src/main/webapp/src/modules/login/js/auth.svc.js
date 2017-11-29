@@ -167,4 +167,3 @@
         }];
     });
 })(window.angular);
-
