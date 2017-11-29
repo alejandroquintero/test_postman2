@@ -224,7 +224,7 @@
             
             //lastbikes
             $sp.state('bicycleListLastBikes', {
-                url: '/list/:creationDate',
+                url: '/list/',
                 views: {
                     mainView: {
                         templateUrl: basePath + 'list/bicycle.list.tpl.html',
