@@ -64,26 +64,26 @@ SOFTWARE.
                     <div class="col-sm-5">
                         <table>
                             <tr>
-                                <td><b>Nombre:</b></td>
+                                <td><strong>Nombre:</strong></td>
                                 <td>{{productoCompra.name}}</td>
                             </tr>
                             <tr>
-                                <td><b>Estado:</b></td>
+                                <td><strong>Estado:</strong></td>
                                 <td>{{productoCompra.status}}</td>
                             </tr>
                             <tr>
-                                <td><b>Cantidad Disponible:</b></td>
+                                <td><strong>Cantidad Disponible:</strong></td>
                                 <td>{{productoCompra.stock}}</td>
                             </tr>
                             <tr>
-                                <td><b>Precio Unitario:</b></td>
+                                <td><strong>Precio Unitario:</strong></td>
                                 <td>{{productoCompra.price| number}}</td>
                             </tr>
                         </table>
                     </div>
                 </div>
                 <center>
-                    <b>Cantidad Productos:</b> 
+                    <strong>Cantidad Productos:</strong> 
                     <input id="quantity" name="quantity" class="form-control" type="number" ng-model="cantidad" ng-required="true" min="1" max="{{productoCompra.stock}}"/>
                     <alert type="danger" close="" ng-show="errorCompra">
                         La cantidad de productos no esta disponible

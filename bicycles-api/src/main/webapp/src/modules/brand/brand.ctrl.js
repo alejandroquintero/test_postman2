@@ -1,31 +1,31 @@
 /*
-The MIT License (MIT)
-
-Copyright (c) 2015 Los Andes University
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
+ The MIT License (MIT)
+ 
+ Copyright (c) 2015 Los Andes University
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ 
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+ */
 (function (ng) {
     var mod = ng.module('brandModule');
 
-    mod.controller('brandCtrl', ['$scope', 'model','Restangular',
-        function ($scope, model,Restangular) {
+    mod.controller('brandCtrl', ['$scope', 'model', 'Restangular',
+        function ($scope, model, Restangular) {
             $scope.model = model;
             //Alertas
             $scope.alerts = [];
@@ -33,44 +33,12 @@ SOFTWARE.
                 $scope.alerts.splice(index, 1);
             };
 
-            Restangular.setErrorInterceptor(function(response, deferred, responseHandler) {
-                switch(response.status) {
-                    case 400:
-                        $scope.showError(response.data);
-                        return false; 
-                        break;
-                    case 401:
-                        $scope.showError(response.data);
-                        return false; 
-                        break;
-                    case 403:
-                        $scope.showError(response.data);
-                        return false; 
-                        break;
-                    case 404:
-                        $scope.showError(response.data);
-                        return false; 
-                        break;
-                    case 405:
-                        $scope.showError(response.data);
-                        return false; 
-                        break;
-                    case 413:
-                        $scope.showError(response.data);
-                        return false; 
-                        break;
-                    case 500:
-                        $scope.showError(response.data);
-                        return false; 
-                        break;
-                    case 503:
-                        $scope.showError(response.data);
-                        return false; 
-                        break;  
-                    case 412:
-                        $scope.showError(response.data);
-                        return false; 
-                        break; 
+            Restangular.setErrorInterceptor(function (response, deferred, responseHandler) {
+                if (response.status === 400 || response.status === 401 || response.status === 403 || response.status === 404
+                        || response.status === 405 || response.status === 413 || response.status === 500
+                        || response.status === 503 || response.status === 412) {
+                    $scope.showError(response.data);
+                    return false;
                 }
 
                 return true; // error not handled
