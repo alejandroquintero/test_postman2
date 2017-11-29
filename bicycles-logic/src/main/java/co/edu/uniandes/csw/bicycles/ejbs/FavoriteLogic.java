@@ -26,12 +26,6 @@ public class FavoriteLogic implements IFavoriteLogic{
     @Inject private IBicycleLogic bicycleLogic;
 
     @Override
-    public int countFavoriteClient(String username) {
-        ClientEntity client = clientLogic.getClient(username);
-        return persistence.countByUser(client);
-    }
-
-    @Override
     public FavoriteEntity createFavorite(Long idBicycle, String username) {
         BicycleEntity bicycleEntity = bicycleLogic.getBicycle(idBicycle);
         ClientEntity clientEntity = clientLogic.getClient(username);
