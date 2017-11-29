@@ -221,5 +221,27 @@
                         }]
                 }
             });
+            $sp.state('bicycleFavorite', {
+                url: '/list/:username',
+                views: {
+                    mainView: {
+                        templateUrl: basePath + 'list/bicycle.list.tpl.html',
+                        controller: 'bicycleListCtrl',
+                        controllerAs: 'ctrl'
+                    }
+                },
+                resolve: {
+                    references: ['$q', 'Restangular', function ($q, r) {
+                            return $q.all({
+                                brand: r.all('brands').getList()
+                                , category: r.all('categorys').getList()
+                            });
+                        }],
+                    model: 'bicycleModel',
+                    bicycles: ['Restangular', 'model', '$stateParams', function (r, model, $params) {
+                            return r.all(model.url).getList($params);
+                        }]
+                }
+            });
         }]);
 })(window.angular);

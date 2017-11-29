@@ -35,6 +35,10 @@
     </ul>
 </div>
 
+<button id="fav-btn" ng-show="isAuthenticated()" type="button" class="btn btn-success navbar-btn" ng-click="goToFavorite()">
+    <span class="glyphicon glyphicon-heart" aria-hidden="true"></span> Favoritos 
+</button>
+
 <div ng-show="isAuthenticated()" class="btn-group">
     <button id="menu-btn" type="button" class="btn btn-success dropdown-toggle navbar-btn" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">

@@ -33,6 +33,10 @@
             $scope.buttons = ['none'];
             $scope.photos = [];
 
+            //Cargamos Favoritos
+            for (var i = 0; i < $scope.records.length; i++) {
+                $scope.records[i].favorite = false;
+            }
 
             //Paginación
             this.itemsPerPage = $params.limit;
@@ -72,6 +76,27 @@
                     }
                 }};
             $scope.recordActions = {
+                addFavorite: {
+                    displayName: 'Favorito',
+                    icon: 'heart-empty',
+                    fn: function (rc) {
+                        $cookies.put("bicycleFavorite",rc.id);
+                        $state.go('favoriteNew', {});
+                    },
+                    show: function (rc) {
+                        return !rc.favorite;
+                    }
+                },
+                removeFavorite: {
+                    displayName: 'Favorito',
+                    icon: 'heart',
+                    fn: function (rc) {
+                        $state.go('favoriteDelete', {bicycleId: rc.id});
+                    },
+                    show: function (rc) {
+                        return rc.favorite;
+                    }
+                },
                 detail: {
                     displayName: 'Detail',
                     icon: 'eye-open',
@@ -104,6 +129,19 @@
                 },
                 buy: {
                     displayName: 'Buy',
+                    icon: 'usd',
+                    fn: function (rc) {
+                        $scope.productoCompra = rc;
+                        $scope.cantidad = 1;
+                        $scope.errorCompra = false;
+                        $("#compra").modal();
+                    },
+                    show: function () {
+                        return true;
+                    }
+                },
+                Favorite: {
+                    displayName: 'Favorito',
                     icon: 'usd',
                     fn: function (rc) {
                         $scope.productoCompra = rc;

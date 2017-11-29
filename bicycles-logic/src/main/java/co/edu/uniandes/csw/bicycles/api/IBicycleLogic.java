@@ -24,6 +24,7 @@ SOFTWARE.
 package co.edu.uniandes.csw.bicycles.api;
 
 import co.edu.uniandes.csw.bicycles.entities.BicycleEntity;
+import co.edu.uniandes.csw.bicycles.entities.ClientEntity;
 import java.util.List;
 
 public interface IBicycleLogic {
@@ -66,4 +67,12 @@ public interface IBicycleLogic {
      * @return Lista de bicicletas
      */
     public List<BicycleEntity> getByStatus(String status);
+    
+    /**
+     * Obtener bicicletas favoritas de un usuario
+     *
+     * @param username
+     * @return Lista de bicicletas
+     */
+    public List<BicycleEntity> getFavorite(String username);
 }

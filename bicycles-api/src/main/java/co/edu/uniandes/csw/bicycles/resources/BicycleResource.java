@@ -70,6 +70,8 @@ public class BicycleResource {
     private String bicycleDescription;
     @QueryParam("status")
     private String bicycleStatus;
+    @QueryParam("username")
+    private String username;
 
     /**
      * Convierte una lista de BicycleEntity a una lista de BicycleDetailDTO.
@@ -116,8 +118,16 @@ public class BicycleResource {
             newSet.addAll(ListByStatus);
             ListToReturn = new ArrayList<>(newSet);
         }
+        
+        if (username != null) {
+            // Get results from logic
+            ListByDescription = listEntity2DTO(bicycleLogic.getFavorite(username));
+            // Store the first result set
+            newSet = new HashSet<>(ListByDescription);
+            ListToReturn = new ArrayList<>(newSet);
+        }
 
-        if (bicycleStatus == null && bicycleDescription == null) {
+        if (bicycleStatus == null && bicycleDescription == null && username == null) {
             ListToReturn = listEntity2DTO(bicycleLogic.getBicycles());
         }
 

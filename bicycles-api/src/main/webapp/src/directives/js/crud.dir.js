@@ -103,7 +103,7 @@
                             var actions = $scope.actions;
                             $scope.actions = {};
                             for (var action in actions) {
-                                if ("list" !== action && "detail" !== action) {
+                                if ("list" !== action && "detail" !== action && "addFavorite" !== action && "removeFavorite" !== action) {
                                     delete actions[action];
                                 }
                             }
