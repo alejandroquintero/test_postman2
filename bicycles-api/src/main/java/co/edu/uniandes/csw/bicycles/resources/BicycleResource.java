@@ -68,6 +68,8 @@ public class BicycleResource {
     private Integer maxRecords;
     @QueryParam("description")
     private String bicycleDescription;
+    @QueryParam("promo")
+    private String promo;
     @QueryParam("status")
     private String bicycleStatus;
     @QueryParam("creationDate")
@@ -128,7 +130,12 @@ public class BicycleResource {
             ListToReturn = new ArrayList<>(newSet);
         }
 
-        if (bicycleStatus == null && bicycleDescription == null) {
+        if (promo != null) {
+            List<BicycleDetailDTO> ListByDiscount = listEntity2DTO(bicycleLogic.getByDiscount());
+            return ListByDiscount;
+        }
+
+        if (bicycleStatus == null && bicycleDescription == null && promo == null) {
             ListToReturn = listEntity2DTO(bicycleLogic.getBicycles());
         }
 
@@ -209,7 +216,7 @@ public class BicycleResource {
 
         return PhotoAlbumResource.class;
     }
-    
+
     @Path("{bicyclesId: \\d+}/review")
     public Class<ReviewResource> getReviewResource(@PathParam("bicyclesId") Long bicyclesId) {
         existsBicycle(bicyclesId);

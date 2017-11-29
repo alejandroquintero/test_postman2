@@ -42,8 +42,7 @@ public class BicyclePersistence extends CrudPersistence<BicycleEntity> {
     protected EntityManager em;
 
     /**
-     * @return 
-     * @generated
+     * @return @generated
      */
     @Override
     protected EntityManager getEntityManager() {
@@ -51,8 +50,7 @@ public class BicyclePersistence extends CrudPersistence<BicycleEntity> {
     }
 
     /**
-     * @return 
-     * @generated
+     * @return @generated
      */
     @Override
     protected Class<BicycleEntity> getEntityClass() {
@@ -82,19 +80,30 @@ public class BicyclePersistence extends CrudPersistence<BicycleEntity> {
         params.put("status", "%" + status.toUpperCase() + "%");
         return executeListNamedQuery("Bicycle.getByStatus", params);
     }
-    
+
     /**
      * Obtener últimas bicicletas
      *
-     * 
+     *
      * @return Lista de bicicletas
      */
     public List<BicycleEntity> getLastBikes() {
         //Map<String, Object> params = new HashMap<>();
         //params.put("status", "%" + status.toUpperCase() + "%");
-        
+
         return executeListNamedQuery2("Bicycle.getLastBikes");
         //return findLast();
+    }
+
+    /**
+     * Obtener bicicletas con descuento
+     *
+     * @param discount
+     * @return Lista de bicicletas
+     */
+    public List<BicycleEntity> getByDiscount() {
+        Map<String, Object> params = new HashMap<>();
+        return findByNotNull("discount");
     }
 
 }

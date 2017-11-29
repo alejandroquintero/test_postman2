@@ -66,11 +66,20 @@ public interface IBicycleLogic {
      * @return Lista de bicicletas
      */
     public List<BicycleEntity> getByStatus(String status);
-    
+
     /**
-     * Obtener últimas bicicletas 
+     * Obtener últimas bicicletas
      *
      * @return Lista de bicicletas
      */
     public List<BicycleEntity> getLastBikes();
+
+    /**
+     * Obtener bicicletas por descuento
+     *
+     * @param status
+     * @return Lista de bicicletas
+     */
+    public List<BicycleEntity> getByDiscount();
+
 }
