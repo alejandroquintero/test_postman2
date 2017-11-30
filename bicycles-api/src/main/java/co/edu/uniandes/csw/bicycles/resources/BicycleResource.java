@@ -75,7 +75,6 @@ public class BicycleResource {
     @QueryParam("username")
     private String username;
 
-
     /**
      * Convierte una lista de BicycleEntity a una lista de BicycleDetailDTO.
      *
@@ -91,22 +90,6 @@ public class BicycleResource {
         return list;
     }
 
-     @GET
-    public List<BicycleDetailDTO> getLastBikes() {
-    List<BicycleDetailDTO> ListLastBikes = null;
-    List<BicycleDetailDTO> ListToReturn = null;
-    Set<BicycleDetailDTO> newSet = new HashSet<>();
-    
-    //ultimas bicicletas
-        
-        ListLastBikes = listEntity2DTO(bicycleLogic.getLastBikes());
-        // Store the first result set
-        newSet = new HashSet<>(ListLastBikes);
-        ListToReturn = new ArrayList<>(newSet);
-        return ListToReturn;
-    }
-    
-    
     /**
      * Obtiene la lista de los registros de Bicycle
      *
@@ -117,11 +100,11 @@ public class BicycleResource {
     public List<BicycleDetailDTO> getBicycles() {
 
         // Initialize variables
-        List<BicycleDetailDTO> ListByDescription = null; 
+        List<BicycleDetailDTO> ListByDescription = null;
         List<BicycleDetailDTO> ListByStatus = null;
         List<BicycleDetailDTO> ListToReturn = null;
         Set<BicycleDetailDTO> newSet = new HashSet<>();
-        
+
         if (bicycleDescription != null) {
             // Get results from logic
             ListByDescription = listEntity2DTO(bicycleLogic.getByDescription(bicycleDescription));
@@ -137,7 +120,7 @@ public class BicycleResource {
             newSet.addAll(ListByStatus);
             ListToReturn = new ArrayList<>(newSet);
         }
-        
+
         if (username != null) {
             // Get results from logic
             ListByDescription = listEntity2DTO(bicycleLogic.getFavorite(username));
