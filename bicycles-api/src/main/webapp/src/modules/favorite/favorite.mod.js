@@ -55,7 +55,6 @@
                 parent: 'favorite',
                 views: {
                     favoriteView: {
-                        templateUrl: basePath + 'list/favorite.list.tpl.html',
                         controller: 'favoriteListCtrl',
                         controllerAs: 'ctrl'
                     }

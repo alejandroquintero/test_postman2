@@ -33,8 +33,7 @@ public class FavoriteLogic implements IFavoriteLogic{
         FavoriteEntity entity = new FavoriteEntity();
         entity.setBicycle(bicycleEntity);
         entity.setClient(clientEntity);
-        persistence.create(entity);
-        return entity;
+        return persistence.create(entity);
     }
 
     @Override
