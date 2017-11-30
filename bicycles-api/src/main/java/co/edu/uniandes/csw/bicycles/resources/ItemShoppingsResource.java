@@ -120,7 +120,7 @@ public class ItemShoppingsResource {
     }
     
     @DELETE
-    @Path("{itemShoppingId: \\d+}")
+    @Path("{id: \\d+}")
     public void deleteItemShopping(@PathParam("id") Long id) {
         itemShoppingLogic.deleteItemShopping(id);
     }
