@@ -100,14 +100,14 @@
 
                         var permissions = $cookies.get("permissions");
                         if (permissions === undefined) {
-                            var actions = $scope.actions;
+                            var actionsDet = $scope.actions;
                             $scope.actions = {};
-                            for (var action in actions) {
-                                if ("list" !== action && "detail" !== action) {
-                                    delete actions[action];
+                            for (var actionDet in actionsDet) {
+                                if ("list" !== actionDet && "detail" !== actionDet) {
+                                    delete actionsDet[actionDet];
                                 }
                             }
-                            $scope.actions = actions;
+                            $scope.actions = actionsDet;
                         } else {
                             permissions = permissions.replace(/[["']+/g, "").replace(/]+/g, "").split(",");
                             var actions = $scope.actions;
@@ -186,14 +186,14 @@
                         var columnActionsValues = [];
                         var permissions = $cookies.get("permissions");
                         if (permissions === undefined) {
-                            var actions = $scope.actions;
+                            var actionsList = $scope.actions;
                             $scope.actions = {};
-                            for (var action in actions) {
-                                if ("list" !== action) {
-                                    delete actions[action];
+                            for (var actionList in actionsList) {
+                                if ("list" !== actionList) {
+                                    delete actionsList[actionList];
                                 }
                             }
-                            $scope.actions = actions;
+                            $scope.actions = actionsList;
                         } else {
                             permissions = permissions.replace(/[["']+/g, "").replace(/]+/g, "").split(",");
                             var actions = $scope.actions;
@@ -271,14 +271,14 @@
                 controller: ['$scope', '$cookies', function ($scope, $cookies) {
                         var permissions = $cookies.get("permissions");
                         if (permissions === undefined) {
-                            var actions = $scope.actions;
+                            var actionsGal = $scope.actions;
                             $scope.actions = {};
-                            for (var action in actions) {
-                                if ("list" !== action) {
-                                    delete actions[action];
+                            for (var actionGal in actionsGal) {
+                                if ("list" !== actionGal) {
+                                    delete actionsGal[actionGal];
                                 }
                             }
-                            $scope.actions = actions;
+                            $scope.actions = actionsGal;
                         } else {
                             permissions = permissions.replace(/[["']+/g, "").replace(/]+/g, "").split(",");
                             var actions = $scope.actions;
@@ -338,18 +338,18 @@
                         var permissions = $cookies.get("permissions");
                         if (permissions === undefined) {
                             $scope.hide = true;
-                            var actions = $scope.actions;
+                            var actionsTool = $scope.actions;
                             $scope.actions = {};
-                            for (var action in actions) {
-                                if ("read" !== action && "list" !== action
-                                        && "categorys" !== action && "bicycles" !== action
-                                        && "brands" !== action && "photoAlbum" !== action
-                                        && "refresh" !== action && "shopping" !== action
-                                        && "itemShoppings" !== action && "review" !== action) {
-                                    delete actions[action];
+                            for (var actionTool in actionsTool) {
+                                if ("read" !== actionTool && "list" !== actionTool
+                                        && "categorys" !== actionTool && "bicycles" !== actionTool
+                                        && "brands" !== actionTool && "photoAlbum" !== actionTool
+                                        && "refresh" !== actionTool && "shopping" !== actionTool
+                                        && "itemShoppings" !== actionTool && "review" !== actionTool) {
+                                    delete actionsTool[actionTool];
                                 }
                             }
-                            $scope.actions = actions;
+                            $scope.actions = actionsTool;
                         } else {
                             permissions = permissions.replace(/[["']+/g, "").replace(/]+/g, "").split(",");
                             var actions = $scope.actions;

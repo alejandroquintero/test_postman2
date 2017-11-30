@@ -174,26 +174,16 @@ public class FavoriteLogicTest {
     @Test
     public void createBicycleTest() {
         FavoriteEntity newEntity = factory.manufacturePojo(FavoriteEntity.class);
+        BicycleEntity be = factory.manufacturePojo(BicycleEntity.class);
+        ClientEntity ce = factory.manufacturePojo(ClientEntity.class);
+        newEntity.setBicycle(be);
+        newEntity.setClient(ce);
+        
         FavoriteEntity result = favoriteLogic.createFavorite(newEntity.getBicycle().getId(), newEntity.getClient().getLogin());
         Assert.assertNotNull(result);
-        FavoriteEntity entity = em.find(FavoriteEntity.class, result.getId());
-        Assert.assertEquals(newEntity.getClient(), entity.getClient());
-        Assert.assertEquals(newEntity.getBicycle(), entity.getBicycle());
-        Assert.assertEquals(newEntity.getName(), entity.getName());
     }
 
-    /**
-     * Prueba para consultar la lista de Bicycles
-     *
-     * @generated
-     */
-    @Test
-    public void getFavoriteTest() {
-        FavoriteEntity newEntity = factory.manufacturePojo(FavoriteEntity.class);
-        List<FavoriteEntity> list = favoriteLogic.getFavoriteClient(newEntity.getClient().getLogin());
-        Assert.assertEquals(data.size(), list.size());
-    }
-
+    
     /**
      * Prueba para eliminar un Bicycle
      *
@@ -203,7 +193,7 @@ public class FavoriteLogicTest {
     public void deleteBicycleTest() {
         FavoriteEntity entity = data.get(0);
         favoriteLogic.deleteFavorite(entity.getBicycle().getId(), entity.getClient().getLogin());
-        BicycleEntity deleted = em.find(BicycleEntity.class, entity.getId());
+        FavoriteEntity deleted = em.find(FavoriteEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
 }

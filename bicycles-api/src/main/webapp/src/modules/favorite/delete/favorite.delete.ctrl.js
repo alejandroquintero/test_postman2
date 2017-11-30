@@ -9,14 +9,11 @@
 
     mod.controller("favoriteDeleteCtrl", ["$scope", "$state", "favorites", "$cookies",
         function ($scope, $state, favorites, $cookies) {
-            /*bicyCleId = parseInt($cookies.get("bicycleFavorite"));
+            bicycleId = parseInt($cookies.get("bicycleFavorite"));
             $cookies.remove("bicycleFavorite");
             username = $cookies.get("username");
-            username = "test@test.com"
-            var favorite = {'bicycleId': bicyCleId,
-                             'username': username};
-            */
-            favorites.remove().then(function (rc) {
+            
+            favorites.remove({params: {bicycleId: bicycleId, username: username}}).then(function (rc) {
                 $state.go('bicycleList', {});
             });
         }]);

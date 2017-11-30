@@ -28,10 +28,10 @@
     mod.controller("bicycleListCtrl", ["$scope", '$state', 'bicycles', '$stateParams', 'model', '$controller','$cookies',
         function ($scope, $state, bicycles, $params, model, $controller, $cookies) {
             var favoritos = {};
-            if($cookies.get("favoritos") === undefined && $state.current.name != "promosList"){
+            if($cookies.get("favoritos") === undefined && $state.current.name != "promosList" && $state.current.name != "bicycleFavorite"){
                $cookies.put("parametrosLista",JSON.stringify($params));
                $state.go('favoriteList', {username: $cookies.get("username")}); 
-            }else if($state.current.name != "promosList"){
+            }else if($state.current.name != "promosList" && $state.current.name != "bicycleFavorite"){
                 favoritos = JSON.parse($cookies.get("favoritos"));
                 $cookies.remove("favoritos");
             }
@@ -74,6 +74,9 @@
             this.pageChanged = function () {
                 $state.go('bicycleList', {page: this.currentPage});
             };
+             this.pageChanged = function () {
+                $state.go('bicycleListLastBikes', {page: this.currentPage});
+            };
             
             $scope.actions = {
                 create: {
@@ -106,8 +109,8 @@
                     displayName: 'Favorito',
                     icon: 'heart',
                     fn: function (rc) {
-                        username = $cookies.get("username");
-                        $state.go('favoriteDelete', {bicycleId: rc.id, username: username});
+                        $cookies.put("bicycleFavorite",rc.id);
+                        $state.go('favoriteDelete', {});
                     },
                     show: function (rc) {
                         return rc.favorite;
