@@ -37,7 +37,7 @@
             },
             description: {
 
-                displayName: 'Descripcion',
+                displayName: 'Descripción',
                 type: 'String',
                 required: true
             },
@@ -49,7 +49,7 @@
             },
             stock: {
 
-                displayName: 'Stock',
+                displayName: 'Cantidad',
                 type: 'Long',
                 required: true
             },
@@ -67,7 +67,7 @@
                 required: true
             },
             price: {
-                displayName: 'Price',
+                displayName: 'Precio',
                 type: 'Double',
                 required: true
             },
@@ -83,6 +83,11 @@
                 type: 'Date',
                 model: 'categoryModel',
                 options: [],
+                required: false
+            },
+            discount: {
+                displayName: 'Descuento',
+                type: 'Discount',
                 required: false
             }
         }
@@ -221,9 +226,8 @@
                         }]
                 }
             });
-            
             //lastbikes
-            $sp.state('bicycleList', {
+            $sp.state('lastbikesList', {
                 url: '/list/:creationDate',
                 views: {
                     mainView: {
@@ -233,7 +237,57 @@
                     }
                 },
                 resolve: {
-                   
+                    references: ['$q', 'Restangular', function ($q, r) {
+                            return $q.all({
+                                brand: r.all('brands').getList()
+                                , category: r.all('categorys').getList()
+                            });
+                        }],
+                    model: 'bicycleModel',
+                    bicycles: ['Restangular', 'model', '$stateParams', function (r, model, $params) {
+                            return r.all(model.url).getList($params);
+                        }]
+                }
+            });
+            $sp.state('promosList', {
+                url: '/list/:promo',
+                views: {
+                    mainView: {
+                        templateUrl: basePath + 'list/bicycle.list.promo.tpl.html',
+                        controller: 'bicycleListCtrl',
+                        controllerAs: 'ctrl'
+                    }
+                },
+                resolve: {
+                    references: ['$q', 'Restangular', function ($q, r) {
+                            return $q.all({
+                                brand: r.all('brands').getList()
+                                , category: r.all('categorys').getList()
+                            });
+                        }],
+                    model: 'bicycleModel',
+                    bicycles: ['Restangular', 'model', '$stateParams', function (r, model, $params) {
+                            return r.all(model.url).getList($params);
+                        }]
+                }
+            });
+            $sp.state('bicycleFavorite', {
+                url: '/list/:username',
+
+                views: {
+                    mainView: {
+                        templateUrl: basePath + 'list/bicycle.list.tpl.html',
+                        controller: 'bicycleListCtrl',
+                        controllerAs: 'ctrl'
+                    }
+                },
+                resolve: {
+                    references: ['$q', 'Restangular', function ($q, r) {
+                            return $q.all({
+                                brand: r.all('brands').getList()
+                                , category: r.all('categorys').getList()
+                            });
+                        }],
                     model: 'bicycleModel',
                     bicycles: ['Restangular', 'model', '$stateParams', function (r, model, $params) {
                             return r.all(model.url).getList($params);

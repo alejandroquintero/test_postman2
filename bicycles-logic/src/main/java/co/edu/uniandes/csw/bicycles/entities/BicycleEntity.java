@@ -44,9 +44,9 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Bicycle.getByDescription", query = "select u from BicycleEntity u Where UPPER(u.description) like :description")
-    ,
+    @NamedQuery(name = "Bicycle.getByDescription", query = "select u from BicycleEntity u Where UPPER(u.description) like :description"),
     @NamedQuery(name = "Bicycle.getByStatus", query = "select u from BicycleEntity u Where UPPER(u.status) like :status"),
+    @NamedQuery(name = "Bicycle.getFavorite", query = "select u from BicycleEntity u Where u.id in (select f.bicycle.id from FavoriteEntity f where f.client.id = :idClient)"),
     @NamedQuery(name = "Bicycle.getLastBikes", query = "select u.id, u.description, u.name from BicycleEntity u ORDER BY u.creationDate")
 })
 
@@ -57,7 +57,8 @@ public class BicycleEntity extends BaseEntity implements Serializable {
     private String color;
     private String status;
     private Double price;
-
+    private Double discount;
+    
     @PodamExclude
     @ManyToOne
     private BrandEntity brand;
@@ -255,4 +256,21 @@ public class BicycleEntity extends BaseEntity implements Serializable {
     public void setReview(List<ReviewEntity> review) {
         this.review = review;
     }
+    /**
+     * Descuento.
+     * @return discount
+     */
+    public Double getDiscount() {
+        return discount;
+    }
+    /**
+     * Cambiar discount
+     * @param discount 
+     */
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+    
+    
+    
 }

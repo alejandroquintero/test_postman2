@@ -169,6 +169,10 @@
             $scope.deleteItemShopping = function (itemShoppingId) {
                 authSvc.deleteItemShopping(itemShoppingId);
             };
+            
+            $scope.goToFavorite = function () {
+                authSvc.goToFavorite($scope.currentUser.userName);
+            };
         }]);
 
 })(window.angular);

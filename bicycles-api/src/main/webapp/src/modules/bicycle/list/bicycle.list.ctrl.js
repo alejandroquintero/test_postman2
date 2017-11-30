@@ -27,20 +27,41 @@
 
     mod.controller("bicycleListCtrl", ["$scope", '$state', 'bicycles', '$stateParams', 'model', '$controller','$cookies',
         function ($scope, $state, bicycles, $params, model, $controller, $cookies) {
+            var favoritos = {};
+            if($cookies.get("favoritos") === undefined && $state.current.name != "promosList"){
+               $cookies.put("parametrosLista",JSON.stringify($params));
+               $state.go('favoriteList', {username: $cookies.get("username")}); 
+            }else if($state.current.name != "promosList"){
+                favoritos = JSON.parse($cookies.get("favoritos"));
+                $cookies.remove("favoritos");
+            }
+            
             $controller("authController", {$scope: $scope});
             $scope.model = model;
             $scope.records = bicycles;
             $scope.buttons = ['none'];
             $scope.photos = [];
+
+            //Cargamos Favoritos
+            for (var i = 0; i < $scope.records.length; i++) {
+                $scope.records[i].favorite = false;
+                for (var i2 = 0; i2 < favoritos.length; i2++) {
+                    if(favoritos[i2].bicycleId === $scope.records[i].id){
+                        $scope.records[i].favorite = true;
+                    }
+                }
+            }
+            
             //Paginación
             this.itemsPerPage = $params.limit;
             this.currentPage = $params.page;
             this.totalItems = bicycles.totalRecords;
 
             this.loadPhotos = function () {
+                var image = null;
                 for (var i = 0; i < $scope.records.length; i++) {
                     $scope.records[i].getList('photoAlbum').then(function (photos) {
-                        var image = photos.plain()[Math.floor((Math.random() * photos.plain().length))];
+                        image = photos.plain()[Math.floor((Math.random() * photos.plain().length))];
                         if (image) {
                             $scope.photos.push({image: image.image, id: image.bicycle.id});
                         }
@@ -70,6 +91,28 @@
                     }
                 }};
             $scope.recordActions = {
+                addFavorite: {
+                    displayName: 'Favorito',
+                    icon: 'heart-empty',
+                    fn: function (rc) {
+                        $cookies.put("bicycleFavorite",rc.id);
+                        $state.go('favoriteNew', {});
+                    },
+                    show: function (rc) {
+                        return !rc.favorite;
+                    }
+                },
+                removeFavorite: {
+                    displayName: 'Favorito',
+                    icon: 'heart',
+                    fn: function (rc) {
+                        username = $cookies.get("username");
+                        $state.go('favoriteDelete', {bicycleId: rc.id, username: username});
+                    },
+                    show: function (rc) {
+                        return rc.favorite;
+                    }
+                },
                 detail: {
                     displayName: 'Detail',
                     icon: 'eye-open',
@@ -116,7 +159,7 @@
             };
             $scope
             $scope.buyBicycle = function () {
-                if($scope.cantidad == undefined || $scope.cantidad > $scope.productoCompra.stock){
+                if($scope.cantidad === undefined || $scope.cantidad > $scope.productoCompra.stock){
                     $scope.errorCompra = true;
                 }else{
                     $cookies.put("bicycleIdShopping",$scope.productoCompra.id);

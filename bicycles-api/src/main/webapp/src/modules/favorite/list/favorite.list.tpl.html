@@ -26,13 +26,6 @@ SOFTWARE.
     <toolbar name="model.name" display-name="model.displayName" actions='actions'></toolbar>
 </header>
 
-<div>
-    <a>Últimas bicicletas</a>
-    <input type="hidden" value="prueba" class="form-control" placeholder="traer_lista" ng-model="bicycleCreationDate" required>
-    <!--<button type="submit" class="btn btn default" ui-sref="bicycleList({creationDate: bicycleCreationDate})">Ver</button>-->
-
-</div>
-
 <list-records thumbnail="true" thumbnail-uri="photos"  name="model.name" fields="model.fields" records="records" actions="recordActions" buttons="buttons" ></list-records>
 
 <pagination ng-if="ctrl.itemsPerPage < ctrl.totalItems"
@@ -64,29 +57,29 @@ SOFTWARE.
                     <div class="col-sm-5">
                         <table>
                             <tr>
-                                <td><strong>Nombre:</strong></td>
+                                <td><b>Nombre:</b></td>
                                 <td>{{productoCompra.name}}</td>
                             </tr>
                             <tr>
-                                <td><strong>Estado:</strong></td>
+                                <td><b>Estado:</b></td>
                                 <td>{{productoCompra.status}}</td>
                             </tr>
                             <tr>
-                                <td><strong>Cantidad Disponible:</strong></td>
+                                <td><b>Cantidad Disponible:</b></td>
                                 <td>{{productoCompra.stock}}</td>
                             </tr>
                             <tr>
-                                <td><strong>Precio Unitario:</strong></td>
-                                <td>{{productoCompra.price| number}}</td>
+                                <td><b>Precio Unitario:</b></td>
+                                <td>{{productoCompra.price | number}}</td>
                             </tr>
                         </table>
                     </div>
                 </div>
                 <center>
-                    <strong>Cantidad Productos:</strong> 
+                    <b>Cantidad Productos:</b> 
                     <input id="quantity" name="quantity" class="form-control" type="number" ng-model="cantidad" ng-required="true" min="1" max="{{productoCompra.stock}}"/>
                     <alert type="danger" close="" ng-show="errorCompra">
-                        La cantidad de productos no esta disponible
+                            La cantidad de productos no esta disponible
                     </alert>
                 </center>
             </div>

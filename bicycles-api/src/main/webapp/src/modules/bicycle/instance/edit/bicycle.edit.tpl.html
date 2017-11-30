@@ -29,19 +29,19 @@ SOFTWARE.
     <fieldset>
         <input id="id" class="form-control" type="hidden" ng-model="currentRecord.id"/>
         <div class="form-group col-md-12" ng-class="{'has-success': bicycleForm.description.$valid && bicycleForm.description.$dirty, 'has-error': bicycleForm.description.$invalid && bicycleForm.description.$dirty}" >
-            <label for="description" class="col-md-2 control-label">Description</label>
+            <label for="description" class="col-md-2 control-label">Descripción</label>
             <div class="col-md-10">
                 <input id="description" name="description" class="form-control" type="text" ng-model="currentRecord.description" ng-required="true" />
             </div>
         </div>
         <div class="form-group col-md-12" ng-class="{'has-success': bicycleForm.name.$valid && bicycleForm.name.$dirty, 'has-error': bicycleForm.name.$invalid && bicycleForm.name.$dirty}" >
-            <label for="name" class="col-md-2 control-label">Name</label>
+            <label for="name" class="col-md-2 control-label">Nombre</label>
             <div class="col-md-10">
                 <input id="name" name="name" class="form-control" type="text" ng-model="currentRecord.name" ng-required="true" />
             </div>
         </div>
         <div class="form-group col-md-12" ng-class="{'has-success': bicycleForm.stock.$valid && bicycleForm.stock.$dirty, 'has-error': bicycleForm.stock.$invalid && bicycleForm.stock.$dirty}" >
-            <label for="stock" class="col-md-2 control-label">Stock</label>
+            <label for="stock" class="col-md-2 control-label">Cantidad</label>
             <div class="col-md-10">
                 <input id="stock" name="stock" class="form-control" type="number" ng-model="currentRecord.stock" ng-required="true" />
             </div>
@@ -53,33 +53,39 @@ SOFTWARE.
             </div>
         </div>
         <div class="form-group col-md-12" ng-class="{'has-success': bicycleForm.brand.$valid && bicycleForm.brand.$dirty, 'has-error': bicycleForm.brand.$invalid && bicycleForm.brand.$dirty}" >
-            <label for="brand" class="col-md-2 control-label">Brand</label>
+            <label for="brand" class="col-md-2 control-label">Marca</label>
             <div class="col-md-10">
                 <select id="brand" name="brand" class="form-control" ng-options="rc.name for rc in references.brand track by rc.id" ng-model="currentRecord.brand"></select>
             </div>
         </div>
         <div class="form-group col-md-12" ng-class="{'has-success': bicycleForm.category.$valid && bicycleForm.category.$dirty, 'has-error': bicycleForm.category.$invalid && bicycleForm.category.$dirty}" >
-            <label for="category" class="col-md-2 control-label">Category</label>
+            <label for="category" class="col-md-2 control-label">Categoria</label>
             <div class="col-md-10">
                 <select id="category" name="category" class="form-control" ng-options="rc.name for rc in references.category track by rc.id" ng-model="currentRecord.category"></select>
             </div>
         </div>
         <div class="form-group col-md-12" ng-class="{'has-success': bicycleForm.status.$valid && bicycleForm.status.$dirty, 'has-error': bicycleForm.status.$invalid && bicycleForm.status.$dirty}" >
-            <label for="status" class="col-md-2 control-label">Status</label>
+            <label for="status" class="col-md-2 control-label">Estado</label>
             <div class="col-md-10"> 
                 <input id="status" name="status" class="form-control" type="text" ng-model="currentRecord.status" ng-required="true" />
             </div>
         </div>
         <div class="form-group col-md-12" ng-class="{'has-success': bicycleForm.creationDate.$valid && bicycleForm.creationDate.$dirty, 'has-error': bicycleForm.creationDate.$invalid && bicycleForm.creationDate.$dirty}" >
-            <label for="description" class="col-md-2 control-label">Creation Date</label>
+            <label for="description" class="col-md-2 control-label">Fecha de creación</label>
             <div class="col-md-10">
                 <input id="creationDate" name="creationDate" class="form-control" type="text" datetime="yyyy-mm-dd hh:mm:ss" ng-model="currentRecord.creationDate" ng-required="true" disabled />
             </div>
         </div>
         <div class="form-group col-md-12" ng-class="{'has-success': bicycleForm.price.$valid && bicycleForm.price.$dirty, 'has-error': bicycleForm.price.$invalid && bicycleForm.price.$dirty}" >
-            <label for="price" class="col-md-2 control-label">Price</label>
+            <label for="price" class="col-md-2 control-label">Precio</label>
             <div class="col-md-10">
                 <input id="price" name="price" class="form-control" type="number"  ng-model="currentRecord.price" ng-required="true" />
+            </div>
+        </div>
+        <div class="form-group col-md-12" ng-class="{'has-success': bicycleForm.discount.$valid && bicycleForm.discount.$dirty, 'has-error': bicycleForm.discount.$invalid && bicycleForm.discount.$dirty}" >
+            <label for="discount" class="col-md-2 control-label">Descuento</label>
+            <div class="col-md-10">
+                <input id="discount" name="discount" class="form-control" type="number"  ng-model="currentRecord.discount" ng-required="true" />
             </div>
         </div>
     </fieldset>
