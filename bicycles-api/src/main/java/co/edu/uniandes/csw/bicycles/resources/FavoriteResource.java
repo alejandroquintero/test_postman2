@@ -61,8 +61,8 @@ public class FavoriteResource {
     }
     
     @DELETE
-    @Path("{bicycleId: \\d+}/{username: \\.}")
-    public void deleteFavorite(@PathParam("bicyclesId") Long bicyclesId, @PathParam("username") String username) {
+    @Path("{bicycleId: \\d+}")
+    public void deleteFavorite(@PathParam("bicycleId") Long bicyclesId, @PathParam("username") String username) {
         favoriteLogic.deleteFavorite(bicyclesId, username);
     }
     

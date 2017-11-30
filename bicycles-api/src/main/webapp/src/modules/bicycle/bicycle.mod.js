@@ -250,7 +250,7 @@
                 }
             });
             $sp.state('promosList', {
-                url: '/list/:promo',
+                url: '/promo/:promo',
                 views: {
                     mainView: {
                         templateUrl: basePath + 'list/bicycle.list.promo.tpl.html',
@@ -272,7 +272,7 @@
                 }
             });
             $sp.state('bicycleFavorite', {
-                url: '/list/:username',
+                url: '/favorite/:username',
 
                 views: {
                     mainView: {
